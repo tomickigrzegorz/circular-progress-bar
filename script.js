@@ -26,10 +26,6 @@ class CircularProgressBar {
 
   circularProgressBar() {
     const stroke = document.querySelector('#stroke');
-    const size = this.size.toString().substring(0, 1);
-    const sizeStroke = this.size < 100 ? size / 10 : size;
-
-    console.log(sizeStroke);
 
     this.percentElement();
 
