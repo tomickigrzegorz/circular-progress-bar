@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>circular progress bar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="pie">
+    <span class="percent"></span>
+    <svg width="200" height="200" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="42" id="stroke"
+        style="fill: transparent;stroke: hsla(202, 100%, 50%, 0.329); stroke-width: 12; stroke-dashoffset: 66;">
+      </circle>
+    </svg>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

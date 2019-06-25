@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  background: #ffffff;
+}
+
+span {
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: #365b74;
+}
+
+.pie {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 0px 28px rgba(255, 255, 255, 0.5);
+}
+
+.pie::before {
+  position: absolute;
+  border-radius: 50%;
+  content: '';
+  width: 200px;
+  height: 200px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(240, 249, 255, 1) 0%, rgba(203, 235, 255, 1) 47%, rgba(161, 219, 255, 1) 100%);
+  box-shadow: inset 0px 0px 0px 0px rgba(158, 211, 255, 0.75);
+}
