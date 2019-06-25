@@ -1,0 +1,16 @@
+{
+  "name": "circular-progress-bar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tomik23/circular-progress-bar.git",
+  "author": "Grzegorz Tomicki <gtomicki@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel script.js -d dist"
+  },
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5"
+  }
+}

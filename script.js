@@ -40,14 +40,14 @@ class CircularProgressBar {
       }, i * 30);
     }
 
-    this.pie.setAttribute('style', `box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.color)}, ${this.opacity})`);
+    this.pie.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.color)}, ${this.opacity})`);
 
   }
 
   percentElement() {
     const percent = document.createElement('div');
     percent.className = 'percent'
-    percent.setAttribute('style', `font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
+    percent.setAttribute('style', `position: absolute; left: 50%; top: 50%;transform: translate(-50%, -50%); font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
     this.pie.appendChild(percent);
   }
 
