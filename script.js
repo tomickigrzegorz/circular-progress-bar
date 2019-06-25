@@ -78,9 +78,3 @@ class CircularProgressBar {
   }
 
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  new CircularProgressBar({
-    pie: 'pie'
-  });
-});
