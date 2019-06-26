@@ -46,7 +46,7 @@ If you want the class to be compatible with the following browsers, see the sect
 | Opera | 58+ |
 | Edge | 44+ |
 | Vivaldi | 2.4+ |
-| IE | 10+ |
+| IE | 9+ |
 
 >Mobile:
 
