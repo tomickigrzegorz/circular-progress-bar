@@ -6,8 +6,8 @@
   "author": "Grzegorz Tomicki <gtomik@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel --minified --no-comments script.js -o script.min.js",
-    "watch": "babel script.js -o script.min.js -w"
+    "build": "babel --minified --no-comments circularProgressBar.js -o circularProgressBar.min.js",
+    "watch": "babel circularProgressBar.js -o circularProgressBar.min.js -w"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",
