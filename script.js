@@ -3,7 +3,8 @@ class CircularProgressBar {
     this.options = options;
 
     const { pie, percent, color, strokeWidth, opacity, number, size, fontSize, fontWeight, fontColor } = this.options;
-    this.pie = document.querySelector(`.${pie}`);
+    this.pie = pie;
+    this.pieElement = document.querySelector(`.${pie}`);
     this.percent = percent || 65;
     this.color = color || '#00a1ff';
     this.strokeWidth = strokeWidth || 10;
@@ -25,7 +26,7 @@ class CircularProgressBar {
   }
 
   circularProgressBar() {
-    const stroke = document.querySelector('#stroke');
+    let stroke = document.querySelector(`.${this.pie}-stroke`);
 
     this.percentElement();
 
@@ -40,7 +41,7 @@ class CircularProgressBar {
       }, i * 30);
     }
 
-    this.pie.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.color)}, ${this.opacity})`);
+    this.pieElement.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; height: ${this.size}px; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.color)}, ${this.opacity})`);
 
   }
 
@@ -48,14 +49,13 @@ class CircularProgressBar {
     const percent = document.createElement('div');
     percent.className = 'percent'
     percent.setAttribute('style', `position: absolute; left: 50%; top: 50%;transform: translate(-50%, -50%); font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
-    this.pie.appendChild(percent);
+    this.pieElement.appendChild(percent);
   }
 
   percentElementUpdate(numbers) {
-    const percentNumber = document.querySelector('.percent');
+    const percentNumber = document.querySelector(`.${this.pie} > .percent`);
     percentNumber.innerHTML = `${numbers}%`;
   }
-
 
   createSvg() {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -69,10 +69,10 @@ class CircularProgressBar {
     circle.setAttribute('cx', 50);
     circle.setAttribute('cy', 50);
     circle.setAttribute('r', 42);
-    circle.setAttribute('id', 'stroke');
+    circle.setAttribute('class', `${this.pie}-stroke`);
 
     svg.appendChild(circle);
-    this.pie.appendChild(svg)
+    this.pieElement.appendChild(svg)
 
     this.circularProgressBar()
   }

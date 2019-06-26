@@ -21,9 +21,18 @@ body {
   background: #ffffff;
 }
 
-.pie {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, 50%);
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 100px 35px 0;
+  max-width: 900px;
+  margin: auto;
+}
+
+@media (max-width: 700px) {
+  .container {
+    display: block;
+    padding: 20px;
+  }
+
 }

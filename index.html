@@ -10,13 +10,29 @@
 </head>
 
 <body>
-  <div class="pie"></div>
+  <div class="container">
+    <div class="piea"></div>
+    <div class="pieb"></div>
+    <div class="piec"></div>
+  </div>
+
   <script src="./script.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       new CircularProgressBar({
         percent: 80,
-        pie: 'pie'
+        pie: 'piea',
+        color: '#E91E63'
+      });
+      new CircularProgressBar({
+        percent: 45,
+        pie: 'pieb',
+        color: '#4CAF50'
+      });
+      new CircularProgressBar({
+        percent: 62,
+        pie: 'piec',
+        color: '#FFEB3B'
       });
     });
   </script>
