@@ -29,7 +29,7 @@ props | type | default | require | description
 ### Sample configuration
 ```javascript
 new CircularProgressBar({
-  pie: 'pie',
+  pieName: 'pie',
   percent: 80
 });
 ```
