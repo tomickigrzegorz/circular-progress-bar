@@ -19,7 +19,7 @@ class CircularProgressBar {
     this.colorSlice = colorSlice || '#00a1ff';
     this.strokeWidth = strokeWidth || 10;
     this.opacity = opacity || 0.1;
-    this.number = typeof options.number === "undefined" ? true : false;
+    this.number = typeof number === "undefined" ? true : false;
     this.colorCircle = colorCircle;
     this.size = size || 200;
     this.fontSize = fontSize || '3rem';
