@@ -19,7 +19,7 @@ class CircularProgressBar {
     this.colorSlice = colorSlice || '#00a1ff';
     this.strokeWidth = strokeWidth || 10;
     this.opacity = opacity || 0.1;
-    this.number = number || true;
+    this.number = typeof options.number === "undefined" ? true : false;
     this.colorCircle = colorCircle;
     this.size = size || 200;
     this.fontSize = fontSize || '3rem';
@@ -32,11 +32,7 @@ class CircularProgressBar {
 
   hexTorgb(fullhex) {
     const hex = fullhex.substring(1, 7);
-    const rgb = `
-      ${parseInt(hex.substring(0, 2), 16)}, 
-      ${parseInt(hex.substring(2, 4), 16)},
-      ${parseInt(hex.substring(4, 6), 16)}
-    `;
+    const rgb = `${parseInt(hex.substring(0, 2), 16)}, ${parseInt(hex.substring(2, 4), 16)}, ${parseInt(hex.substring(4, 6), 16)}`;
     return rgb;
   }
 
@@ -56,7 +52,6 @@ class CircularProgressBar {
       }, i * 30);
     }
 
-    console.log(this.colorCircle);
     const boxShadow = !this.colorCircle ? `box-shadow: inset 0px 0px ${this.strokeWidth}px` : '';
 
     this.pieElement.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; height: ${this.size}px; ${boxShadow} ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`);
@@ -81,17 +76,17 @@ class CircularProgressBar {
 
     const circleTop = this.circleSvg();
     const circleBottom = this.circleSvg();
-    circleTop.setAttribute('class', `${this.pieName}-stroke`);
+    circleTop.setAttributeNS(null, 'class', `${this.pieName}-stroke`);
 
     if (this.colorCircle) {
-      circleBottom.setAttribute('fill', 'transparent');
-      circleBottom.setAttribute('style', `fill: transparent; stroke: ${this.colorCircle}; stroke-width: ${this.strokeWidth}px;`);
+      circleBottom.setAttributeNS(null, 'fill', 'transparent');
+      circleBottom.setAttributeNS(null, 'style', `fill: transparent; stroke: ${this.colorCircle}; stroke-width: ${this.strokeWidth}px;`);
       svg.appendChild(circleBottom);
     }
 
-    svg.setAttribute('width', this.size);
-    svg.setAttribute('height', this.size);
-    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttributeNS(null, 'width', this.size);
+    svg.setAttributeNS(null, 'height', this.size);
+    svg.setAttributeNS(null, 'viewBox', '0 0 100 100');
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
     svg.appendChild(circleTop);
@@ -102,9 +97,9 @@ class CircularProgressBar {
 
   circleSvg() {
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', 50);
-    circle.setAttribute('cy', 50);
-    circle.setAttribute('r', 42);
+    circle.setAttributeNS(null, 'cx', 50);
+    circle.setAttributeNS(null, 'cy', 50);
+    circle.setAttributeNS(null, 'r', 42);
     return circle;
   }
 
