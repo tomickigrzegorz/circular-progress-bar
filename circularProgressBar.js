@@ -55,10 +55,10 @@ class CircularProgressBar {
     }
 
     const boxShadow = !this.colorCircle
-      ? `box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`
+      ? `width: ${this.size}px; height: ${this.size}px; border-radius: 50%; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`
       : '';
 
-    this.pieElement.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; height: ${this.size}px; ${boxShadow}`);
+    this.pieElement.setAttribute('style', `position: relative; ${boxShadow}`);
 
   }
 
