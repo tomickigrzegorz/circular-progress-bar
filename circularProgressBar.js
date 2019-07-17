@@ -52,9 +52,9 @@ class CircularProgressBar {
       }, i * 30);
     }
 
-    const boxShadow = !this.colorCircle ? `box-shadow: inset 0px 0px ${this.strokeWidth}px` : '';
+    const boxShadow = !this.colorCircle ? `box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})` : '';
 
-    this.pieElement.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; height: ${this.size}px; ${boxShadow} ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`);
+    this.pieElement.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; height: ${this.size}px; ${boxShadow}`);
 
   }
 
