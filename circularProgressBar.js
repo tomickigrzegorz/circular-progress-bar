@@ -1,17 +1,18 @@
 class CircularProgressBar {
   constructor(options) {
-    const { 
-      pieName, 
-      percent, 
-      colorSlice, 
-      strokeWidth, 
-      opacity, 
-      colorCircle, 
-      number, 
-      size, 
-      fontSize, 
-      fontWeight, 
-      fontColor 
+    const {
+      pieName,
+      percent,
+      colorSlice,
+      strokeWidth,
+      opacity,
+      colorCircle,
+      number,
+      size,
+      fontSize,
+      fontWeight,
+      time,
+      fontColor
     } = options;
     this.pieName = pieName;
     this.pieElement = document.querySelector(`.${pieName}`);
@@ -25,6 +26,7 @@ class CircularProgressBar {
     this.fontSize = fontSize || '3rem';
     this.fontWeight = fontWeight || 700;
     this.fontColor = fontColor || '#365b74';
+    this.time = time || 30;
     this.end = 264;
 
     this.createSvg();
@@ -49,10 +51,12 @@ class CircularProgressBar {
         }
         let d = parseInt(i * 2.64);
         stroke.setAttribute('style', `fill: transparent; stroke: ${this.colorSlice}; stroke-width: ${this.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${this.end - d}`);
-      }, i * 30);
+      }, i * this.time);
     }
 
-    const boxShadow = !this.colorCircle ? `box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})` : '';
+    const boxShadow = !this.colorCircle
+      ? `box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`
+      : '';
 
     this.pieElement.setAttribute('style', `position: relative; border-radius: 50%; width: ${this.size}px; height: ${this.size}px; ${boxShadow}`);
 

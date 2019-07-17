@@ -16,15 +16,16 @@ props | type | default | require | description
 ---- | :-------: | :-------: | :--------: | -----------
 `pieName` | `String` |  | ✔ | Element to show circle progress class name 
 `percent` | `Number` | `65` |  | Percent
-`colorSlice` | `String` | `#00a1ff` | | Progress layer color and background
-`colorCircle` | `String` | `#00a1ff` | | Bottom circle color
+`colorSlice` | `String` | `'#00a1ff'` | | Progress layer color and background
+`colorCircle` | `String` | `'#00a1ff'` | | Bottom circle color
 `strokeWidth` | `Number` | `10` |  | Stroke width
 `opacity` | `Number` | `0.1` |  | Opacity box-shadow
 `number` | `Boolean` | `true` |  | Add props number and set to false to hide the number with percent
 `size` | `Number` | `200` |  | Size progress bar width and height in px
-`fontSize` | `String` | `3rem` |  | Percent font size
+`time` | `Number` | `20` |  | Display speed of the bar animation
+`fontSize` | `String` | `'3rem'` |  | Percent font size
 `fontWeight` | `Number` | `700` |  | Percent font weight
-`fontColor` | `String` | `#365b74` |  | Percent font color
+`fontColor` | `String` | `'#365b74'` |  | Percent font color
 
 ### Sample configuration
 ```javascript
