@@ -1,5 +1,5 @@
 # Circular Progress Bar
-Simple circular progress bar
+Simple circular progress bar - [examples](https://tomik23.github.io/circular-progress-bar/)
 
 ## Initialization
 Before the first use, clone this repository and install node dependencies:
@@ -32,6 +32,17 @@ props | type | default | require | description
 new CircularProgressBar({
   pieName: 'pie',
   percent: 80
+});
+```
+----------------------
+```javascript
+new CircularProgressBar({
+  pieName: 'piec',
+  percent: 62,
+  colorSlice: '#000',
+  colorCircle: '#e6e6e6',
+  strokeWidth: 15,
+  number: false,
 });
 ```
 
