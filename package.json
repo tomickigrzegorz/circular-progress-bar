@@ -6,12 +6,40 @@
   "author": "Grzegorz Tomicki <gtomik@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel --minified --no-comments circularProgressBar.js -o circularProgressBar.min.js",
-    "watch": "babel circularProgressBar.js -o circularProgressBar.min.js -w"
+    "dev": "webpack-dev-server --config webpack.config.js --mode development --open",
+    "prod": "webpack --config webpack.config.js --mode production"
   },
+  "browserslist": [
+    "last 2 version",
+    ">1%",
+    "not dead"
+  ],
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.4"
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "autoprefixer": "^9.7.3",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "core-js": "^3.6.2",
+    "css-loader": "^3.4.1",
+    "cssnano": "^4.1.10",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.0",
+    "postcss-loader": "^3.0.0",
+    "prettier": "^1.19.1",
+    "style-loader": "^1.1.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   }
 }

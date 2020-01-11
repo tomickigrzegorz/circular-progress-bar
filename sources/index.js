@@ -1,35 +1,41 @@
-class CircularProgressBar {
-  constructor(options) {
-    const {
-      pieName,
-      percent,
-      colorSlice,
-      strokeWidth,
-      opacity,
-      colorCircle,
-      number,
-      size,
-      fontSize,
-      fontWeight,
-      time,
-      fontColor
-    } = options;
-    this.pieName = pieName;
-    this.pieElement = document.querySelector(`.${pieName}`);
-    this.percent = percent || 65;
-    this.colorSlice = colorSlice || '#00a1ff';
-    this.strokeWidth = strokeWidth || 10;
-    this.opacity = opacity || 0.1;
-    this.number = typeof number === "undefined" ? true : false;
-    this.colorCircle = colorCircle;
-    this.size = size || 200;
-    this.fontSize = fontSize || '3rem';
-    this.fontWeight = fontWeight || 700;
-    this.fontColor = fontColor || '#365b74';
-    this.time = time || 30;
-    this.end = 264;
+import './style.css';
 
-    this.createSvg();
+class CircularProgressBar {
+  constructor({ pieName }) {
+    this.pieName = pieName;
+    this.pieElement = document.querySelectorAll(`.${pieName}`);
+    this.pieElement.forEach((dataConfig, index) => {
+      const {
+        percent,
+        colorSlice,
+        strokeWidth,
+        opacity,
+        number,
+        colorCircle,
+        size,
+        fontSize,
+        fontWeight,
+        fontColor,
+        time,
+        end
+      } = JSON.parse(dataConfig.dataset.pie);
+
+      this.index = index;
+      this.percent = percent || 65;
+      this.colorSlice = colorSlice || '#00a1ff';
+      this.strokeWidth = strokeWidth || 10;
+      this.opacity = opacity || 0.1;
+      this.number = typeof number === "undefined" ? true : false;
+      this.colorCircle = colorCircle;
+      this.size = size || 200;
+      this.fontSize = fontSize || '3rem';
+      this.fontWeight = fontWeight || 700;
+      this.fontColor = fontColor || '#365b74';
+      this.time = time || 30;
+      this.end = 264;
+
+      this.createSvg();
+    })
   }
 
   hexTorgb(fullhex) {
@@ -38,8 +44,8 @@ class CircularProgressBar {
     return rgb;
   }
 
-  circularProgressBar() {
-    let stroke = document.querySelector(`.${this.pieName}-stroke`);
+  circularBar() {
+    let stroke = document.querySelector(`.${this.pieName}-stroke${this.index}`);
 
     this.percentElement();
 
@@ -58,7 +64,7 @@ class CircularProgressBar {
       ? `border-radius: 50%; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`
       : '';
 
-    this.pieElement.setAttribute('style', `width: ${this.size}px; height: ${this.size}px;  position: relative; ${boxShadow}`);
+    this.pieElement[this.index].setAttribute('style', `width: ${this.size}px; height: ${this.size}px;  position: relative; ${boxShadow}`);
 
   }
 
@@ -66,21 +72,19 @@ class CircularProgressBar {
     const percent = document.createElement('div');
     percent.className = 'percent'
     percent.setAttribute('style', `position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
-    this.pieElement.appendChild(percent);
+    this.pieElement[this.index].appendChild(percent);
   }
 
   percentElementUpdate(numbers) {
-    const percentNumber = document.querySelector(`.${this.pieName} > .percent`);
-    percentNumber.innerHTML = `${numbers}%`;
+    return this.pieElement[this.index].innerText = `${numbers}%`;
   }
 
   createSvg() {
-
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
     const circleTop = this.circleSvg();
     const circleBottom = this.circleSvg();
-    circleTop.setAttributeNS(null, 'class', `${this.pieName}-stroke`);
+    circleTop.setAttributeNS(null, 'class', `${this.pieName}-stroke${this.index}`);
 
     if (this.colorCircle) {
       circleBottom.setAttributeNS(null, 'fill', 'transparent');
@@ -94,9 +98,9 @@ class CircularProgressBar {
     svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
     svg.appendChild(circleTop);
-    this.pieElement.appendChild(svg)
 
-    this.circularProgressBar()
+    this.pieElement[this.index].appendChild(svg);
+    this.circularBar();
   }
 
   circleSvg() {
@@ -108,3 +112,5 @@ class CircularProgressBar {
   }
 
 }
+
+export default CircularProgressBar;
