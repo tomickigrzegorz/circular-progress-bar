@@ -5,6 +5,7 @@ class CircularProgressBar {
     this.pieName = pieName;
     this.pieElement = document.querySelectorAll(`.${pieName}`);
     this.pieElement.forEach((dataConfig, index) => {
+      const jsonData = JSON.parse(dataConfig.dataset.pie);
       const {
         percent,
         colorSlice,
@@ -18,8 +19,8 @@ class CircularProgressBar {
         fontColor,
         time,
         end
-      } = JSON.parse(dataConfig.dataset.pie);
-
+      } = jsonData;
+      this.test = jsonData;
       this.index = index;
       this.percent = percent || 65;
       this.colorSlice = colorSlice || '#00a1ff';
@@ -45,19 +46,30 @@ class CircularProgressBar {
   }
 
   circularBar() {
-    let stroke = document.querySelector(`.${this.pieName}-stroke${this.index}`);
-
+    let stroke = document.querySelector(`.${this.pieName}-circle-${this.index}`);
+    
     this.percentElement();
+    
+    const options = {
+      colorSlice: this.colorSlice,
+      strokeWidth: this.strokeWidth,
+      end: this.end,
+      time: this.time,
+      percent: this.percent,
+      number: this.number,
+      index: this.index
+    }
 
-    for (let i = 0; i <= this.end; i++) {
+    for (let i = 0; i <= options.end; i++) {
       setTimeout(() => {
-        if (i > this.percent) return;
-        if (this.number) {
-          this.percentElementUpdate(i)
+        if (i > options.percent) return;
+        if (options.number) {
+          this.percentElementUpdate(i, options.index)
         }
+
         let d = parseInt(i * 2.64);
-        stroke.setAttribute('style', `fill: transparent; stroke: ${this.colorSlice}; stroke-width: ${this.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${this.end - d}`);
-      }, i * this.time);
+        stroke.setAttribute('style', `fill: transparent; stroke: ${options.colorSlice}; stroke-width: ${options.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${options.end - d}`);
+      }, i * options.time);
     }
 
     const boxShadow = !this.colorCircle
@@ -70,13 +82,14 @@ class CircularProgressBar {
 
   percentElement() {
     const percent = document.createElement('div');
-    percent.className = 'percent'
+    percent.className = `percent-${this.index}`
     percent.setAttribute('style', `position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
+    
     this.pieElement[this.index].appendChild(percent);
   }
 
-  percentElementUpdate(numbers) {
-    return this.pieElement[this.index].innerText = `${numbers}%`;
+  percentElementUpdate(numbers, index) {
+    return document.querySelector(`.percent-${index}`).innerText = `${numbers}%`;
   }
 
   createSvg() {
@@ -84,7 +97,7 @@ class CircularProgressBar {
 
     const circleTop = this.circleSvg();
     const circleBottom = this.circleSvg();
-    circleTop.setAttributeNS(null, 'class', `${this.pieName}-stroke${this.index}`);
+    circleTop.setAttributeNS(null, 'class', `${this.pieName}-circle-${this.index}`);
 
     if (this.colorCircle) {
       circleBottom.setAttributeNS(null, 'fill', 'transparent');
