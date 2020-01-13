@@ -33,6 +33,9 @@ body {
 @media (max-width: 700px) {
   .container {
     display: block;
-    padding: 20px;
+    padding: 50px 0;
+  }
+  .container > div {
+    margin: auto;
   }
 }

@@ -20,7 +20,6 @@ class CircularProgressBar {
         time,
         end
       } = jsonData;
-      this.test = jsonData;
       this.index = index;
       this.percent = percent || 65;
       this.colorSlice = colorSlice || '#00a1ff';
