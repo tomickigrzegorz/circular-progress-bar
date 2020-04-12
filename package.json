@@ -10,9 +10,10 @@
     "prod": "webpack --config webpack.config.js --mode production"
   },
   "browserslist": [
-    "last 2 version",
-    ">1%",
-    "not dead"
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
   ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
