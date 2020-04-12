@@ -1,6 +1,10 @@
 # Circular Progress Bar
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 Simple circular progress bar - [examples](https://tomik23.github.io/circular-progress-bar/).
 From now on, one call runs multiple circular-progress-bar.
+IntersectionObserver support, the animation starts when the individual chart appears in the view.
 
 ## Initialization
 Before the first use, clone this repository and install node dependencies:

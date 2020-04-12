@@ -4,38 +4,35 @@ class CircularProgressBar {
   constructor({ pieName }) {
     this.pieName = pieName;
     this.pieElement = document.querySelectorAll(`.${pieName}`);
-    this.pieElement.forEach((dataConfig, index) => {
-      const jsonData = JSON.parse(dataConfig.dataset.pie);
-      const {
-        percent,
-        colorSlice,
-        strokeWidth,
-        opacity,
-        number,
-        colorCircle,
-        size,
-        fontSize,
-        fontWeight,
-        fontColor,
-        time,
-        end
-      } = jsonData;
-      this.index = index;
-      this.percent = percent || 65;
-      this.colorSlice = colorSlice || '#00a1ff';
-      this.strokeWidth = strokeWidth || 10;
-      this.opacity = opacity || 0.1;
-      this.number = typeof number === "undefined" ? true : false;
-      this.colorCircle = colorCircle;
-      this.size = size || 200;
-      this.fontSize = fontSize || '3rem';
-      this.fontWeight = fontWeight || 700;
-      this.fontColor = fontColor || '#365b74';
-      this.time = time || 30;
-      this.end = 264;
+    this.onChange(this.pieElement);
+  }
 
-      this.createSvg();
-    })
+  onChange(pies) {
+
+    if ('IntersectionObserver' in window) {
+      const config = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0,
+      };
+
+      const ovserver = new IntersectionObserver(changes =>
+        changes.forEach(change => {
+          if (change.intersectionRatio > 0.75) {
+            pies.forEach((pie, index) => {
+              if (pie.dataset == change.target.dataset) {
+                this.createSvg(change.target, index);
+              }
+            })
+            ovserver.unobserve(change.target);
+          }
+        }),
+        config
+      );
+      pies.forEach(pie => ovserver.observe(pie));
+    } else {
+      pies.forEach((pie, index) => this.createSvg(pie, index));
+    }
   }
 
   hexTorgb(fullhex) {
@@ -46,9 +43,9 @@ class CircularProgressBar {
 
   circularBar() {
     let stroke = document.querySelector(`.${this.pieName}-circle-${this.index}`);
-    
+
     this.percentElement();
-    
+
     const options = {
       colorSlice: this.colorSlice,
       strokeWidth: this.strokeWidth,
@@ -81,17 +78,48 @@ class CircularProgressBar {
 
   percentElement() {
     const percent = document.createElement('div');
-    percent.className = `percent-${this.index}`
+    percent.className = `${this.pieName}-percent-${this.index}`
     percent.setAttribute('style', `position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
-    
+
     this.pieElement[this.index].appendChild(percent);
   }
 
   percentElementUpdate(numbers, index) {
-    return document.querySelector(`.percent-${index}`).innerText = `${numbers}%`;
+    return document.querySelector(`.${this.pieName}-percent-${index}`).innerText = `${numbers}%`;
   }
 
-  createSvg() {
+  createSvg(target, index) {
+
+    const jsonData = JSON.parse(target.dataset.pie);
+    const {
+      percent,
+      colorSlice,
+      strokeWidth,
+      opacity,
+      number,
+      colorCircle,
+      size,
+      fontSize,
+      fontWeight,
+      fontColor,
+      time,
+      end
+    } = jsonData;
+
+    this.index = index;
+    this.percent = percent || 65;
+    this.colorSlice = colorSlice || '#00a1ff';
+    this.strokeWidth = strokeWidth || 10;
+    this.opacity = opacity || 0.1;
+    this.number = typeof number === "undefined" ? true : false;
+    this.colorCircle = colorCircle;
+    this.size = size || 200;
+    this.fontSize = fontSize || '3rem';
+    this.fontWeight = fontWeight || 700;
+    this.fontColor = fontColor || '#365b74';
+    this.time = time || 30;
+    this.end = 264;
+
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
     const circleTop = this.circleSvg();
