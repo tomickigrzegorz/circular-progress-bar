@@ -32,6 +32,8 @@ body {
   margin: auto;
 }
 
-.container>* {
-  margin: 300px 0;
+.container section {
+  display: flex;
+  align-items: center;
+  height: 100vh
 }
