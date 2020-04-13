@@ -40,6 +40,11 @@ Everyone must consist of a class after which the application will be called, for
 <div class="pie" data-pie='{ "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
 <div class="pie" data-pie='{ "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
 ```
+Minimal configuration 
+```html
+<div class="pie" data-pie='{ "percent": 80 }'></div>
+```
+### Function call
 
 ```javascript
 new CircularProgressBar({
