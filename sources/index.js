@@ -90,7 +90,6 @@ class CircularProgressBar {
 
   createSvg(target, index) {
 
-    const jsonData = JSON.parse(target.dataset.pie);
     const {
       percent,
       colorSlice,
@@ -104,7 +103,7 @@ class CircularProgressBar {
       fontColor,
       time,
       end
-    } = jsonData;
+    } = JSON.parse(target.dataset.pie);
 
     this.index = index;
     this.percent = percent || 65;
