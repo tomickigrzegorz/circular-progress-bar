@@ -56,7 +56,7 @@ new CircularProgressBar({
 
 If you want the class to be compatible with the following browsers, see the section - **Initialization**
 
->Desktop:
+### Desktop:
 
 | Browser | Version |
 | :---- | :-------: |
@@ -67,7 +67,7 @@ If you want the class to be compatible with the following browsers, see the sect
 | Vivaldi | 2.4+ |
 | IE | 11+ |
 
->Mobile:
+### Mobile:
 
 | Browser | Version |
 | :---- | :-------: |
