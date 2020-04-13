@@ -20,7 +20,7 @@ The final code:
 props | type | default | require | description
 ---- | :-------: | :-------: | :--------: | -----------
 `pieName` | `String` |  | ✔ | Element to show circle progress class name 
-`percent` | `Number` | `65` |  | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
+`percent` | `Number` | `65` | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
 `colorSlice` | `String` | `'#00a1ff'` | | Progress layer color and background
 `colorCircle` | `String` | `'#00a1ff'` | | Bottom circle color
 `strokeWidth` | `Number` | `10` |  | Stroke width
