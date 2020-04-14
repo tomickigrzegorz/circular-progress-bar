@@ -24,6 +24,7 @@ props | type | default | require | description
 `colorSlice` | `String` | `'#00a1ff'` | | Progress layer color and background
 `colorCircle` | `String` | `'#00a1ff'` | | Bottom circle color
 `strokeWidth` | `Number` | `10` |  | Stroke width
+`round` | `Boolean` | `false` |  | Path rounding
 `opacity` | `Number` | `0.1` |  | Opacity box-shadow
 `number` | `Boolean` | `true` |  | Add props number and set to false to hide the number with percent
 `size` | `Number` | `200` |  | Size progress bar width and height in px
@@ -37,7 +38,7 @@ We need two things, configuration html diva. And call our script with the pieNam
 Everyone must consist of a class after which the application will be called, for this you also need a data attribute - data-pie. This is JSON's configurable appearance and circular-progress-bar behavior.
 
 ```html
-<div class="pie" data-pie='{ "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
+<div class="pie" data-pie='{ "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
 <div class="pie" data-pie='{ "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
 ```
 Minimal configuration 

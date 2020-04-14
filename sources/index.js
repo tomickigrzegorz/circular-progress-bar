@@ -51,6 +51,7 @@ class CircularProgressBar {
       strokeWidth: this.strokeWidth,
       end: this.end,
       time: this.time,
+      round: this.round,
       percent: this.percent,
       number: this.number,
       index: this.index
@@ -64,7 +65,7 @@ class CircularProgressBar {
         }
 
         let d = parseInt(i * 2.64);
-        stroke.setAttribute('style', `fill: transparent; stroke: ${options.colorSlice}; stroke-width: ${options.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${options.end - d}`);
+        stroke.setAttribute('style', `fill: transparent; stroke: ${options.colorSlice}; stroke-width: ${options.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${options.end - d}; ${options.round}`);
       }, i * options.time);
     }
 
@@ -91,6 +92,7 @@ class CircularProgressBar {
   createSvg(target, index) {
 
     const {
+      round,
       percent,
       colorSlice,
       strokeWidth,
@@ -105,8 +107,11 @@ class CircularProgressBar {
       end
     } = JSON.parse(target.dataset.pie);
 
+    console.log(round)
+
     this.index = index;
     this.percent = percent || 65;
+    this.round = round ? 'stroke-linecap: round;' : '',
     this.colorSlice = colorSlice || '#00a1ff';
     this.strokeWidth = strokeWidth || 10;
     this.opacity = opacity || 0.1;
