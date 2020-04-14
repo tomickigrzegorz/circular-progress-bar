@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 2020-04-15
+### Added
+- Polyfill for IntersectionObserver.
+
 ## 2020-04-14
 ### Added
 - Path rounding.

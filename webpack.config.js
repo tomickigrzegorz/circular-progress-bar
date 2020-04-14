@@ -20,8 +20,7 @@ module.exports = (env, { mode }) => {
       filename: './[name].js',
       library: '[name]',
       libraryExport: 'default',
-      libraryTarget: 'umd',
-      umdNamedDefine: true
+      libraryTarget: 'umd'
     },
     module: {
       rules: [
