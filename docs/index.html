@@ -1,49 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>circular progress bar</title>
-<link href="./CircularProgressBar.css" rel="stylesheet"></head>
-
-<body>
-  <div class="container">
-    <section>
-      <div class="pie" data-pie='{ "percent": 82, "colorSlice": "#E91E63", "time": 30, "fontWeight": 400 }'></div>
-    </section>
-    <section>
-      <div class="pie"
-        data-pie='{ "round": true, "percent": 50, "fontSize": "3rem", "fontWeight": 400, "strokeWidth": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 50 }'>
-      </div>
-    </section>
-    <section>
-      <div class="pie"
-        data-pie='{ "percent": 85, "size": 180, "strokeWidth": 7, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'>
-      </div>
-    </section>
-    <section>
-      <div class="pie"
-        data-pie='{ "percent": 86, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'>
-      </div>
-    </section>
-  </div>
-
-  <script type="text/javascript">
-    if (!('IntersectionObserver' in window)) {
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>circular progress bar</title><link href="./CircularProgressBar.css" rel="stylesheet"></head><body><div class="container"><section><div class="pie" data-pie='{ "percent": 82, "colorSlice": "#E91E63", "time": 30, "fontWeight": 400 }'></div></section><section><div class="pie" data-pie='{ "round": true, "percent": 50, "fontSize": "3rem", "fontWeight": 400, "strokeWidth": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 50 }'></div></section><section><div class="pie" data-pie='{ "percent": 85, "size": 180, "strokeWidth": 7, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'></div></section><section><div class="pie" data-pie='{ "percent": 86, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div></section></div><script>if (!('IntersectionObserver' in window)) {
       var script = document.createElement("script");
       script.src = "https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver";
       document.getElementsByTagName('head')[0].appendChild(script);
-    }
-  </script>
-  <script>
-    window.addEventListener('DOMContentLoaded', function () {
+    }</script><script>window.addEventListener('DOMContentLoaded', function () {
       new CircularProgressBar({
         pieName: 'pie'
       });
-    });
-  </script>
-<script type="text/javascript" src="./CircularProgressBar.js"></script></body>
-
-</html>
+    });</script><script src="./CircularProgressBar.js"></script></body></html>

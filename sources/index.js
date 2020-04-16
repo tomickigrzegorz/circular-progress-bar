@@ -8,7 +8,6 @@ class CircularProgressBar {
   }
 
   onChange(pies) {
-
     if ('IntersectionObserver' in window) {
       const config = {
         root: null,
@@ -16,20 +15,17 @@ class CircularProgressBar {
         threshold: 0,
       };
 
-      const ovserver = new IntersectionObserver(changes =>
-        changes.forEach(change => {
-          if (change.intersectionRatio > 0.75) {
-            pies.forEach((pie, index) => {
-              if (pie.dataset == change.target.dataset) {
-                this.createSvg(change.target, index);
-              }
-            })
-            ovserver.unobserve(change.target);
-          }
-        }),
-        config
-      );
-      pies.forEach(pie => ovserver.observe(pie));
+      const ovserver = new IntersectionObserver((changes) => changes.forEach((change) => {
+        if (change.intersectionRatio > 0.75) {
+          pies.forEach((pie, index) => {
+            if (pie.dataset === change.target.dataset) {
+              this.createSvg(change.target, index);
+            }
+          });
+          ovserver.unobserve(change.target);
+        }
+      }), config);
+      pies.forEach((pie) => ovserver.observe(pie));
     } else {
       pies.forEach((pie, index) => this.createSvg(pie, index));
     }
@@ -42,7 +38,7 @@ class CircularProgressBar {
   }
 
   circularBar() {
-    let stroke = document.querySelector(`.${this.pieName}-circle-${this.index}`);
+    const stroke = document.querySelector(`.${this.pieName}-circle-${this.index}`);
 
     this.percentElement();
 
@@ -54,17 +50,17 @@ class CircularProgressBar {
       round: this.round,
       percent: this.percent,
       number: this.number,
-      index: this.index
-    }
+      index: this.index,
+    };
 
     for (let i = 0; i <= options.end; i++) {
       setTimeout(() => {
         if (i > options.percent) return;
         if (options.number) {
-          this.percentElementUpdate(i, options.index)
+          this.percentElementUpdate(i, options.index);
         }
 
-        let d = parseInt(i * 2.64);
+        const d = i * 2.64;
         stroke.setAttribute('style', `fill: transparent; stroke: ${options.colorSlice}; stroke-width: ${options.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${options.end - d}; ${options.round}`);
       }, i * options.time);
     }
@@ -74,23 +70,23 @@ class CircularProgressBar {
       : '';
 
     this.pieElement[this.index].setAttribute('style', `width: ${this.size}px; height: ${this.size}px;  position: relative; ${boxShadow}`);
-
   }
 
   percentElement() {
     const percent = document.createElement('div');
-    percent.className = `${this.pieName}-percent-${this.index}`
+    percent.className = `${this.pieName}-percent-${this.index}`;
     percent.setAttribute('style', `position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
 
     this.pieElement[this.index].appendChild(percent);
   }
 
   percentElementUpdate(numbers, index) {
-    return document.querySelector(`.${this.pieName}-percent-${index}`).innerText = `${numbers}%`;
+    const place = document.querySelector(`.${this.pieName}-percent-${index}`);
+    place.innerText = `${numbers}%`;
+    return place;
   }
 
   createSvg(target, index) {
-
     const {
       round,
       percent,
@@ -104,18 +100,15 @@ class CircularProgressBar {
       fontWeight,
       fontColor,
       time,
-      end
     } = JSON.parse(target.dataset.pie);
-
-    console.log(round)
 
     this.index = index;
     this.percent = percent || 65;
-    this.round = round ? 'stroke-linecap: round;' : '',
+    this.round = round ? 'stroke-linecap: round;' : '';
     this.colorSlice = colorSlice || '#00a1ff';
     this.strokeWidth = strokeWidth || 10;
     this.opacity = opacity || 0.1;
-    this.number = typeof number === "undefined" ? true : false;
+    this.number = typeof number === 'undefined';
     this.colorCircle = colorCircle;
     this.size = size || 200;
     this.fontSize = fontSize || '3rem';
@@ -139,7 +132,7 @@ class CircularProgressBar {
     svg.setAttributeNS(null, 'width', this.size);
     svg.setAttributeNS(null, 'height', this.size);
     svg.setAttributeNS(null, 'viewBox', '0 0 100 100');
-    svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+    svg.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink');
 
     svg.appendChild(circleTop);
 
@@ -154,7 +147,6 @@ class CircularProgressBar {
     circle.setAttributeNS(null, 'r', 42);
     return circle;
   }
-
 }
 
 export default CircularProgressBar;
