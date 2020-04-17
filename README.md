@@ -6,6 +6,8 @@ Simple circular progress bar - [examples](https://tomik23.github.io/circular-pro
 From now on, one call runs multiple circular-progress-bar.
 IntersectionObserver support, the animation starts when the individual chart appears in the view.
 
+![Screenshot1](https://github.com/tomik23/circular-progress-bar/blob/master/circular-progress-bar.png)
+
 ## Initialization
 Before the first use, clone this repository and install node dependencies:
 
@@ -33,7 +35,7 @@ props | type | default | require | description
 `fontWeight` | `Number` | `700` |  | Font weight. The number depends on whether the font has the given size.
 `fontColor` | `String` | `'#365b74'` |  | Font color, must be in HEX
 
-### Sample configuration
+## Sample configuration
 We need two things, configuration html diva. And call our script with the pieName name declaration.
 Everyone must consist of a class after which the application will be called, for this you also need a data attribute - data-pie. This is JSON's configurable appearance and circular-progress-bar behavior.
 
@@ -53,27 +55,8 @@ new CircularProgressBar({
 });
 ```
 
-## Browser Compatibility
+## Browsers support
 
-If you want the class to be compatible with the following browsers, see the section - **Initialization**
-
-### Desktop:
-
-| Browser | Version |
-| :---- | :-------: |
-| Chrome | 74+ |
-| Firefox | 66+ |
-| Opera | 58+ |
-| Edge | 44+ |
-| Vivaldi | 2.4+ |
-| IE | 11+ |
-
-### Mobile:
-
-| Browser | Version |
-| :---- | :-------: |
-| Chrome | 74+ |
-| Firefox | 66+ |
-| Opera | 51+ |
-| Ege | 42+ |
-| MI Android | 10.6+ |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Vivaldi |
+| --------- | --------- | --------- | --------- | --------- |
+| IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions

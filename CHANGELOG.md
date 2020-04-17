@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Update devDependencies
 - Refactoring
+- Update readme
 
 ## 2020-04-15
 ### Added
