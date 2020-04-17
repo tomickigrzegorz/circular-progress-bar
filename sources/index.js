@@ -69,7 +69,7 @@ class CircularProgressBar {
       ? `border-radius: 50%; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`
       : '';
 
-    this.pieElement[this.index].setAttribute('style', `width: ${this.size}px; height: ${this.size}px;  position: relative; ${boxShadow}`);
+    this.pieElement[options.index].setAttribute('style', `width: ${this.size}px; height: ${this.size}px;  position: relative; ${boxShadow}`);
   }
 
   percentElement() {
@@ -83,6 +83,7 @@ class CircularProgressBar {
   percentElementUpdate(numbers, index) {
     const place = document.querySelector(`.${this.pieName}-percent-${index}`);
     place.innerText = `${numbers}%`;
+
     return place;
   }
 
