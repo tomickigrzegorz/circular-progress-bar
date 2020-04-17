@@ -8,7 +8,7 @@ IntersectionObserver support, the animation starts when the individual chart app
 
 ![Screenshot1](https://github.com/tomik23/circular-progress-bar/blob/master/circular-progress-bar.png)
 
-## Initialization
+## Getting started
 Before the first use, clone this repository and install node dependencies:
 
 ```yarn``` or ```npm install```
