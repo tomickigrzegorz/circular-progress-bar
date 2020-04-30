@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## 2020-05-01
 ### Added
 - Linear gradient
+- Webpack -> Rollup
 
 ### Changed
 - Update devDependencies
