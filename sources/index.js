@@ -1,5 +1,3 @@
-import './style.css';
-
 class CircularProgressBar {
   constructor({ pieName }) {
     this.pieName = pieName;
