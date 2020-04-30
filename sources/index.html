@@ -6,6 +6,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>circular progress bar</title>
+  <style>
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      position: relative;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji, Segoe UI Symbol;
+      background: #ffffff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .container section {
+      display: flex;
+      align-items: center;
+      height: 100vh
+    }
+  </style>
 </head>
 
 <body>
