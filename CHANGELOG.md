@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Update devDependencies
+- 
 
 ## 2020-04-17
 ### Added

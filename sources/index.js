@@ -140,7 +140,8 @@ class CircularProgressBar {
     svg.setAttributeNS(this.xmlns, 'xmlns:xlink', this.xlink);
 
     if (this.lineargradient) {
-      svg.insertAdjacentElement('afterbegin', this.linearGradient());
+      // svg.insertAdjacentElement('afterbegin', this.linearGradient());
+      svg.appendChild(this.linearGradient());
     }
     svg.appendChild(circleTop);
 
@@ -161,7 +162,7 @@ class CircularProgressBar {
       const stop = document.createElementNS(this.svg, 'stop');
       stop.setAttributeNS(null, 'offset', `${number}%`);
       stop.setAttribute('style', `stop-color: ${countGradient[i]};`);
-      linearGradient.insertAdjacentElement('beforeend', stop);
+      linearGradient.appendChild(stop);
       number += 100 / (countGradient.length - 1);
     }
 
