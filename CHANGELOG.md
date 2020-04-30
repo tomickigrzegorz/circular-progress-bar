@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2020-05-01
+### Added
+- Linear gradient
+
+### Changed
+- Update devDependencies
+
 ## 2020-04-17
 ### Added
 - Eslint

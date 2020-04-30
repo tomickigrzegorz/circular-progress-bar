@@ -23,7 +23,7 @@ Everyone must consist of a class after which the application will be called, for
 
 ```html
 <div class="pie" data-pie='{ "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
-<div class="pie" data-pie='{ "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
+<div class="pie" data-pie='{ "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
 ```
 Minimal configuration 
 ```html
@@ -45,7 +45,7 @@ props | type | default | require | description
 `percent` | `Number` | `65` | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
 `colorSlice` | `String` | `'#00a1ff'` | | Progress layer color and background
 `colorCircle` | `String` | `'#00a1ff'` | | Bottom circle color
-`strokeWidth` | `Number` | `10` |  | Stroke width
+`strokeWidth` | `Number` | `10` |  | Stroke width, chart thickness
 `round` | `Boolean` | `false` |  | Path rounding
 `opacity` | `Number` | `0.1` |  | Opacity box-shadow
 `number` | `Boolean` | `true` |  | Add props number and set to false to hide the number with percent
@@ -53,7 +53,8 @@ props | type | default | require | description
 `time` | `Number` | `20` |  | Displays the speed of the progress bar animation
 `fontSize` | `String` | `'3rem'` |  | Font size. The font can be shown in units rem, em, px ...
 `fontWeight` | `Number` | `700` |  | Font weight. The number depends on whether the font has the given size.
-`fontColor` | `String` | `'#365b74'` |  | Font color, must be in HEX
+`fontColor` | `String` | `'#365b74'` |  | Font color
+`lineargradient` | `Array` |  |  | Array of colors "lineargradient": ["#ffff00","brown"] [brown / color-name](https://htmlcolorcodes.com/color-names/)
 
 ## Browsers support
 
