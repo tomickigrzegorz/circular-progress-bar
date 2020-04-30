@@ -5,6 +5,9 @@ class CircularProgressBar {
     this.pieName = pieName;
     this.pieElement = document.querySelectorAll(`.${pieName}`);
     this.onChange(this.pieElement);
+    this.svg = 'http://www.w3.org/2000/svg';
+    this.xmlns = 'http://www.w3.org/2000/xmlns/';
+    this.xlink = 'http://www.w3.org/1999/xlink';
   }
 
   onChange(pies) {
@@ -59,11 +62,12 @@ class CircularProgressBar {
         if (options.number) {
           this.percentElementUpdate(i, options.index);
         }
-
         const d = i * 2.64;
-        stroke.setAttribute('style', `fill: transparent; stroke: ${options.colorSlice}; stroke-width: ${options.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${options.end - d}; ${options.round}`);
+        stroke.setAttribute('style', `fill: transparent; stroke-width: ${options.strokeWidth}; stroke-dashoffset: 66; stroke-dasharray: ${d} ${options.end - d}; ${options.round}`);
       }, i * options.time);
     }
+
+    stroke.setAttribute('stroke', this.lineargradient ? 'url(#linear)' : this.colorSlice);
 
     const boxShadow = !this.colorCircle
       ? `border-radius: 50%; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`
@@ -89,6 +93,7 @@ class CircularProgressBar {
 
   createSvg(target, index) {
     const {
+      lineargradient,
       round,
       percent,
       colorSlice,
@@ -117,8 +122,9 @@ class CircularProgressBar {
     this.fontColor = fontColor || '#365b74';
     this.time = time || 30;
     this.end = 264;
+    this.lineargradient = lineargradient;
 
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const svg = document.createElementNS(this.svg, 'svg');
 
     const circleTop = this.circleSvg();
     const circleBottom = this.circleSvg();
@@ -133,16 +139,39 @@ class CircularProgressBar {
     svg.setAttributeNS(null, 'width', this.size);
     svg.setAttributeNS(null, 'height', this.size);
     svg.setAttributeNS(null, 'viewBox', '0 0 100 100');
-    svg.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink');
+    svg.setAttributeNS(this.xmlns, 'xmlns:xlink', this.xlink);
 
+    if (this.lineargradient) {
+      svg.insertAdjacentElement('afterbegin', this.linearGradient());
+    }
     svg.appendChild(circleTop);
 
     this.pieElement[this.index].appendChild(svg);
     this.circularBar();
   }
 
+  linearGradient() {
+    const defs = document.createElementNS(this.svg, 'defs');
+    const linearGradient = document.createElementNS(this.svg, 'linearGradient');
+    linearGradient.id = 'linear';
+
+    const countGradient = [].slice.call(this.lineargradient);
+    defs.appendChild(linearGradient);
+
+    let number = 0;
+    for (let i = 0; i < countGradient.length; i++) {
+      const stop = document.createElementNS(this.svg, 'stop');
+      stop.setAttributeNS(null, 'offset', `${number}%`);
+      stop.setAttribute('style', `stop-color: ${countGradient[i]};`);
+      linearGradient.insertAdjacentElement('beforeend', stop);
+      number += 100 / (countGradient.length - 1);
+    }
+
+    return defs;
+  }
+
   circleSvg() {
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    const circle = document.createElementNS(this.svg, 'circle');
     circle.setAttributeNS(null, 'cx', 50);
     circle.setAttributeNS(null, 'cy', 50);
     circle.setAttributeNS(null, 'r', 42);
