@@ -18,17 +18,22 @@ class CircularProgressBar {
 
       const ovserver = new IntersectionObserver((changes) => changes.forEach((change) => {
         if (change.intersectionRatio > 0.75) {
-          pies.forEach((pie, index) => {
-            if (pie.dataset === change.target.dataset) {
-              this.createSvg(change.target, index);
+          for (let i = 0; i < pies.length; i++) {
+            if (pies[i].dataset === change.target.dataset) {
+              this.createSvg(change.target, i);
             }
-          });
+          }
           ovserver.unobserve(change.target);
         }
       }), config);
-      pies.forEach((pie) => ovserver.observe(pie));
+      for (let i = 0; i < pies.length; i++) {
+        ovserver.observe(pies[i]);
+      }
+      // pies.forEach((pie) => ovserver.observe(pie));
     } else {
-      pies.forEach((pie, index) => this.createSvg(pie, index));
+      for (let i = 0; i < pies.length; i++) {
+        this.createSvg(pies[i], i);
+      }
     }
   }
 
@@ -140,7 +145,7 @@ class CircularProgressBar {
     svg.setAttributeNS(this.xmlns, 'xmlns:xlink', this.xlink);
 
     if (this.lineargradient) {
-      svg.insertAdjacentElement('afterbegin', this.linearGradient());
+      svg.appendChild(this.linearGradient());
     }
     svg.appendChild(circleTop);
 
@@ -161,7 +166,7 @@ class CircularProgressBar {
       const stop = document.createElementNS(this.svg, 'stop');
       stop.setAttributeNS(null, 'offset', `${number}%`);
       stop.setAttribute('style', `stop-color: ${countGradient[i]};`);
-      linearGradient.insertAdjacentElement('beforeend', stop);
+      linearGradient.appendChild(stop);
       number += 100 / (countGradient.length - 1);
     }
 
