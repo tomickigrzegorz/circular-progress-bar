@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 function prodPlugin(plugin, mode) {
-  return mode ? () => { } : plugin;
+  return mode === 'development' ? () => { } : plugin;
 }
 
 module.exports = (env, { mode }) => {
@@ -69,7 +69,7 @@ module.exports = (env, { mode }) => {
       prodPlugin(
         new BundleAnalyzerPlugin({
           openAnalyzer: true,
-          generateStatsFile: true,
+          // generateStatsFile: true,
         }),
         mode
       ),
