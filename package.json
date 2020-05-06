@@ -9,12 +9,18 @@
     "dev": "webpack-dev-server --config webpack.config.js --mode development --open",
     "prod": "webpack --config webpack.config.js --mode production"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie < 11",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
@@ -29,6 +35,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-html": "^6.0.2",
     "eslint-plugin-import": "^2.20.2",
+    "google-closure-compiler": "^20200426.0.0",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.0",
