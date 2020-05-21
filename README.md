@@ -52,7 +52,7 @@ props | type | default | require | description
 `size` | `Number` | `200` |  | Size progress bar width and height in px
 `time` | `Number` | `20` |  | Displays the speed of the progress bar animation
 `fontSize` | `String` | `'3rem'` |  | Font size. The font can be shown in units rem, em, px ...
-`fontWeight` | `Number` | `700` |  | Font weight. The number depends on whether the font has the given size.
+`fontWeight` | `Number` `String` | `'1.6rem'` |  | `[<number> | normal | bold | bolder | lighter]`
 `fontColor` | `String` | `'#365b74'` |  | Font color
 `lineargradient` | `Array` |  |  | Array of colors "lineargradient": ["#ffff00","brown"] [brown / color-name](https://htmlcolorcodes.com/color-names/)
 

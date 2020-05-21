@@ -43,10 +43,8 @@ class CircularProgressBar {
     return rgb;
   }
 
-  circularBar() {
+  circularBar(svg) {
     const stroke = document.querySelector(`.${this.pieName}-circle-${this.index}`);
-
-    this.percentElement();
 
     const options = {
       colorSlice: this.colorSlice,
@@ -58,6 +56,9 @@ class CircularProgressBar {
       number: this.number,
       index: this.index,
     };
+
+    // console.log(svg, this.percentElement());
+    if (options.number) svg.appendChild(this.percentElement());
 
     for (let i = 0; i <= options.end; i++) {
       setTimeout(() => {
@@ -80,16 +81,22 @@ class CircularProgressBar {
   }
 
   percentElement() {
-    const percent = document.createElement('div');
-    percent.className = `${this.pieName}-percent-${this.index}`;
-    percent.setAttribute('style', `position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: ${this.fontSize}; font-weight: ${this.fontWeight}; color: ${this.fontColor}`);
+    const percent = document.createElementNS(this.svg, 'text');
+    percent.id = `${this.pieName}-percent-${this.index}`;
+    percent.setAttributeNS(null, 'x', '50%');
+    percent.setAttributeNS(null, 'y', '50%');
+    percent.setAttributeNS(null, 'font-size', `${this.fontSize}`);
+    percent.setAttributeNS(null, 'font-weight', `${this.fontWeight}`);
+    percent.setAttributeNS(null, 'fill', `${this.fontColor}`);
+    percent.setAttributeNS(null, 'dy', '.3em');
+    percent.setAttributeNS(null, 'text-anchor', 'middle');
 
-    this.pieElement[this.index].appendChild(percent);
+    return percent;
   }
 
   percentElementUpdate(numbers, index) {
-    const place = document.querySelector(`.${this.pieName}-percent-${index}`);
-    place.innerText = `${numbers}%`;
+    const place = document.getElementById(`${this.pieName}-percent-${index}`);
+    place.textContent = `${numbers}%`;
 
     return place;
   }
@@ -120,7 +127,7 @@ class CircularProgressBar {
     this.number = typeof number === 'undefined';
     this.colorCircle = colorCircle;
     this.size = size || 200;
-    this.fontSize = fontSize || '3rem';
+    this.fontSize = fontSize || '1.6rem';
     this.fontWeight = fontWeight || 700;
     this.fontColor = fontColor || '#365b74';
     this.time = time || 30;
@@ -150,7 +157,7 @@ class CircularProgressBar {
     svg.appendChild(circleTop);
 
     this.pieElement[this.index].appendChild(svg);
-    this.circularBar();
+    this.circularBar(svg);
   }
 
   linearGradient() {

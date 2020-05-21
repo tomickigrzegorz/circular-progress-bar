@@ -1,47 +1,47 @@
 <!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>circular progress bar</title><style>*,
-    *:before,
-    *:after {
-      box-sizing: border-box;
-    }
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-    }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-    html {
-      height: 100%;
-    }
+      html {
+        height: 100%;
+      }
 
-    body {
-      position: relative;
-      min-height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
-        Segoe UI Emoji, Segoe UI Symbol;
-      background: #ffffff;
-    }
+      body {
+        position: relative;
+        min-height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
+          Segoe UI Emoji, Segoe UI Symbol;
+        background: #ffffff;
+      }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 900px;
-      margin: auto;
-    }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+      }
 
-    .container section {
-      display: flex;
-      align-items: center;
-      height: 100vh
-    }</style></head><body><div class="container"><section><div class="pie" data-pie='{ "percent": 82, "colorSlice": "#E91E63", "time": 30, "fontWeight": 400 }'></div></section><section><div class="pie" data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 70, "fontSize": "3rem", "fontWeight": 400, "strokeWidth": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 50 }'></div></section><section><div class="pie" data-pie='{ "percent": 85, "size": 200, "strokeWidth": 10, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'></div></section><section><div class="pie" data-pie='{ "percent": 86, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 10, "number": false }'></div></section></div><script>if (!('IntersectionObserver' in window)) {
-      var script = document.createElement("script");
-      script.src = "https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver";
-      document.getElementsByTagName('head')[0].appendChild(script);
-    }</script><script>window.addEventListener('DOMContentLoaded', function () {
-      new CircularProgressBar({
-        pieName: 'pie'
-      });
-    });</script><script src="./CircularProgressBar.js"></script></body></html>
+      .container section {
+        display: flex;
+        align-items: center;
+        height: 100vh
+      }</style></head><body><div class="container"><section><div class="pie" data-pie='{ "percent": 82, "colorSlice": "#E91E63", "time": 30, "fontWeight": 400 }'></div></section><section><div class="pie" data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 70, "fontSize": "1.6rem", "fontWeight": 400, "strokeWidth": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 50 }'></div></section><section><div class="pie" data-pie='{ "percent": 85, "size": 200, "strokeWidth": 10, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'></div></section><section><div class="pie" data-pie='{ "percent": 86, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 10, "number": false }'></div></section></div><script>if (!('IntersectionObserver' in window)) {
+        var script = document.createElement("script");
+        script.src = "https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver";
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }</script><script>window.addEventListener('DOMContentLoaded', function () {
+        new CircularProgressBar({
+          pieName: 'pie'
+        });
+      });</script><script src="./CircularProgressBar.js"></script></body></html>

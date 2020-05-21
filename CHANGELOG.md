@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2020-05-21
+### Changed
+- No showing divs with percentages if percentages are off
+- Replacing div with percentages by the svg text element
+
 ## 2020-05-01
 ### Added
 - Linear gradient
