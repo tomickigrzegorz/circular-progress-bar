@@ -88,7 +88,7 @@ class CircularProgressBar {
     percent.setAttributeNS(null, 'font-size', `${this.fontSize}`);
     percent.setAttributeNS(null, 'font-weight', `${this.fontWeight}`);
     percent.setAttributeNS(null, 'fill', `${this.fontColor}`);
-    percent.setAttributeNS(null, 'dy', '.3em');
+    percent.setAttributeNS(null, 'dy', '.34em');
     percent.setAttributeNS(null, 'text-anchor', 'middle');
 
     return percent;
@@ -149,7 +149,7 @@ class CircularProgressBar {
     svg.setAttributeNS(null, 'width', this.size);
     svg.setAttributeNS(null, 'height', this.size);
     svg.setAttributeNS(null, 'viewBox', '0 0 100 100');
-    svg.setAttributeNS(this.xmlns, 'xmlns:xlink', this.xlink);
+    svg.setAttributeNS(this.xmlns, 'xmlns', this.xmlns);
 
     if (this.lineargradient) {
       svg.appendChild(this.linearGradient());
