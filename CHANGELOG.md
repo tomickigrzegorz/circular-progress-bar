@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2020-05-22
+### Changed
+- Fixed: vertical centering of the text element
+
 ## 2020-05-21
 ### Changed
 - No showing divs with percentages if percentages are off
