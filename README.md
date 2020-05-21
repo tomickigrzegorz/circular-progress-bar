@@ -43,8 +43,8 @@ props | type | default | require | description
 ---- | :-------: | :-------: | :--------: | -----------
 pieName | string |  | ✔ | Element to show circle progress class name 
 percent | number | `65` | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
-colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#ffff00","brown"](#colors-names)
-colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown"](#colors-names)
+colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#ffff00","brown" *](#colors-names)
+colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown" *](#colors-names)
 strokeWidth | number | `10` |  | Stroke width, chart thickness
 round | boolean | `false` |  | Path rounding
 opacity | number | `0.1` |  | Opacity box-shadow
@@ -53,12 +53,12 @@ size | number | `200` |  | Size progress bar width and height in px
 time | number | `20` |  | Displays the speed of the progress bar animation
 fontSize | string | `'3rem'` |  | Font size. The font can be shown in units rem, em, px ...
 fontWeight | number string | `400` |  | [number, normal, bold, bolder, lighter]
-fontColor | string | `'#365b74'` |  | Font color ["#ffff00","brown"](#colors-names)
-lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","brown"](#colors-names)
+fontColor | string | `'#365b74'` |  | Font color ["#ffff00","brown" *](#colors-names)
+lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","brown" *](#colors-names)
 
 ## Colors names
 
-[See color names](https://htmlcolorcodes.com/color-names/)
+[* See colors names](https://htmlcolorcodes.com/color-names/)
 
 ## Browsers support
 
