@@ -8,14 +8,23 @@ IntersectionObserver support, the animation starts when the individual chart app
 
 ![Screenshot1](https://github.com/tomik23/circular-progress-bar/blob/master/circular-progress-bar.png)
 
-## Getting started
-Before the first use, clone this repository and install node dependencies:
 
-```yarn``` or ```npm install```
+## Watch/Build the app
+Watch the app, just call:
 
-The final code:
+```bash
+yarn watch
+# or
+npm run watch
+```
 
-```yarn build``` convert ES6 to ES5 see the section - **Browser Compatibility**
+Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomik23/circular-progress-bar#colors-names)**
+
+```bash
+yarn build
+# or
+npm run build
+```
 
 ## Sample configuration
 We need two things, configuration html diva. And call our script with the pieName name declaration.
