@@ -41,9 +41,8 @@ Minimal configuration
 ### Function call
 
 ```javascript
-new CircularProgressBar({
-  pieName: 'pie'
-});
+// 'pie' is class name div
+new CircularProgressBar('pie');
 ```
 
 ## Configuration of the plugin
