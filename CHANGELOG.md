@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2020-07-09
+### Added
+- IE9 and IE10 support
+
+### Changed
+- Update devDependencies
+
 ## 2020-05-22
 ### Changed
 - Fixed: vertical centering of the text element
