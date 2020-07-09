@@ -13,12 +13,12 @@ module.exports = (env, { mode }) => {
   return {
     devtool: inDev ? 'eval-source-map' : 'none',
     entry: {
-      CircularProgressBar: './sources/index.js',
+      circularProgressBar: './sources/index.js',
     },
     output: {
       path: path.resolve(__dirname, 'docs'),
-      filename: './[name].js',
-      library: '[name]',
+      filename: './[name].min.js',
+      library: 'CircularProgressBar',
       libraryExport: 'default',
       libraryTarget: 'umd'
     },
@@ -64,7 +64,7 @@ module.exports = (env, { mode }) => {
         template: './sources/index.html',
       }),
       new MiniCssExtractPlugin({
-        filename: './CircularProgressBar.css',
+        filename: './circularProgressBar.min.css',
       }),
       prodPlugin(
         new BundleAnalyzerPlugin({
