@@ -1,0 +1,16 @@
+var pieName;
+var pieElement;
+var colorSlice;
+var lineargradient;
+var round;
+var percent;
+var colorSlice;
+var strokeWidth;
+var opacity;
+var number;
+var colorCircle;
+var size;
+var fontSize;
+var fontWeight;
+var fontColor;
+var time;
