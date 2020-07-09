@@ -1,5 +1,5 @@
 class CircularProgressBar {
-  constructor({ pieName }) {
+  constructor(pieName) {
     this.pieName = pieName;
     this.pieElement = document.querySelectorAll(`.${pieName}`);
     this.svg = 'http://www.w3.org/2000/svg';
