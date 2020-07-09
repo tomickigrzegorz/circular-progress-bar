@@ -2,10 +2,11 @@ class CircularProgressBar {
   constructor({ pieName }) {
     this.pieName = pieName;
     this.pieElement = document.querySelectorAll(`.${pieName}`);
-    this.onChange(this.pieElement);
     this.svg = 'http://www.w3.org/2000/svg';
     this.xmlns = 'http://www.w3.org/2000/xmlns/';
     this.xlink = 'http://www.w3.org/1999/xlink';
+
+    this.onChange(this.pieElement);
   }
 
   onChange(pies) {
@@ -19,7 +20,7 @@ class CircularProgressBar {
       const ovserver = new IntersectionObserver((changes) => changes.forEach((change) => {
         if (change.intersectionRatio > 0.75) {
           for (let i = 0; i < pies.length; i++) {
-            if (pies[i].dataset === change.target.dataset) {
+            if (pies[i].getAttribute('data-pie') === change.target.getAttribute('data-pie')) {
               this.createSvg(change.target, i);
             }
           }
@@ -29,7 +30,6 @@ class CircularProgressBar {
       for (let i = 0; i < pies.length; i++) {
         ovserver.observe(pies[i]);
       }
-      // pies.forEach((pie) => ovserver.observe(pie));
     } else {
       for (let i = 0; i < pies.length; i++) {
         this.createSvg(pies[i], i);
@@ -57,7 +57,6 @@ class CircularProgressBar {
       index: this.index,
     };
 
-    // console.log(svg, this.percentElement());
     if (options.number) svg.appendChild(this.percentElement());
 
     for (let i = 0; i <= options.end; i++) {
@@ -116,7 +115,7 @@ class CircularProgressBar {
       fontWeight,
       fontColor,
       time,
-    } = JSON.parse(target.dataset.pie);
+    } = JSON.parse(target.getAttribute('data-pie'));
 
     this.index = index;
     this.percent = percent || 65;
