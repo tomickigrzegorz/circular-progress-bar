@@ -3,8 +3,9 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["airbnb-base"],
-  "plugins": ["html"],
+  "extends": [
+    "airbnb-base"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -14,13 +15,30 @@
     "sourceType": "module"
   },
   "rules": {
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
     "class-methods-use-this": "off",
-    "quotes": ["error", "single"],
+    "quotes": [
+      "error",
+      "single"
+    ],
     "no-param-reassign": [
       2,
       {
         "props": false
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "only-multiline"
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": "always",
+        "ExportDeclaration": "never"
       }
     ],
     "no-plusplus": [
