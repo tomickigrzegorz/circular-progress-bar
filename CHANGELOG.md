@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2020-07-18
+### Changed
+- Update README.md
+
 ## 2020-07-09
 ### Added
 - IE9 and IE10 support
