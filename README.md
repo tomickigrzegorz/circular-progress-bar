@@ -27,14 +27,16 @@ npm run build
 ```
 
 ## Sample configuration
-We need two things, configuration html diva. And call our script with the pieName name declaration.
-Everyone must consist of a class after which the application will be called, for this you also need a data attribute - data-pie. This is JSON's configurable appearance and circular-progress-bar behavior.
+1. Add a div element to the page `<div class="pie" data-pie='{" percent ": 80}'></div>`
+2. Build the script or download it from the `docs` folder and add `circularProgressBar.min.js` to the page
+3. Call the functions `new CircularProgressBar('pie');`
 
+More extensive example:
 ```html
 <div class="pie" data-pie='{ "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
 <div class="pie" data-pie='{ "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
 ```
-Minimal configuration 
+Minimal configuration:
 ```html
 <div class="pie" data-pie='{ "percent": 80 }'></div>
 ```
@@ -71,4 +73,4 @@ lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","bro
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Vivaldi |
 | --------- | --------- | --------- | --------- | --------- |
-| IE9, IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions
+| IE9+, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions
