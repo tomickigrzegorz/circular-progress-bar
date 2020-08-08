@@ -17,7 +17,11 @@ export default {
       languageIn: 'ECMASCRIPT6',
       language_out: 'ECMASCRIPT5',
       compilation_level: 'ADVANCED',
-      externs: './sources/externs/externs.js'
+      externs: './sources/externs/externs.js',
+      // compilation_level: 'WHITESPACE_ONLY',
+      // compilation_level: 'SIMPLE',
+      // debug: true,
+      // source_map_format: 'V3'
     }),
     (!PRODUCTION && serve({ open: true, contentBase: ['./docs', './sources'] })),
     (!PRODUCTION && livereload())
