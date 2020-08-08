@@ -1,12 +1,24 @@
-# Circular Progress Bar - [live example](https://tomik23.github.io/circular-progress-bar/)
+<h1 align="center">
+  Circular Progress Bar
+</h1>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  Simple circular progress bar. From now on, one call runs multiple circular-progress-bar. IntersectionObserver support, the animation starts when the individual chart appears in the view.
+</p>
 
-Simple circular progress bar - [examples](https://tomik23.github.io/circular-progress-bar/).
-From now on, one call runs multiple circular-progress-bar.
-IntersectionObserver support, the animation starts when the individual chart appears in the view.
+<p align="center">
+  <img src="https://img.shields.io/github/package-json/v/tomik23/circular-progress-bar">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg">
+  </a>
+</p>
 
-![Screenshot1](https://github.com/tomik23/circular-progress-bar/blob/master/circular-progress-bar.png)
+<p align="center">
+  <img src="circular-progress-bar.png">
+</p>
+
+## Demo
+See the demo - [example](https://tomik23.github.io/circular-progress-bar/)
 
 
 ## Watch/Build the app
