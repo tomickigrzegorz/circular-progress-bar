@@ -17,19 +17,20 @@ class CircularProgressBar {
         threshold: 0,
       };
 
-      const ovserver = new IntersectionObserver((changes) => changes.forEach((change) => {
-        if (change.intersectionRatio > 0.75) {
-          for (let i = 0; i < pies.length; i++) {
-            if (pies[i].getAttribute('data-pie') === change.target.getAttribute('data-pie')) {
-              this.createSvg(change.target, i);
-            }
+      let test = 0;
+      const ovserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
+            this.createSvg(entry.target, test);
+            observer.unobserve(entry.target);
+            test += 1;
           }
-          ovserver.unobserve(change.target);
-        }
-      }), config);
-      for (let i = 0; i < pies.length; i++) {
-        ovserver.observe(pies[i]);
-      }
+        });
+      }, config);
+
+      pies.forEach((item) => {
+        ovserver.observe(item);
+      });
     } else {
       for (let i = 0; i < pies.length; i++) {
         this.createSvg(pies[i], i);
@@ -43,7 +44,7 @@ class CircularProgressBar {
     return rgb;
   }
 
-  circularBar(svg) {
+  circularBar(svg, target) {
     const stroke = document.querySelector(`.${this.pieName}-circle-${this.index}`);
 
     const options = {
@@ -70,13 +71,13 @@ class CircularProgressBar {
       }, i * options.time);
     }
 
-    stroke.setAttribute('stroke', this.lineargradient ? 'url(#linear)' : this.colorSlice);
+    stroke.setAttribute('stroke', this.lineargradient ? `url(#linear-${this.index})` : this.colorSlice);
 
     const boxShadow = !this.colorCircle
       ? `border-radius: 50%; box-shadow: inset 0px 0px ${this.strokeWidth}px ${this.strokeWidth}px rgba(${this.hexTorgb(this.colorSlice)}, ${this.opacity})`
       : '';
 
-    this.pieElement[options.index].setAttribute('style', `width: ${this.size}px; height: ${this.size}px;  position: relative; ${boxShadow}`);
+    target.setAttribute('style', `width: ${this.size}px; height: ${this.size}px;  position: relative; ${boxShadow}`);
   }
 
   percentElement() {
@@ -151,18 +152,18 @@ class CircularProgressBar {
     svg.setAttributeNS(this.xmlns, 'xmlns', this.xmlns);
 
     if (this.lineargradient) {
-      svg.appendChild(this.linearGradient());
+      svg.appendChild(this.linearGradient(this.index));
     }
     svg.appendChild(circleTop);
 
-    this.pieElement[this.index].appendChild(svg);
-    this.circularBar(svg);
+    target.appendChild(svg);
+    this.circularBar(svg, target);
   }
 
-  linearGradient() {
+  linearGradient(index) {
     const defs = document.createElementNS(this.svg, 'defs');
     const linearGradient = document.createElementNS(this.svg, 'linearGradient');
-    linearGradient.id = 'linear';
+    linearGradient.id = `linear-${index}`;
 
     const countGradient = [].slice.call(this.lineargradient);
     defs.appendChild(linearGradient);
