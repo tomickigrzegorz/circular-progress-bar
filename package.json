@@ -1,6 +1,6 @@
 {
   "name": "circular-progress-bar",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "repository": "https://github.com/tomik23/circular-progress-bar.git",
   "author": "Grzegorz Tomicki",
