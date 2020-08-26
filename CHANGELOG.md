@@ -1,6 +1,6 @@
-# Change Log
-
-All notable changes to this project will be documented in this file.
+## 2020-08-26 (v.1.0.6)
+### Changed
+- Fix: [#6](https://github.com/tomik23/circular-progress-bar/issues/6)
 
 ## 2020-07-18
 ### Changed
