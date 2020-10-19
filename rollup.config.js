@@ -1,29 +1,26 @@
+import babel from '@rollup/plugin-babel';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
-import compiler from '@ampproject/rollup-plugin-closure-compiler';
+import { terser } from 'rollup-plugin-terser';
 
 const { PRODUCTION } = process.env;
 
 export default {
-  input: 'sources/script.js',
+  // input: 'sources/old.js',
+  input: 'sources/index.js',
   output: {
     file: 'docs/circularProgressBar.min.js',
     format: 'iife',
     name: 'CircularProgressBar',
-    sourcemap: !PRODUCTION
+    sourcemap: !PRODUCTION,
   },
   plugins: [
-    compiler({
-      languageIn: 'ECMASCRIPT6',
-      language_out: 'ECMASCRIPT5',
-      compilation_level: 'ADVANCED',
-      externs: './sources/externs/externs.js',
-      // compilation_level: 'WHITESPACE_ONLY',
-      // compilation_level: 'SIMPLE',
-      // debug: true,
-      // source_map_format: 'V3'
+    babel({
+      exclude: 'node_modules/**',
+      babelHelpers: 'bundled',
     }),
-    (!PRODUCTION && serve({ open: true, contentBase: ['./docs', './sources'] })),
-    (!PRODUCTION && livereload())
-  ]
+    PRODUCTION && terser(),
+    !PRODUCTION && serve({ open: true, contentBase: 'docs' }),
+    !PRODUCTION && livereload(),
+  ],
 };
