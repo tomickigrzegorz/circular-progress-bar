@@ -1,3 +1,13 @@
+## 2020-10-24 (v.1.0.7)
+### Added
+- New 'animationTo' functionality
+- Adding babel
+
+### Changed
+- Update devDependencies
+- Update README.md
+- Removed 'rollup-plugin-closure-compiler'
+
 ## 2020-08-26 (v.1.0.6)
 ### Changed
 - Fix: [#6](https://github.com/tomik23/circular-progress-bar/issues/6)
