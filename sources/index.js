@@ -5,13 +5,11 @@ class CircularProgressBar {
     this.pieName = pieName;
     this.pieElement = document.querySelectorAll(`.${pieName}`);
     this.svg = 'http://www.w3.org/2000/svg';
-    this.xmlns = 'http://www.w3.org/2000/xmlns/';
-    this.xlink = 'http://www.w3.org/1999/xlink';
 
-    this.onChange(this.pieElement);
+    this.initial(this.pieElement);
   }
 
-  onChange = (elements) => {
+  initial = (elements) => {
     if ('IntersectionObserver' in window) {
       const config = {
         root: null,
@@ -46,9 +44,7 @@ class CircularProgressBar {
       // eslint-disable-next-line no-param-reassign
       (hex = hex.replace('#', ''))
         .match(new RegExp('(.{' + hex.length / 3 + '})', 'g'))
-        .map(function (l) {
-          return parseInt(hex.length % 2 ? l + l : l, 16);
-        })
+        .map((el) => parseInt(hex.length % 2 ? el + el : el, 16))
         .concat(opacity / 100 || 1)
         .join(',') +
       ')'
@@ -68,14 +64,17 @@ class CircularProgressBar {
       size,
     } = options;
 
+    if (number)
+      svg.insertAdjacentHTML('beforeend', this.percentElement(options));
+
     const element = document.querySelector(`.${this.pieName}-circle-${index}`);
-
-    if (number) svg.appendChild(this.percentElement(options));
-
-    element.setAttribute('fill', 'none');
-    element.setAttribute('stroke-width', stroke);
-    element.setAttribute('stroke-linecap', round ? 'round' : '');
-    element.setAttribute('transform', `rotate(-90, 50, 50)`);
+    const objsvg = {
+      fill: 'none',
+      transform: 'rotate(-90, 50, 50)',
+      'stroke-width': stroke,
+      'stroke-linecap': round ? 'round' : '',
+    };
+    this.setAttr(element, objsvg, false);
 
     // animation
     this.animationTo({ ...options, element }, true);
@@ -88,12 +87,12 @@ class CircularProgressBar {
 
     // box shadow
     const boxShadow = !colorCircle
-      ? `border-radius: 50%; box-shadow: inset 0px 0px ${stroke}px ${stroke}px ${this.hexTorgb(colorSlice, opacity)}`
+      ? `border-radius:50%;box-shadow:inset 0px 0px ${stroke}px ${stroke}px ${this.hexTorgb(colorSlice, opacity)}`
       : '';
 
     target.setAttribute(
       'style',
-      `${size}px; height: ${size}px;  position: relative; ${boxShadow}`
+      `${size}px;height:${size}px;position:relative;${boxShadow}`
     );
   };
 
@@ -139,56 +138,38 @@ class CircularProgressBar {
     requestAnimationFrame(performAnimation);
   };
 
-  percentElement = (options) => {
-    const { index, fontSize, fontWeight, fontColor } = options;
-    const text = document.createElementNS(this.svg, 'text');
-    text.id = `${this.pieName}-percent-${index}`;
-    text.setAttributeNS(null, 'x', '50%');
-    text.setAttributeNS(null, 'y', '50%');
-    text.setAttributeNS(null, 'font-size', fontSize);
-    text.setAttributeNS(null, 'font-weight', fontWeight);
-    text.setAttributeNS(null, 'fill', fontColor);
-    text.setAttributeNS(null, 'text-anchor', 'middle');
-    text.setAttributeNS(null, 'alignment-baseline', 'central');
-
-    return text;
+  percentElement = ({ index, fontSize, fontWeight, fontColor }) => {
+    const textTemplate = `
+    <text id="${this.pieName}-percent-${index}" x="50%" y="50%" font-size="${fontSize}" font-weight="${fontWeight}" fill="${fontColor}" text-anchor="middle" dominant-baseline="central" />`;
+    return textTemplate;
   };
 
-  getDataPie = (index) =>
-    JSON.parse(this.pieElement[index].getAttribute('data-pie'));
-
-  createSvg = (target, index) => {
-    const dataPie = JSON.parse(target.getAttribute('data-pie'));
-    const options = { ...defaultOptions, ...dataPie, ...index };
+  createSvg = (element, index) => {
+    const dataOptions = JSON.parse(element.getAttribute('data-pie'));
+    const options = { ...defaultOptions, ...dataOptions, ...index };
 
     const svg = document.createElementNS(this.svg, 'svg');
 
-    const circleTop = this.circleSvg(true);
-    const circleBottom = this.circleSvg();
-
-    circleTop.setAttribute('class', `${this.pieName}-circle-${dataPie.index}`);
+    const objSvg = {
+      width: options.size,
+      height: options.size,
+      viewBox: '0 0 100 100',
+    };
+    this.setAttr(svg, objSvg, false);
 
     if (options.colorCircle) {
-      circleBottom.setAttributeNS(null, 'fill', 'none');
-      circleBottom.setAttributeNS(null, 'stroke', options.colorCircle);
-      circleBottom.setAttributeNS(null, 'stroke-width', `${options.stroke}`);
-      svg.appendChild(circleBottom);
+      svg.appendChild(this.circleSvg(dataOptions, 'bottom'));
     }
-
-    svg.setAttributeNS(null, 'width', options.size);
-    svg.setAttributeNS(null, 'height', options.size);
-    svg.setAttributeNS(null, 'viewBox', `0 0 100 100`);
-    svg.setAttributeNS(this.xmlns, 'xmlns', this.xmlns);
 
     if (options.lineargradient) {
       svg.appendChild(this.linearGradient(options.index, options));
     }
 
-    svg.appendChild(circleTop);
+    svg.appendChild(this.circleSvg(dataOptions, 'top', true));
 
-    target.appendChild(svg);
+    element.appendChild(svg);
 
-    this.circularBar(svg, target, options);
+    this.circularBar(svg, element, options);
   };
 
   linearGradient = (index, options) => {
@@ -197,13 +178,19 @@ class CircularProgressBar {
     linearGradient.id = `linear-${index}`;
 
     const countGradient = [].slice.call(options.lineargradient);
+
     defs.appendChild(linearGradient);
 
     let number = 0;
     for (let i = 0; i < countGradient.length; i++) {
       const stop = document.createElementNS(this.svg, 'stop');
-      stop.setAttributeNS(null, 'offset', `${number}%`);
-      stop.setAttribute('style', `stop-color: ${countGradient[i]};`);
+
+      const objStop = {
+        offset: `${number}%`,
+        'stop-color': `${countGradient[i]}`,
+      };
+      this.setAttr(stop, objStop, false);
+
       linearGradient.appendChild(stop);
       number += 100 / (countGradient.length - 1);
     }
@@ -211,23 +198,36 @@ class CircularProgressBar {
     return defs;
   };
 
-  circleSvg = (setAngel = false) => {
-    const circle = document.createElementNS(this.svg, 'circle');
-    circle.setAttributeNS(null, 'cx', '50');
-    circle.setAttributeNS(null, 'cy', '50');
-    circle.setAttributeNS(null, 'r', '42');
-    circle.setAttributeNS(null, 'shape-rendering', 'geometricPrecision');
-    if (setAngel) circle.setAttribute('data-angel', 0);
+  circleSvg = (options, where, setAngel = false) => {
+    const circleElement = document.createElementNS(this.svg, 'circle');
+    const typeCircle =
+      where === 'top'
+        ? { class: `${this.pieName}-circle-${options.index}` }
+        : {
+          fill: 'none',
+          stroke: options.colorCircle,
+          'stroke-width': options.stroke,
+        };
 
-    return circle;
+    const objCircle = {
+      cx: 50,
+      cy: 50,
+      r: 42,
+      'shape-rendering': 'geometricPrecision',
+      'data-angle': setAngel ? 0 : '',
+      ...typeCircle,
+    };
+    this.setAttr(circleElement, objCircle, false);
+
+    return circleElement;
   };
 
-  setAttr = (target, object, type = false) => {
-    for (const [key, value] of Object.entries(object)) {
+  setAttr = (element, object, type = false) => {
+    for (const key in object) {
       if (type) {
-        target.setAttributeNS(null, key, value);
+        element.setAttributeNS(null, key, object[key]);
       } else {
-        target.setAttribute(key, value);
+        element.setAttribute(key, object[key]);
       }
     }
   };
