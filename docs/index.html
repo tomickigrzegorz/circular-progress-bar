@@ -5,106 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="global.css">
     <title>circular progress bar</title>
-    <style>
-      *,
-      *:before,
-      *:after {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        height: 100%;
-      }
-
-      body {
-        position: relative;
-        min-height: 100%;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
-          Segoe UI Emoji, Segoe UI Symbol;
-        background: #fff;
-      }
-
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin: auto;
-      }
-
-      section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        ;
-        min-height: 100vh;
-        gap: 40px;
-      }
-
-      section:nth-child(even) {
-        background: #f8f8f8;
-      }
-
-      @media (max-width: 720px) {
-        section {
-          flex-direction: column;
-          justify-content: center;
-        }
-      }
-    </style>
   </head>
 
   <body>
     <div class="container">
       <section>
-        <div class="pie"
-          data-pie='{ "index": 0, "percent": 50,  "colorSlice": "#E91E63",  "time": 1000, "fontWeight": 400 }'>
-        </div>
-        <div class="pie"
-          data-pie='{ "index": 1, "percent": 60, "colorSlice": "#ffc107", "time": 30, "fontWeight": 400 }'></div>
-        <div class="pie"
-          data-pie='{ "index": 2, "percent": 70, "colorSlice": "#00bcd4", "time": 30, "fontWeight": 400 }'></div>
+        <div class="pie" data-pie='{ "index": 0, "percent": 50,  "colorSlice": "#E91E63",  "fontWeight": 400 }'></div>
+        <div class="pie" data-pie='{ "index": 1, "percent": 60, "colorSlice": "#ffc107", "fontWeight": 400 }'></div>
+        <div class="pie" data-pie='{ "index": 2, "percent": 70, "colorSlice": "#00bcd4", "fontWeight": 400 }'></div>
       </section>
       <section>
         <div class="pie"
-          data-pie='{ "index": 3, "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 70, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 30 }'>
+          data-pie='{ "index": 3, "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 70, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 4, "lineargradient": ["#ff0000","#9c27b0"], "round": true, "percent": 80, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 30 }'>
+          data-pie='{ "index": 4, "lineargradient": ["#ff0000","#9c27b0"], "round": true, "percent": 80, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 5, "lineargradient": ["#ff0000","yellow"], "round": true, "percent": 90, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 30 }'>
+          data-pie='{ "index": 5, "lineargradient": ["#ff0000","yellow"], "round": true, "percent": 90, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
         </div>
       </section>
       <section>
         <div class="pie"
-          data-pie='{ "index": 6, "percent": 55, "size": 200, "stroke": 10, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'>
+          data-pie='{ "index": 6, "percent": 55, "size": 200, "stroke": 10, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 7, "percent": 75, "size": 200, "stroke": 10, "colorSlice": "#ffc107", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'>
+          data-pie='{ "index": 7, "percent": 75, "size": 200, "stroke": 10, "colorSlice": "#ffc107", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 8, "percent": 85, "size": 200, "stroke": 10, "colorSlice": "#00bcd4", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'>
+          data-pie='{ "index": 8, "percent": 85, "size": 200, "stroke": 10, "colorSlice": "#00bcd4", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
         </div>
       </section>
       <section>
         <div class="pie"
-          data-pie='{ "index": 9, "percent": 60, "colorSlice": "#000", "colorCircle": "#e6e6e6", "stroke": 10, "number": false, "time": 10 }'>
+          data-pie='{ "index": 9, "percent": 60, "colorSlice": "#000", "colorCircle": "#e6e6e6", "stroke": 10, "number": false }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 10, "percent": 70, "colorSlice": "#ffc107", "colorCircle": "#e6e6e6", "stroke": 10, "number": false, "time": 10 }'>
+          data-pie='{ "index": 10, "percent": 70, "colorSlice": "#ffc107", "colorCircle": "#e6e6e6", "stroke": 10, "number": false }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 11, "percent": 80, "colorSlice": "#00bcd4", "colorCircle": "#e6e6e6", "stroke": 10, "number": false, "time": 10 }'>
+          data-pie='{ "index": 11, "percent": 80, "colorSlice": "#00bcd4", "colorCircle": "#e6e6e6", "stroke": 10, "number": false }'>
         </div>
       </section>
     </div>
