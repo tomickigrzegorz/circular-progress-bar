@@ -1,4 +1,4 @@
-## 2020-10-24 (v.1.0.7)
+## 2020-10-23 (v.1.0.7)
 ### Added
 - New 'animationTo' functionality
 - Adding babel
