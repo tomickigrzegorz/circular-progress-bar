@@ -6,7 +6,6 @@ import { terser } from 'rollup-plugin-terser';
 const { PRODUCTION } = process.env;
 
 export default {
-  // input: 'sources/old.js',
   input: 'sources/index.js',
   output: {
     file: 'docs/circularProgressBar.min.js',
