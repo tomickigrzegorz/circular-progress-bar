@@ -82,7 +82,7 @@ index | number |   | ✔ | Each item is numbered for future updates, see example
 percent | number | `65` | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
 colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#ffff00","brown" *](#colors-names)
 colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown" *](#colors-names)
-strokeWidth | number | `10` |  | Stroke width, chart thickness
+stroke | number | `10` |  | Stroke width, chart thickness
 round | boolean | `false` |  | Path rounding
 opacity | number | `10` |  | Opacity box-shadow
 number | boolean | `true` |  | Add props number and set to false to hide the number with percent
