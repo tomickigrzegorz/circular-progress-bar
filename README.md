@@ -46,37 +46,51 @@ npm run build
 
 More extensive example:
 ```html
-<div class="pie" data-pie='{ "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
-<div class="pie" data-pie='{ "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
+<div class="pie" data-pie='{ "index": 0, "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
+<div class="pie" data-pie='{ "index": 1, "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
 ```
 Minimal configuration:
 ```html
-<div class="pie" data-pie='{ "percent": 80 }'></div>
+<div class="pie" data-pie='{ "index": 0, "percent": 80 }'></div>
 ```
 ### Function call
 
 ```javascript
 // 'pie' is class name div
-new CircularProgressBar('pie');
+const circle = new CircularProgressBar('pie');
+```
+Update circular-progress-bar, example:
+```javascript
+setTimeout(() => {
+  const options = {
+    // item number you want to update
+    index: 0,
+    // set a new percentage
+    percent: 30
+  }
+  circle.animationTo(options);
+}, 3000);
 ```
 
 ## Configuration of the plugin
 
 props | type | default | require | description
 ---- | :-------: | :-------: | :--------: | -----------
+index | number |   | ✔ | Each item is numbered for future updates, see example
 percent | number | `65` | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
 colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#ffff00","brown" *](#colors-names)
 colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown" *](#colors-names)
 strokeWidth | number | `10` |  | Stroke width, chart thickness
 round | boolean | `false` |  | Path rounding
-opacity | number | `0.1` |  | Opacity box-shadow
+opacity | number | `10` |  | Opacity box-shadow
 number | boolean | `true` |  | Add props number and set to false to hide the number with percent
 size | number | `200` |  | Size progress bar width and height in px
-time | number | `20` |  | Displays the speed of the progress bar animation
 fontSize | string | `'3rem'` |  | Font size. The font can be shown in units rem, em, px ...
 fontWeight | number string | `400` |  | [number, normal, bold, bolder, lighter]
 fontColor | string | `'#365b74'` |  | Font color ["#ffff00","brown" *](#colors-names)
 lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","brown" *](#colors-names)
+
+<!-- time | number | `20` |  | Displays the speed of the progress bar animation -->
 
 ## Colors names
 
@@ -86,4 +100,6 @@ lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","bro
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Vivaldi |
 | --------- | --------- | --------- | --------- | --------- |
-| IE9+, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions
+| IE10+, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions
+
+> *IE10+ If you want the code to be supported in IE10 + you have to add pollyfil
