@@ -59,8 +59,10 @@ Minimal configuration:
 // 'pie' is class name div
 const circle = new CircularProgressBar('pie');
 ```
-Update circular-progress-bar, example:
+### Update circular-progress-bar dynamically
 ```javascript
+const circle = new CircularProgressBar('pie');
+
 setTimeout(() => {
   const options = {
     // item number you want to update
@@ -69,7 +71,7 @@ setTimeout(() => {
     percent: 30
   }
   circle.animationTo(options);
-}, 3000);
+}, 3000); // after 3s update
 ```
 
 ## Configuration of the plugin
@@ -89,8 +91,6 @@ fontSize | string | `'3rem'` |  | Font size. The font can be shown in units rem,
 fontWeight | number string | `400` |  | [number, normal, bold, bolder, lighter]
 fontColor | string | `'#365b74'` |  | Font color ["#ffff00","brown" *](#colors-names)
 lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","brown" *](#colors-names)
-
-<!-- time | number | `20` |  | Displays the speed of the progress bar animation -->
 
 ## Colors names
 
