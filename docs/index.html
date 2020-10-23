@@ -65,80 +65,85 @@
 
   <body>
     <div class="container">
-      <!-- <section>
-        <div class="pie"
-          data-pie='{ "index": 1, "percent": 90, "colorSlice": "#E91E63", "round": true, "time": 2000, "fontWeight": 400 }'>
-        </div>
-        <div class="pie"
-          data-pie='{ "index": 2, "percent": 60, "colorSlice": "#ffc107", "round": true,"time": 2000, "fontWeight": 400 }'>
-        </div>
-        <div class="pie"
-          data-pie='{ "index": 3, "percent": 70, "colorSlice": "#00bcd4", "round": true, "time": 3000, "fontWeight": 400 }'>
-        </div>
-      </section> -->
       <section>
         <div class="pie"
-          data-pie='{ "index": 4, "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 70, "fontSize": "3rem", "fontWeight": 600, "stroke": 20, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
-        </div>
-        <!-- <div class="pie"
-          data-pie='{ "index": 5, "lineargradient": ["#ff0000","#9c27b0"], "round": true, "percent": 80, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
+          data-pie='{ "index": 0, "percent": 50,  "colorSlice": "#E91E63",  "time": 1000, "fontWeight": 400 }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 6, "lineargradient": ["#ff0000","yellow"], "round": true, "percent": 90, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
-        </div> -->
+          data-pie='{ "index": 1, "percent": 60, "colorSlice": "#ffc107", "time": 30, "fontWeight": 400 }'></div>
+        <div class="pie"
+          data-pie='{ "index": 2, "percent": 70, "colorSlice": "#00bcd4", "time": 30, "fontWeight": 400 }'></div>
       </section>
-      <!-- <section>
+      <section>
         <div class="pie"
-          data-pie='{ "index": 7, "percent": 55, "size": 100, "stroke": 7, "round": true,"colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+          data-pie='{ "index": 3, "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 70, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 30 }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 8, "percent": 75, "size": 100, "stroke": 7, "round": true,"colorSlice": "#ffc107", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+          data-pie='{ "index": 4, "lineargradient": ["#ff0000","#9c27b0"], "round": true, "percent": 80, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 30 }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 9, "percent": 85, "size": 100, "stroke": 7, "round": true,"colorSlice": "#00bcd4", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+          data-pie='{ "index": 5, "lineargradient": ["#ff0000","yellow"], "round": true, "percent": 90, "fontSize": "1.6rem", "fontWeight": 400, "stroke": 10, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6", "time": 30 }'>
         </div>
-      </section> -->
-      <!-- <section>
+      </section>
+      <section>
         <div class="pie"
-          data-pie='{ "index": 10, "percent": 60, "colorSlice": "#000", "round": true,"colorCircle": "#e6e6e6", "stroke": 7, "number": false }'>
-        </div>
-        <div class="pie"
-          data-pie='{ "index": 11, "percent": 70, "colorSlice": "#ffc107", "round": true,"colorCircle": "#e6e6e6", "stroke": 7, "number": false }'>
+          data-pie='{ "index": 6, "percent": 55, "size": 200, "stroke": 10, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'>
         </div>
         <div class="pie"
-          data-pie='{ "index": 12, "percent": 80, "colorSlice": "#00bcd4", "round": true,"colorCircle": "#e6e6e6", "stroke": 7, "number": false }'>
+          data-pie='{ "index": 7, "percent": 75, "size": 200, "stroke": 10, "colorSlice": "#ffc107", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'>
         </div>
-      </section> -->
+        <div class="pie"
+          data-pie='{ "index": 8, "percent": 85, "size": 200, "stroke": 10, "colorSlice": "#00bcd4", "colorCircle": "#f1f1f1", "fontWeight": 100, "time": 50 }'>
+        </div>
+      </section>
+      <section>
+        <div class="pie"
+          data-pie='{ "index": 9, "percent": 60, "colorSlice": "#000", "colorCircle": "#e6e6e6", "stroke": 10, "number": false, "time": 10 }'>
+        </div>
+        <div class="pie"
+          data-pie='{ "index": 10, "percent": 70, "colorSlice": "#ffc107", "colorCircle": "#e6e6e6", "stroke": 10, "number": false, "time": 10 }'>
+        </div>
+        <div class="pie"
+          data-pie='{ "index": 11, "percent": 80, "colorSlice": "#00bcd4", "colorCircle": "#e6e6e6", "stroke": 10, "number": false, "time": 10 }'>
+        </div>
+      </section>
     </div>
 
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
       if (!('IntersectionObserver' in window)) {
         var script = document.createElement("script");
-        script.src = "https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CArray.prototype.forEach%2CObject.assign";
+        script.src = "https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver";
         document.getElementsByTagName('head')[0].appendChild(script);
       }
-    </script> -->
+    </script>
     <script>
-
       window.addEventListener('DOMContentLoaded', function () {
-        const pie = new CircularProgressBar('pie');
+        const circle = new CircularProgressBar('pie');
 
-        setTimeout(function () {
-          const optoins = {
-            index: 4,
-            percent: 25,
-            time: 2000
+        setInterval(() => {
+          const options = {
+            index: 0,
+            percent: Math.floor((Math.random() * 100) + 1)
           }
-          pie.animateTo(20);
-        }, 4000);
+          circle.animationTo(options);
+        }, 3000);
 
-        // setTimeout(function () {
-        //   pie.animateTo(4, 10);
-        // }, 6000);
+        setInterval(() => {
+          const options = {
+            index: 1,
+            percent: Math.floor((Math.random() * 100) + 1)
+          }
+          circle.animationTo(options);
+        }, 3200);
 
-        // setTimeout(function () {
-        //   pie.animateTo(1, 100, 1000);
-        // }, 9000);
+        setInterval(() => {
+          const options = {
+            index: 2,
+            percent: Math.floor((Math.random() * 100) + 1)
+          }
+          circle.animationTo(options);
+        }, 3400);
+
       });
     </script>
     <script src="circularProgressBar.min.js"></script>
