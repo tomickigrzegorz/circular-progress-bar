@@ -51,7 +51,7 @@ class CircularProgressBar {
     );
   };
 
-  circularBar = (svg, target, options) => {
+  progressBar = (svg, target, options) => {
     const {
       index,
       number,
@@ -68,13 +68,13 @@ class CircularProgressBar {
       svg.insertAdjacentHTML('beforeend', this.percentElement(options));
 
     const element = document.querySelector(`.${this.pieName}-circle-${index}`);
-    const objsvg = {
+    const obj = {
       fill: 'none',
       transform: 'rotate(-90, 50, 50)',
       'stroke-width': stroke,
       'stroke-linecap': round ? 'round' : '',
     };
-    this.setAttr(element, objsvg, false);
+    this.setAttr(element, obj, false);
 
     // animation
     this.animationTo({ ...options, element }, true);
@@ -90,6 +90,7 @@ class CircularProgressBar {
       ? `border-radius:50%;box-shadow:inset 0px 0px ${stroke}px ${stroke}px ${this.hexTorgb(colorSlice, opacity)}`
       : '';
 
+    // set width and height on div
     target.setAttribute(
       'style',
       `${size}px;height:${size}px;position:relative;${boxShadow}`
@@ -97,19 +98,17 @@ class CircularProgressBar {
   };
 
   animationTo = (options, initial = false) => {
-    const { index, percent } = options;
-    const getElement = document.querySelector(`.pie-circle-${index}`);
-    if (!getElement) return;
-    let angle = JSON.parse(getElement.getAttribute('data-angel'));
+    // round if number is decimal
+    const percent = Math.round(options.percent);
 
-    const previous = JSON.parse(
-      this.pieElement[index].getAttribute('data-pie')
-    );
-    const config = initial
-      ? options
-      : { ...previous, ...defaultOptions, ...options };
-    const element = document.querySelector(`.pie-circle-${index}`);
-    const place = document.getElementById(`${this.pieName}-percent-${index}`);
+    const element = document.querySelector(`.${this.pieName}-circle-${options.index}`);
+    if (!element) return;
+
+    // get numer percent from data-angel
+    let angle = JSON.parse(element.getAttribute('data-angel'));
+
+    const config = initial ? options : { ...defaultOptions, ...options };
+    const place = document.querySelector(`.${this.pieName}-percent-${options.index}`);
 
     if (percent > 100 || percent < 0 || angle === percent) return;
 
@@ -128,7 +127,6 @@ class CircularProgressBar {
       if (place && config.number) {
         place.textContent = `${i}%`;
       }
-
       if (i === percent) {
         element.setAttribute('data-angel', i);
         cancelAnimationFrame(request);
@@ -138,46 +136,44 @@ class CircularProgressBar {
     requestAnimationFrame(performAnimation);
   };
 
+  // set text element
   percentElement = ({ index, fontSize, fontWeight, fontColor }) => {
-    const textTemplate = `
-    <text id="${this.pieName}-percent-${index}" x="50%" y="50%" font-size="${fontSize}" font-weight="${fontWeight}" fill="${fontColor}" text-anchor="middle" dominant-baseline="central" />`;
-    return textTemplate;
+    return `<text class="${this.pieName}-percent-${index}" x="50%" y="50%" font-size="${fontSize}" font-weight="${fontWeight}" fill="${fontColor}" text-anchor="middle" dominant-baseline="central" />`;
   };
 
   createSvg = (element, index) => {
-    const dataOptions = JSON.parse(element.getAttribute('data-pie'));
-    const options = { ...defaultOptions, ...dataOptions, ...index };
+    const json = JSON.parse(element.getAttribute('data-pie'));
+    const options = { ...defaultOptions, ...json, ...index };
 
     const svg = document.createElementNS(this.svg, 'svg');
-
-    const objSvg = {
+    const obj = {
       width: options.size,
       height: options.size,
       viewBox: '0 0 100 100',
     };
-    this.setAttr(svg, objSvg, false);
+    this.setAttr(svg, obj, false);
 
     if (options.colorCircle) {
-      svg.appendChild(this.circleSvg(dataOptions, 'bottom'));
+      svg.appendChild(this.circleSvg(json, 'bottom'));
     }
 
     if (options.lineargradient) {
-      svg.appendChild(this.linearGradient(options.index, options));
+      svg.appendChild(this.gradient(options));
     }
 
-    svg.appendChild(this.circleSvg(dataOptions, 'top', true));
+    svg.appendChild(this.circleSvg(json, 'top', true));
 
     element.appendChild(svg);
 
-    this.circularBar(svg, element, options);
+    this.progressBar(svg, element, options);
   };
 
-  linearGradient = (index, options) => {
+  gradient = ({ index, lineargradient }) => {
     const defs = document.createElementNS(this.svg, 'defs');
     const linearGradient = document.createElementNS(this.svg, 'linearGradient');
     linearGradient.id = `linear-${index}`;
 
-    const countGradient = [].slice.call(options.lineargradient);
+    const countGradient = [].slice.call(lineargradient);
 
     defs.appendChild(linearGradient);
 
@@ -185,11 +181,11 @@ class CircularProgressBar {
     for (let i = 0; i < countGradient.length; i++) {
       const stop = document.createElementNS(this.svg, 'stop');
 
-      const objStop = {
+      const obj = {
         offset: `${number}%`,
         'stop-color': `${countGradient[i]}`,
       };
-      this.setAttr(stop, objStop, false);
+      this.setAttr(stop, obj, false);
 
       linearGradient.appendChild(stop);
       number += 100 / (countGradient.length - 1);
@@ -198,18 +194,18 @@ class CircularProgressBar {
     return defs;
   };
 
-  circleSvg = (options, where, setAngel = false) => {
-    const circleElement = document.createElementNS(this.svg, 'circle');
+  circleSvg = ({ index, colorCircle, stroke }, where, setAngel = false) => {
+    const circle = document.createElementNS(this.svg, 'circle');
     const typeCircle =
       where === 'top'
-        ? { class: `${this.pieName}-circle-${options.index}` }
+        ? { class: `${this.pieName}-circle-${index}` }
         : {
           fill: 'none',
-          stroke: options.colorCircle,
-          'stroke-width': options.stroke,
+          stroke: colorCircle,
+          'stroke-width': stroke,
         };
 
-    const objCircle = {
+    const obj = {
       cx: 50,
       cy: 50,
       r: 42,
@@ -217,9 +213,9 @@ class CircularProgressBar {
       'data-angle': setAngel ? 0 : '',
       ...typeCircle,
     };
-    this.setAttr(circleElement, objCircle, false);
+    this.setAttr(circle, obj, false);
 
-    return circleElement;
+    return circle;
   };
 
   setAttr = (element, object, type = false) => {
