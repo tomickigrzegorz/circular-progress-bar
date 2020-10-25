@@ -40,7 +40,7 @@ npm run build
 ```
 
 ## Sample configuration
-1. Add a div element to the page `<div class="pie" data-pie='{" percent ": 80}'></div>`
+1. Add a div element to the page `<div class="pie" data-pie='{ "index": 0, "percent": 80 }'></div>`
 2. Build the script or download it from the `docs` folder and add `circularProgressBar.min.js` to the page
 3. Call the functions `new CircularProgressBar('pie');`
 
