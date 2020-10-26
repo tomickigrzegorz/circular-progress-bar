@@ -88,7 +88,7 @@ opacity | number | `10` |  | Opacity box-shadow, 10 = 1s, 9 = 0.9 ... 1 = 0.1
 number | boolean | `true` |  | Add props number and set to false to hide the number with percent
 size | number | `200` |  | Size progress bar width and height in px
 fontSize | string | `1.6rem` |  | Font size. The font can be shown in units rem, em, px ...
-fontWeight | number string | `700` |  | [number, normal, bold, bolder, lighter]
+fontWeight | number string | `400` |  | [number, normal, bold, bolder, lighter]
 fontColor | string | `'#365b74'` |  | Font color ["#ffff00","brown" *](#colors-names)
 lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","brown" *](#colors-names)
 
