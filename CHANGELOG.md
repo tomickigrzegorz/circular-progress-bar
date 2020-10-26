@@ -1,3 +1,7 @@
+## 2020-10-26
+### Changed
+- Fix: stroke-width undefined [#12](https://github.com/tomik23/circular-progress-bar/issues/12)
+
 ## 2020-10-24
 ### Changed
 - Fix: Problem with class renaming [#10](https://github.com/tomik23/circular-progress-bar/issues/10)
