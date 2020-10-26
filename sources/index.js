@@ -159,14 +159,14 @@ class CircularProgressBar {
     this.setAttr(svg, obj, false);
 
     if (options.colorCircle) {
-      svg.appendChild(this.circleSvg(json, 'bottom'));
+      svg.appendChild(this.circleSvg(options, 'bottom'));
     }
 
     if (options.lineargradient) {
       svg.appendChild(this.gradient(options));
     }
 
-    svg.appendChild(this.circleSvg(json, 'top', true));
+    svg.appendChild(this.circleSvg(options, 'top', true));
 
     element.appendChild(svg);
 
