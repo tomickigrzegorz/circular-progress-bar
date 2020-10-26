@@ -79,16 +79,16 @@ setTimeout(() => {
 props | type | default | require | description
 ---- | :-------: | :-------: | :--------: | -----------
 index | number |   | ✔ | Each item is numbered for future updates, see example
-percent | number | `65` | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
+percent | number |  | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
 colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#ffff00","brown" *](#colors-names)
 colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown" *](#colors-names)
 stroke | number | `10` |  | Stroke width, chart thickness
 round | boolean | `false` |  | Path rounding
-opacity | number | `10` |  | Opacity box-shadow
+opacity | number | `10` |  | Opacity box-shadow, 10 = 1s, 9 = 0.9 ... 1 = 0.1
 number | boolean | `true` |  | Add props number and set to false to hide the number with percent
 size | number | `200` |  | Size progress bar width and height in px
-fontSize | string | `'3rem'` |  | Font size. The font can be shown in units rem, em, px ...
-fontWeight | number string | `400` |  | [number, normal, bold, bolder, lighter]
+fontSize | string | `1.6rem` |  | Font size. The font can be shown in units rem, em, px ...
+fontWeight | number string | `700` |  | [number, normal, bold, bolder, lighter]
 fontColor | string | `'#365b74'` |  | Font color ["#ffff00","brown" *](#colors-names)
 lineargradient | array |  |  | Array of colors "lineargradient": ["#ffff00","brown" *](#colors-names)
 
