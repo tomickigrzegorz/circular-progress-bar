@@ -4,7 +4,7 @@ const defaultOptions = {
   end: 264,
   fontColor: '#365b74',
   fontSize: '1.6rem',
-  fontWeight: 700,
+  fontWeight: 400,
   lineargradient: false,
   number: true,
   opacity: 10,

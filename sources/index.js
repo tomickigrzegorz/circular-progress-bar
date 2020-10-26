@@ -87,6 +87,7 @@ class CircularProgressBar {
 
     // box shadow
     const boxShadow = !colorCircle
+      // eslint-disable-next-line prettier/prettier
       ? `border-radius:50%;box-shadow:inset 0px 0px ${stroke}px ${stroke}px ${this.hexTorgb(colorSlice, opacity)}`
       : '';
 
@@ -101,14 +102,18 @@ class CircularProgressBar {
     // round if number is decimal
     const percent = Math.round(options.percent);
 
-    const element = document.querySelector(`.${this.pieName}-circle-${options.index}`);
+    const element = document.querySelector(
+      `.${this.pieName}-circle-${options.index}`
+    );
     if (!element) return;
 
     // get numer percent from data-angel
     let angle = JSON.parse(element.getAttribute('data-angel'));
 
     const config = initial ? options : { ...defaultOptions, ...options };
-    const place = document.querySelector(`.${this.pieName}-percent-${options.index}`);
+    const place = document.querySelector(
+      `.${this.pieName}-percent-${options.index}`
+    );
 
     if (percent > 100 || percent < 0 || angle === percent) return;
 
@@ -196,14 +201,15 @@ class CircularProgressBar {
 
   circleSvg = ({ index, colorCircle, stroke }, where, setAngel = false) => {
     const circle = document.createElementNS(this.svg, 'circle');
+    const objCircle = {
+      fill: 'none',
+      stroke: colorCircle,
+      'stroke-width': stroke,
+    };
     const typeCircle =
       where === 'top'
         ? { class: `${this.pieName}-circle-${index}` }
-        : {
-          fill: 'none',
-          stroke: colorCircle,
-          'stroke-width': stroke,
-        };
+        : objCircle;
 
     const obj = {
       cx: 50,
