@@ -5,15 +5,8 @@ import { terser } from 'rollup-plugin-terser';
 
 const { PRODUCTION } = process.env;
 
-export default {
-  input: 'sources/index.js',
-  output: {
-    file: 'docs/circularProgressBar.min.js',
-    format: 'iife',
-    name: 'CircularProgressBar',
-    sourcemap: !PRODUCTION,
-  },
-  plugins: [
+const plugins = () => {
+  return [
     babel({
       exclude: 'node_modules/**',
       babelHelpers: 'bundled',
@@ -21,5 +14,26 @@ export default {
     PRODUCTION && terser(),
     !PRODUCTION && serve({ open: true, contentBase: 'docs' }),
     !PRODUCTION && livereload(),
-  ],
+  ];
 };
+
+export default [
+  {
+    input: 'sources/index.js',
+    output: {
+      file: 'docs/circularProgressBar.min.js',
+      format: 'iife',
+      name: 'CircularProgressBar',
+    },
+    plugins: plugins(),
+  },
+  {
+    input: 'sources/index.js',
+    output: {
+      file: 'docs/circularProgressBar.umd.min.js',
+      format: 'umd',
+      name: 'CircularProgressBar',
+    },
+    plugins: plugins(),
+  }
+];
