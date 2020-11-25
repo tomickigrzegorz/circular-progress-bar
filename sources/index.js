@@ -38,17 +38,11 @@ class CircularProgressBar {
     }
   };
 
-  hexTorgb = (hex, opacity) => {
-    return (
-      'rgba(' +
-      // eslint-disable-next-line no-param-reassign
-      (hex = hex.replace('#', ''))
-        .match(new RegExp('(.{' + hex.length / 3 + '})', 'g'))
-        .map((el) => parseInt(hex.length % 2 ? el + el : el, 16))
-        .concat(opacity / 100 || 1)
-        .join(',') +
-      ')'
-    );
+  hex2rgb = (hex, opacity = 10) => {
+    const c =
+      typeof hex === 'string' ? parseInt(hex.replace('#', ''), 16) : hex;
+    return `rgba(${c >> 16}, ${(c & 0xff00) >> 8}, ${c & 0xff}, ${opacity / 100
+      })`;
   };
 
   progressBar = (svg, target, options) => {
@@ -88,13 +82,13 @@ class CircularProgressBar {
     // box shadow
     const boxShadow = !colorCircle
       // eslint-disable-next-line prettier/prettier
-      ? `border-radius:50%;box-shadow:inset 0px 0px ${stroke}px ${stroke}px ${this.hexTorgb(colorSlice, opacity)}`
+      ? `border-radius:50%;box-shadow:inset 0px 0px ${stroke}px ${stroke}px ${this.hex2rgb(colorSlice, opacity)}`
       : '';
 
     // set width and height on div
     target.setAttribute(
       'style',
-      `${size}px;height:${size}px;position:relative;${boxShadow}`
+      `width:${size}px;height:${size}px;position:relative;${boxShadow}`
     );
   };
 

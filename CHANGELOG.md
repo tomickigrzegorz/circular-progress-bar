@@ -1,12 +1,17 @@
-## 2020-10-26
+## 2020-11-24 (v1.0.8)
+### Added
+- UMD version
+- Chore: "scroll down" information to the section in the examples
+
+## 2020-10-26 (v1.0.7)
 ### Changed
 - Fix: stroke-width undefined [#12](https://github.com/tomik23/circular-progress-bar/issues/12)
 
-## 2020-10-24
+## 2020-10-24 (v1.0.7)
 ### Changed
 - Fix: Problem with class renaming [#10](https://github.com/tomik23/circular-progress-bar/issues/10)
 
-## 2020-10-23 (v.1.0.7)
+## 2020-10-23 (v1.0.7)
 ### Added
 - New 'animationTo' functionality
 - Adding babel
@@ -16,7 +21,7 @@
 - Update README.md
 - Removed 'rollup-plugin-closure-compiler'
 
-## 2020-08-26 (v.1.0.6)
+## 2020-08-26 (v1.0.6)
 ### Changed
 - Fix: Several circular-progress-bars [#6](https://github.com/tomik23/circular-progress-bar/issues/6)
 
