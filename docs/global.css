@@ -32,12 +32,21 @@ body {
 }
 
 section {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  gap: 40px;
+  gap: 20px;
+}
+
+section:not(:last-child):after {
+  position: absolute;
+  content: "scroll down";
+  bottom: 10px;
+  font-size: 20px;
+  text-transform: uppercase;
 }
 
 section:nth-child(even) {
