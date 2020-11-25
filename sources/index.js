@@ -14,7 +14,7 @@ class CircularProgressBar {
       const config = {
         root: null,
         rootMargin: '0px',
-        threshold: 0,
+        threshold: 1.0,
       };
 
       let i = 0;
