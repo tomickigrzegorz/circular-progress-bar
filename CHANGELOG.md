@@ -1,10 +1,7 @@
-## 2020-11-25 (v1.0.10)
-### Changed
-- Fix: The animation does not start if the progress-bar is shown vertically [#21](https://github.com/tomik23/circular-progress-bar/issues/21)
-
 ## 2020-11-25 (v1.0.9)
 ### Changed
 - Fix: Reducing the size of charts on mobile devices [#19](https://github.com/tomik23/circular-progress-bar/issues/19)
+- Fix: The animation does not start if the progress-bar is shown vertically [#21](https://github.com/tomik23/circular-progress-bar/issues/21)
 
 ## 2020-11-24 (v1.0.8)
 ### Added
