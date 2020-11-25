@@ -59,3 +59,14 @@ section:nth-child(even) {
     justify-content: center;
   }
 }
+
+@media (max-width: 600px) {
+  .pie {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  .pie svg {
+    width: 150px;
+    height: 150px;
+  }
+}
