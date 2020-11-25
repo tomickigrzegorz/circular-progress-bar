@@ -29,11 +29,12 @@ export default [
   },
   {
     input: 'sources/index.js',
+    watch: false,
     output: {
       file: 'docs/circularProgressBar.umd.min.js',
       format: 'umd',
       name: 'CircularProgressBar',
     },
     plugins: plugins(),
-  }
+  },
 ];
