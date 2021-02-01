@@ -40,18 +40,18 @@ npm run build
 ```
 
 ## Sample configuration
-1. Add a div element to the page `<div class="pie" data-pie='{ "index": 0, "percent": 80 }'></div>`
+1. Add a div element to the page `<div class="pie" data-pie='{ "percent": 80 }'></div>`
 2. Build the script or download it from the `docs` folder and add `circularProgressBar.min.js` to the page
 3. Call the functions `new CircularProgressBar('pie');`
 
 More extensive example:
 ```html
-<div class="pie" data-pie='{ "index": 0, "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
-<div class="pie" data-pie='{ "index": 1, "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
+<div class="pie" data-pie='{ "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
+<div class="pie" data-pie='{ "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
 ```
 Minimal configuration:
 ```html
-<div class="pie" data-pie='{ "index": 0, "percent": 80 }'></div>
+<div class="pie" data-pie='{ "percent": 80 }'></div>
 ```
 ### Function call
 
@@ -66,7 +66,7 @@ const circle = new CircularProgressBar('pie');
 setTimeout(() => {
   const options = {
     // item number you want to update
-    index: 0,
+    index: 1,
     // set a new percentage
     percent: 30
   }
@@ -78,7 +78,6 @@ setTimeout(() => {
 
 props | type | default | require | description
 ---- | :-------: | :-------: | :--------: | -----------
-index | number |   | ✔ | Each item is numbered for future updates, see example
 percent | number |  | ✔ | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%
 colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#ffff00","brown" *](#colors-names)
 colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown" *](#colors-names)
