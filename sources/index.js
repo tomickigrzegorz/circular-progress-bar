@@ -3,10 +3,16 @@ import defaultOptions from './defaults';
 class CircularProgressBar {
   constructor(pieName) {
     this.pieName = pieName;
-    this.pieElement = document.querySelectorAll(`.${pieName}`);
     this.svg = 'http://www.w3.org/2000/svg';
+    const pieElements = document.querySelectorAll(`.${pieName}`);
 
-    this.initial(this.pieElement);
+    const elements = [].slice.call(pieElements);
+    // add index to all progressbar
+    elements.map((item, index) => {
+      item.setAttribute('data-index', index + 1);
+    });
+
+    this.initial(elements);
   }
 
   initial = (elements) => {
@@ -17,24 +23,22 @@ class CircularProgressBar {
         threshold: 1.0,
       };
 
-      let i = 0;
       const ovserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach((entry) => {
+        entries.map((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
-            this.createSvg(entry.target, i);
+            this.createSvg(entry.target);
             observer.unobserve(entry.target);
-            i++;
           }
         });
       }, config);
 
-      elements.forEach((item) => {
+      elements.map((item) => {
         ovserver.observe(item);
       });
     } else {
-      for (let i = 0; i < elements.length; i++) {
-        this.createSvg(elements[i], i);
-      }
+      elements.map((element) => {
+        this.createSvg(element);
+      });
     }
   };
 
@@ -58,17 +62,18 @@ class CircularProgressBar {
       size,
     } = options;
 
-    if (number)
-      svg.insertAdjacentHTML('beforeend', this.percentElement(options));
+    if (number) {
+      svg.insertBefore(this.percentElement(options), svg.firstElementChild);
+    }
 
     const element = document.querySelector(`.${this.pieName}-circle-${index}`);
-    const obj = {
+    const config = {
       fill: 'none',
       transform: 'rotate(-90, 50, 50)',
       'stroke-width': stroke,
       'stroke-linecap': round ? 'round' : '',
     };
-    this.setAttr(element, obj, false);
+    this.setAttr(element, config, false);
 
     // animation
     this.animationTo({ ...options, element }, true);
@@ -137,20 +142,34 @@ class CircularProgressBar {
 
   // set text element
   percentElement = ({ index, fontSize, fontWeight, fontColor }) => {
-    return `<text class="${this.pieName}-percent-${index}" x="50%" y="50%" font-size="${fontSize}" font-weight="${fontWeight}" fill="${fontColor}" text-anchor="middle" dominant-baseline="central" />`;
+    const text = document.createElementNS(this.svg, 'text');
+    const config = {
+      class: `${this.pieName}-percent-${index}`,
+      x: '50%',
+      y: '50%',
+      'font-size': fontSize,
+      'font-weight': fontWeight,
+      fill: fontColor,
+      'text-anchor': 'middle',
+      'dominant-baseline': 'central',
+    };
+    this.setAttr(text, config, false);
+    return text;
   };
 
-  createSvg = (element, index) => {
+  createSvg = (element) => {
     const json = JSON.parse(element.getAttribute('data-pie'));
-    const options = { ...defaultOptions, ...json, ...index };
+    const index = element.getAttribute('data-index');
+
+    const options = { ...defaultOptions, ...json, index };
 
     const svg = document.createElementNS(this.svg, 'svg');
-    const obj = {
+    const config = {
       width: options.size,
       height: options.size,
       viewBox: '0 0 100 100',
     };
-    this.setAttr(svg, obj, false);
+    this.setAttr(svg, config, false);
 
     if (options.colorCircle) {
       svg.appendChild(this.circleSvg(options, 'bottom'));
@@ -177,18 +196,18 @@ class CircularProgressBar {
     defs.appendChild(linearGradient);
 
     let number = 0;
-    for (let i = 0; i < countGradient.length; i++) {
+    countGradient.map((item) => {
       const stop = document.createElementNS(this.svg, 'stop');
 
       const obj = {
         offset: `${number}%`,
-        'stop-color': `${countGradient[i]}`,
+        'stop-color': `${item}`,
       };
       this.setAttr(stop, obj, false);
 
       linearGradient.appendChild(stop);
       number += 100 / (countGradient.length - 1);
-    }
+    });
 
     return defs;
   };
@@ -205,7 +224,7 @@ class CircularProgressBar {
         ? { class: `${this.pieName}-circle-${index}` }
         : objCircle;
 
-    const obj = {
+    const config = {
       cx: 50,
       cy: 50,
       r: 42,
@@ -213,7 +232,7 @@ class CircularProgressBar {
       'data-angle': setAngel ? 0 : '',
       ...typeCircle,
     };
-    this.setAttr(circle, obj, false);
+    this.setAttr(circle, config, false);
 
     return circle;
   };
