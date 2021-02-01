@@ -1,3 +1,7 @@
+## 2021-02-01 (v1.0.10)
+### Changed
+- Improv: Removal of the requirement to enter the 'index' of the progress bar in 'data-pie'
+
 ## 2020-11-25 (v1.0.9)
 ### Changed
 - Fix: Reducing the size of charts on mobile devices [#19](https://github.com/tomik23/circular-progress-bar/issues/19)
