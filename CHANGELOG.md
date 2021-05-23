@@ -1,3 +1,7 @@
+## 2021-05-23 (v1.0.11)
+### Added
+- 'zero-at-start' - from now on you can set 0%
+
 ## 2021-02-01 (v1.0.10)
 ### Changed
 - Improv: Removal of the requirement to enter the 'index' of the progress bar in 'data-pie'
