@@ -115,7 +115,10 @@ class CircularProgressBar {
     );
 
     // if percent 0 then set at start 0%
-    if (percent == 0 && place && config.number) place.textContent = '0%';
+    if (percent == 0 && place && config.number) {
+      place.textContent = '0%';
+      element.setAttribute('stroke-dasharray', '0, 20000');
+    }
     if (percent > 100 || percent <= 0 || angle === percent) return;
 
     let request;

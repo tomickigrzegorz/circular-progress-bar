@@ -1,3 +1,7 @@
+## 2021-05-23 (v1.0.12)
+### Change
+- Fix: If 0% is set [#26](https://github.com/tomik23/circular-progress-bar/issues/26)
+
 ## 2021-05-23 (v1.0.11)
 ### Added
 - 'zero-at-start' - from now on you can set 0%
