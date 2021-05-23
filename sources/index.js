@@ -114,7 +114,9 @@ class CircularProgressBar {
       `.${this.pieName}-percent-${options.index}`
     );
 
-    if (percent > 100 || percent < 0 || angle === percent) return;
+    // if percent 0 then set at start 0%
+    if (percent == 0 && place && config.number) place.textContent = '0%';
+    if (percent > 100 || percent <= 0 || angle === percent) return;
 
     let request;
     let i = initial ? 0 : angle;
