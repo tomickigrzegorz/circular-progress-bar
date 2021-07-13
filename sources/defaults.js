@@ -7,6 +7,7 @@ const defaultOptions = {
   fontWeight: 400,
   lineargradient: false,
   number: true,
+  inverse: false,
   opacity: 10,
   round: false,
   size: 200,
