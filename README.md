@@ -83,6 +83,7 @@ colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#fff
 colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown" *](#colors-names)
 stroke | number | `10` |  | Stroke width, chart thickness
 round | boolean | `false` |  | Path rounding
+invers | boolean | `false` |  | Counterclockwise animation
 opacity | number | `10` |  | Opacity box-shadow, 10 = 1s, 9 = 0.9 ... 1 = 0.1
 number | boolean | `true` |  | Add props number and set to false to hide the number with percent
 size | number | `200` |  | Size progress bar width and height in px
