@@ -1,3 +1,8 @@
+
+## 2021-07-13 (v1.0.13)
+### Added
+- 'inverse' - counterclockwise animation
+
 ## 2021-05-23 (v1.0.12)
 ### Change
 - Fix: If 0% is set [#26](https://github.com/tomik23/circular-progress-bar/issues/26)
