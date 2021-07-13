@@ -69,11 +69,12 @@ class CircularProgressBar {
     const element = document.querySelector(`.${this.pieName}-circle-${index}`);
     const config = {
       fill: 'none',
-      transform: 'rotate(-90, 50, 50)',
       'stroke-width': stroke,
+      'stroke-dasharray': 264,
       'stroke-linecap': round ? 'round' : '',
     };
     this.setAttr(element, config, false);
+    element.setAttribute('style', 'transform: rotate(-90deg); transform-origin: 50% 50%');
 
     // animation
     this.animationTo({ ...options, element }, true);
@@ -117,7 +118,7 @@ class CircularProgressBar {
     // if percent 0 then set at start 0%
     if (percent == 0 && place && config.number) {
       place.textContent = '0%';
-      element.setAttribute('stroke-dasharray', '0, 20000');
+      element.setAttribute('stroke-dashoffset', -264);
     }
     if (percent > 100 || percent <= 0 || angle === percent) return;
 
@@ -132,7 +133,9 @@ class CircularProgressBar {
 
       request = requestAnimationFrame(performAnimation);
 
-      element.setAttribute('stroke-dasharray', i * 2.64 + ', 20000');
+      const angel = 264 - (i / 100) * 264;
+
+      element.setAttribute('stroke-dashoffset', config.inverse ? -angel : angel);
       if (place && config.number) {
         place.textContent = `${i}%`;
       }
@@ -230,8 +233,8 @@ class CircularProgressBar {
         : objCircle;
 
     const config = {
-      cx: 50,
-      cy: 50,
+      cx: '50%',
+      cy: '50%',
       r: 42,
       'shape-rendering': 'geometricPrecision',
       'data-angle': setAngel ? 0 : '',
