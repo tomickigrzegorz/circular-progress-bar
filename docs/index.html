@@ -12,7 +12,7 @@
   <body>
     <div class="container">
       <section>
-        <div class="pie" data-pie='{ "percent": 50, "colorSlice": "#E91E63" }'></div>
+        <div class="pie" data-pie='{ "inverse": true, "percent": 50, "colorSlice": "#E91E63" }'></div>
         <div class="pie" data-pie='{ "percent": 60, "colorSlice": "#ffc107" }'></div>
         <div class="pie" data-pie='{ "percent": 70, "colorSlice": "#00bcd4" }'></div>
       </section>
@@ -35,7 +35,7 @@
           data-pie='{ "percent": 75, "colorSlice": "#ffc107", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
         </div>
         <div class="pie"
-          data-pie='{ "percent": 85, "colorSlice": "#00bcd4", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+          data-pie='{ "percent": 85, "animationOff": true, "colorSlice": "#00bcd4", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
         </div>
       </section>
       <section>
@@ -64,7 +64,7 @@
         setInterval(() => {
           const options = {
             index: 1,
-            percent: Math.floor((Math.random() * 100) + 1)
+            percent: Math.floor((Math.random() * 100) + 1),
           }
           circle.animationTo(options);
         }, 2000);
