@@ -2,6 +2,7 @@
 ## 2021-07-13 (v1.0.13)
 ### Added
 - 'inverse' - counterclockwise animation
+- 'animationOff' - turn off the progress animation
 
 ## 2021-05-23 (v1.0.12)
 ### Change
