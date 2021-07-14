@@ -6,84 +6,191 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/github.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
     <title>circular progress bar</title>
   </head>
 
   <body>
-    <div class="container">
+    <h1>circular-progress-bar</h1>
+    <div class="flex progress-wrapper">
+      <div class="progress">progress</div>
+      <input type="range" value="75" min="0" max="100" step="1">
+    </div>
+    <div class="flex container">
+      <div class=""></div>
       <section>
-        <div class="pie" data-pie='{ "inverse": true, "percent": 50, "colorSlice": "#E91E63" }'></div>
-        <div class="pie" data-pie='{ "percent": 60, "colorSlice": "#ffc107" }'></div>
-        <div class="pie" data-pie='{ "percent": 70, "colorSlice": "#00bcd4" }'></div>
-      </section>
-      <section>
-        <div class="pie"
-          data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 70, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
+        <div class="flex info">
+          <div class="info-name">minimal</div>
+          <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "lineargradient": ["#ff0000","#9c27b0"], "round": true, "percent": 80, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
-        </div>
-        <div class="pie"
-          data-pie='{ "lineargradient": ["#ff0000","yellow"], "round": true, "percent": 90, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
-        </div>
-      </section>
-      <section>
-        <div class="pie"
-          data-pie='{ "percent": 65, "inverse": true, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
-        </div>
-        <div class="pie"
-          data-pie='{ "percent": 75, "colorSlice": "#ffc107", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
-        </div>
-        <div class="pie"
-          data-pie='{ "percent": 85, "animationOff": true, "colorSlice": "#00bcd4", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+        <div class="pie" data-pie='{ "percent": 75 }'></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75
+}'</code>
+          </pre>
         </div>
       </section>
       <section>
-        <div class="pie" data-pie='{ "percent": 60, "colorSlice": "#000", "colorCircle": "#e6e6e6", "number": false }'>
+        <div class="flex info">
+          <div class="info-name">linear gradient</div>
+          <div class="info-code">code</div>
         </div>
         <div class="pie"
-          data-pie='{ "percent": 70, "colorSlice": "#ffc107", "colorCircle": "#e6e6e6", "number": false }'>
+          data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 75, "colorSlice": "#4CAF50", "colorCircle": "#e6e6e6" }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "lineargradient": ["yellow","#ff0000"],
+  "round": true,
+  "percent": 75,
+  "colorSlice": "#4CAF50",
+  "colorCircle": "#e6e6e6"
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">simple</div>
+          <div class="info-code">code</div>
         </div>
         <div class="pie"
-          data-pie='{ "percent": 80, "colorSlice": "#00bcd4", "colorCircle": "#e6e6e6", "number": false }'>
+          data-pie='{ "percent": 75, "colorSlice": "#BF360C", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "percent": 75,
+  "colorSlice": "#BF360C",
+  "colorCircle": "#f1f1f1",
+  "fontWeight": 100
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">counterclockwise</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "inverse": true, "percent": 75, "colorSlice": "#AB47BC", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "inverse": true,
+  "percent": 75,
+  "colorSlice": "#AB47BC",
+  "colorCircle": "#f1f1f1",
+  "fontWeight": 100
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">animation off</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "animationOff": true, "percent": 75, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "animationOff": true,
+  "percent": 75,
+  "colorSlice": "#CDDC39",
+  "colorCircle": "#f1f1f1",
+  "fontWeight": 100
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">without number</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie" data-pie='{ "percent": 75, "colorSlice": "#000", "colorCircle": "#e6e6e6", "number": false }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "number": false,
+  "percent": 75,
+  "colorSlice": "#000",
+  "colorCircle": "#e6e6e6"
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">update percent</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "percent": 75, "colorSlice": "#4CAF50", "fontColor": "#4CAF50", "colorCircle": "#f1f1f1", "fontSize": "1.4rem" }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-js">&#x3C;script&#x3E;
+  setInterval(() =&#x3E; {
+    const options = {
+      index: 7,
+      percent: Math.floor((Math.random() * 100) + 1),
+    }
+    circle.animationTo(options);
+  }, 3000);
+&#x3C;/script&#x3E;
+</code>
+          </pre>
         </div>
       </section>
     </div>
 
-    <script type="text/javascript">
-      if (!('IntersectionObserver' in window)) {
-        var script = document.createElement("script");
-        script.src = "https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver";
-        document.getElementsByTagName('head')[0].appendChild(script);
-      }
-    </script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         const circle = new CircularProgressBar('pie');
 
+        const pie = document.querySelectorAll('.pie');
+        const range = document.querySelector('[type="range"]');
+
+        range.addEventListener('input', (e) => {
+          console.log(e.target.value);
+          pie.forEach((el, index) => {
+            const options = {
+              index: index + 1,
+              percent: e.target.value
+            }
+            circle.animationTo(options);
+          })
+        })
+
         setInterval(() => {
           const options = {
-            index: 1,
+            index: 7,
             percent: Math.floor((Math.random() * 100) + 1),
           }
           circle.animationTo(options);
-        }, 2000);
+        }, 3000);
 
-        setInterval(() => {
-          const options = {
-            index: 2,
-            percent: Math.floor((Math.random() * 100) + 1)
-          }
-          circle.animationTo(options);
-        }, 2000);
+        document.querySelectorAll('pre code').forEach((el) => {
+          hljs.highlightElement(el);
+        });
 
-        setInterval(() => {
-          const options = {
-            index: 3,
-            percent: Math.floor((Math.random() * 100) + 1)
-          }
-          circle.animationTo(options);
-        }, 2000);
+        const infoCode = document.querySelectorAll('.info-code');
+        infoCode.forEach(info => {
+          info.addEventListener('click', (e) => {
+            e.target.closest('section').classList.toggle('show-code');
+          })
+        })
 
       });
     </script>

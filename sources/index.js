@@ -117,21 +117,21 @@ class CircularProgressBar {
     // get numer percent from data-angel
     let angle = JSON.parse(element.getAttribute('data-angel'));
 
-    const config = initial ? options : { ...previousConfigObj, ...defaultOptions, ...options };
+    const config = initial ? options : { ...defaultOptions, ...previousConfigObj, ...options };
 
     const place = document.querySelector(
       `.${this.pieName}-percent-${options.index}`
     );
 
     if (config.animationOff) {
-      place.textContent = `${config.percent}%`;
+      if (config.number) place.textContent = `${config.percent}%`;
       element.setAttribute('stroke-dashoffset', this.getDashOffset(config.percent, config.inverse));
       return;
     }
 
     // if percent 0 then set at start 0%
-    if (percent == 0 && place && config.number) {
-      place.textContent = '0%';
+    if (percent == 0) {
+      if (config.number) place.textContent = '0%';
       element.setAttribute('stroke-dashoffset', 264);
     }
     if (percent > 100 || percent <= 0 || angle === percent) return;
@@ -171,7 +171,7 @@ class CircularProgressBar {
       'font-size': fontSize,
       'font-weight': fontWeight,
       'text-anchor': 'middle',
-      'dominant-baseline': 'central',
+      'dy': '0.35em',
     };
     this.setAttr(text, config, false);
     return text;

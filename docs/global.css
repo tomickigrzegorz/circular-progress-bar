@@ -19,54 +19,92 @@ body {
   min-height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
     Segoe UI Emoji, Segoe UI Symbol;
-  background: #fff;
+  background: #eceff1;
+}
+
+h1 {
+  margin: auto;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.flex {
+  display: flex;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
+  max-width: 1400px;
   margin: auto;
+}
+
+.info {
+  justify-content: space-between;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 10px 0;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-size: 90%;
+}
+
+.info-code {
+  cursor: pointer;
+}
+
+.info-code:hover {
+  color: salmon;
+}
+
+.progress-wrapper {
+  max-width: 350px;
+  justify-content: space-between;
+  margin: auto;
+  padding: 40px 0 30px;
+  text-transform: uppercase;
+}
+
+[type="range"] {
+  width: 200px;
 }
 
 section {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 100vh;
-  gap: 20px;
+  background-color: #fff;
+  border-radius: 7px;
+  padding: 5px 30px 30px;
+  margin: 20px;
+  max-width: 260px;
 }
 
-section:not(:last-child):after {
+.code {
+  visibility: hidden;
+  opacity: 0;
   position: absolute;
-  content: "scroll down";
-  bottom: 10px;
-  font-size: 20px;
-  text-transform: uppercase;
+  width: 260px;
+  height: 0;
+  left: 0;
+  margin: auto;
+  line-height: 1.6;
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
-section:nth-child(even) {
-  background: #f8f8f8;
+.show-code .code {
+  visibility: visible;
+  opacity: 1;
+  height: 100%;
+  top: 45px;
 }
 
-@media (max-width: 720px) {
-  section {
-    flex-direction: column;
-    justify-content: center;
-  }
+pre {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
-@media (max-width: 600px) {
-  .pie {
-    width: 150px !important;
-    height: 150px !important;
-  }
-  .pie svg {
-    width: 150px;
-    height: 150px;
-  }
+code {
+  height: calc(100% - 45px);
+  margin-top: -20px;
 }
