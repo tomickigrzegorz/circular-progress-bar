@@ -24,6 +24,7 @@ export default [
       file: 'docs/circularProgressBar.min.js',
       format: 'iife',
       name: 'CircularProgressBar',
+      sourcemap: !PRODUCTION ? true : false,
     },
     plugins: plugins(),
   },
