@@ -1,3 +1,6 @@
+## 2021-07-15 (v1.0.15)
+### Change
+- Fix: Without number [#33](https://github.com/tomik23/circular-progress-bar/issues/33)
 ## 2021-07-13 (v1.0.14)
 ### Added
 - 'animationOff' - turn off the progress animation
