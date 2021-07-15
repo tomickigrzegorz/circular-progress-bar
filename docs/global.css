@@ -44,9 +44,9 @@ h1 {
   justify-content: space-between;
   border-bottom: 1px solid #e6e6e6;
   padding: 10px 0;
-  margin-bottom: 30px;
   text-transform: uppercase;
   font-size: 90%;
+  margin: auto -15px 30px;
 }
 
 .info-code {
