@@ -58,6 +58,7 @@ class CircularProgressBar {
       lineargradient,
       colorSlice,
       colorCircle,
+      rotation,
       opacity,
       size,
     } = options;
@@ -74,7 +75,7 @@ class CircularProgressBar {
       'stroke-linecap': round ? 'round' : '',
     };
     this.setAttr(element, config, false);
-    element.setAttribute('style', 'transform: rotate(-90deg); transform-origin: 50% 50%');
+    element.setAttribute('style', `transform: rotate(${rotation || -90}deg); transform-origin: 50% 50%`);
 
     // animation
     this.animationTo({ ...options, element }, true);
@@ -233,12 +234,12 @@ class CircularProgressBar {
     return defs;
   };
 
-  circleSvg = ({ index, colorCircle, stroke }, where, setAngel = false) => {
+  circleSvg = ({ index, colorCircle, stroke, strokeBottom }, where, setAngel = false) => {
     const circle = document.createElementNS(this.svg, 'circle');
     const objCircle = {
       fill: 'none',
       stroke: colorCircle,
-      'stroke-width': stroke,
+      'stroke-width': strokeBottom || stroke,
     };
     const typeCircle =
       where === 'top'

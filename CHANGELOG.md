@@ -1,3 +1,7 @@
+## 2021-08-02 (v1.0.16)
+### Added
+- 'rotation' - chart rotation
+- 'strokeBottom' - if "strokBottom" is set, it is used to generate a background circle size 
 ## 2021-07-15 (v1.0.15)
 ### Change
 - Fix: Without number [#33](https://github.com/tomik23/circular-progress-bar/issues/33)

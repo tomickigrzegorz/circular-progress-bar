@@ -85,6 +85,8 @@ stroke | number | `10` |  | Stroke width, chart thickness
 round | boolean | `false` |  | Path rounding
 invers | boolean | `false` |  | Counterclockwise animation
 opacity | number | `10` |  | Opacity box-shadow, 10 = 1s, 9 = 0.9 ... 1 = 0.1
+rotation | number | `-90` |  | Chart rotation
+strokeBottom | number | `10` |  | If "strokBottom" is set, it is used to generate a background circle size
 number | boolean | `true` |  | Add props number and set to false to hide the number with percent
 animationOff | boolean | `false` |  | Turn off the progress animation
 size | number | `200` |  | Size progress bar width and height in px
