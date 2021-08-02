@@ -131,6 +131,47 @@
       </section>
       <section>
         <div class="flex info">
+          <div class="info-name">rotation</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "rotation": 90, "percent": 75, "colorSlice": "#ff8c69", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "rotation": 90,
+  "percent": 75,
+  "colorSlice": "#ff8c69",
+  "colorCircle": "#f1f1f1",
+  "fontWeight": 100
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">stroke bottom</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "strokeBottom": 5, "percent": 75, "colorSlice": "#EC407A", "colorCircle": "#f1f1f1", "round": true }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "strokeBottom": 5,
+  "percent": 75,
+  "colorSlice": "#EC407A",
+  "colorCircle": "#f1f1f1",
+  "round": true
+
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
           <div class="info-name">update percent</div>
           <div class="info-code">code</div>
         </div>
@@ -142,7 +183,7 @@
             <code class="language-js">&#x3C;script&#x3E;
   setInterval(() =&#x3E; {
     const options = {
-      index: 7,
+      index: 9,
       percent: Math.floor((Math.random() * 100) + 1),
     }
     circle.animationTo(options);
@@ -162,7 +203,6 @@
         const range = document.querySelector('[type="range"]');
 
         range.addEventListener('input', (e) => {
-          console.log(e.target.value);
           pie.forEach((el, index) => {
             const options = {
               index: index + 1,
@@ -174,7 +214,7 @@
 
         setInterval(() => {
           const options = {
-            index: 7,
+            index: 9,
             percent: Math.floor((Math.random() * 100) + 1),
           }
           circle.animationTo(options);
