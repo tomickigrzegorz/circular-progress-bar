@@ -83,7 +83,7 @@ colorSlice | string | `'#00a1ff'` | | Progress layer color and background ["#fff
 colorCircle | string | `'#00a1ff'` | | Bottom circle color Font ["#ffff00","brown" *](#colors-names)
 stroke | number | `10` |  | Stroke width, chart thickness
 round | boolean | `false` |  | Path rounding
-invers | boolean | `false` |  | Counterclockwise animation
+inverse | boolean | `false` |  | Counterclockwise animation
 opacity | number | `10` |  | Opacity box-shadow, 10 = 1s, 9 = 0.9 ... 1 = 0.1
 rotation | number | `-90` |  | Chart rotation
 strokeBottom | number | `10` |  | If "strokBottom" is set, it is used to generate a background circle size
