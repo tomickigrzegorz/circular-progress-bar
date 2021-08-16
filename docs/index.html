@@ -165,9 +165,51 @@
   "colorSlice": "#EC407A",
   "colorCircle": "#f1f1f1",
   "round": true
-
 }'</code>
           </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">SPEED</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "speed": 30, "percent": 75, "colorSlice": "#DD2C00", "colorCircle": "#f1f1f1", "round": true }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "speed": 30,
+  "percent": 75,
+  "colorSlice": "#DD2C00",
+  "colorCircle": "#f1f1f1",
+  "round": true
+}'</code>
+            </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">texpositon</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "textPosition": "1.5em", "percent": 75, "colorSlice": "#880E4F", "colorCircle": "#f1f1f1", "fontSize": "1em" }'>
+          <img src="https://picsum.photos/100/100" alt="Random image"
+            style="position: absolute; top: -55px; left: 0; right: 0; bottom: 0; margin: auto; width: 50px; border-radius: 50%; padding: 2px; border: 2px solid rgb(255, 0, 0);">
+        </div>
+        <div class="code">
+          <pre>
+                  <code class="language-json">data-pie='{ 
+  "textPosition": "1.5em",
+  "percent": 75,
+  "colorSlice": "#880E4F",
+  "colorCircle": "#f1f1f1",
+  "round": true,
+  "fontSize": "1em"
+}'</code>
+                  </pre>
         </div>
       </section>
       <section>
@@ -214,7 +256,7 @@
 
         setInterval(() => {
           const options = {
-            index: 9,
+            index: 11,
             percent: Math.floor((Math.random() * 100) + 1),
           }
           circle.animationTo(options);
