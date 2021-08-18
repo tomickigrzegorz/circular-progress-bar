@@ -99,9 +99,10 @@ setTimeout(() => {
 | number         |    boolean    |   `true`    |         | Add props number and set to false to hide the number with percent                                          |
 | animationOff   |    boolean    |   `false`   |         | Turn off the progress animation                                                                            |
 | size           |    number     |    `200`    |         | Size progress bar width and height in px                                                                   |
+| cut            |    number     |     `0`     |         | Angle of the circle sector                                                                                 |
 | textPosition   |    string     |  `0.35em`   |         | The position of the SVG TEXT element vertically                                                            |
 | fontSize       |    string     |  `1.6rem`   |         | Font size. The font can be shown in units rem, em, px ...                                                  |
-| fontWeight     | number string |    `400`    |         | [number, normal, bold, bolder, lighter]                                                                    |
+| fontWeight     |    string     |    `400`    |         | [number, normal, bold, bolder, lighter]                                                                    |
 | fontColor      |    string     | `'#365b74'` |         | Font color ["#ffff00","brown" \*](#colors-names)                                                           |
 | lineargradient |     array     |             |         | Array of colors "lineargradient": ["#ffff00","brown" \*](#colors-names)                                    |
 
