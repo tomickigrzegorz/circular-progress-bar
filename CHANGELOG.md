@@ -1,3 +1,9 @@
+## 2021-08-18 (v1.0.18)
+
+### Added
+
+- 'cut' - angle of the circle sector
+
 ## 2021-08-16 (v1.0.17)
 
 ### Added

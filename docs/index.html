@@ -191,6 +191,28 @@
       </section>
       <section>
         <div class="flex info">
+          <div class="info-name">cut</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "cut": 30, "percent": 75, "rotation": 144, "colorSlice": "#F50057", "colorCircle": "#f1f1f1", "textPosition": "1em", "fontSize": "1.2rem" }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "cut": 30,
+  "percent": 75,
+  "rotation": 144,
+  "colorSlice": "#F50057",
+  "colorCircle": "#f1f1f1",
+  "textPosition": "1em",
+  "fontSize": "1.2rem"
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
           <div class="info-name">texpositon</div>
           <div class="info-code">code</div>
         </div>
@@ -201,14 +223,14 @@
         </div>
         <div class="code">
           <pre>
-                  <code class="language-json">data-pie='{ 
+            <code class="language-json">data-pie='{ 
   "textPosition": "1.5em",
   "percent": 75,
   "colorSlice": "#880E4F",
   "colorCircle": "#f1f1f1",
   "fontSize": "1em"
 }'</code>
-                  </pre>
+          </pre>
         </div>
       </section>
       <section>
@@ -255,7 +277,7 @@
 
         setInterval(() => {
           const options = {
-            index: 11,
+            index: 12,
             percent: Math.floor((Math.random() * 100) + 1),
           }
           circle.animationTo(options);
