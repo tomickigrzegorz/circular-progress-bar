@@ -1,6 +1,6 @@
 {
   "name": "circular-progress-bar",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "main": "docs/circularProgressBar.min.js",
   "description": "A circular progress bar in svg",
   "repository": "https://github.com/tomik23/circular-progress-bar.git",
@@ -22,9 +22,9 @@
   "homepage": "https://github.com/tomik23/circular-progress-bar#readme",
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "defaults",
+      "not IE 11",
+      "maintained node versions"
     ],
     "development": [
       "last 1 chrome version",
