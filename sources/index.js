@@ -52,7 +52,7 @@ class CircularProgressBar {
 
   progressBar = (svg, target, options) => {
     if (options.number) {
-      svg.insertBefore(this.percentElement(options), svg.firstElementChild);
+      svg.insertAdjacentElement('beforeend', this.percentElement(options));
     }
 
     const element = document.querySelector(
@@ -70,9 +70,7 @@ class CircularProgressBar {
 
     element.setAttribute(
       'style',
-      `transform:rotate(${
-        options.rotation || -90
-      }deg);transform-origin: 50% 50%`
+      `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`
     );
 
     // animation
@@ -133,7 +131,7 @@ class CircularProgressBar {
     );
 
     if (config.animationOff) {
-      if (config.number) place.textContent = `${config.percent}%`;
+      if (config.number) place.textContent = `${config.percent}`;
       element.setAttribute(
         'stroke-dashoffset',
         this.getDashOffset(config.percent, config.inverse)
@@ -143,7 +141,7 @@ class CircularProgressBar {
 
     // if percent 0 then set at start 0%
     if (percent == 0) {
-      if (config.number) place.textContent = '0%';
+      if (config.number) place.textContent = '0';
       element.setAttribute('stroke-dashoffset', 264);
     }
 
@@ -172,7 +170,7 @@ class CircularProgressBar {
         this.getDashOffset(i, config.inverse, config.cut)
       );
       if (place && config.number) {
-        place.textContent = `${i}%`;
+        place.textContent = `${i}`;
       }
       if (i === percent) {
         element.setAttribute('data-angel', i);
@@ -187,8 +185,17 @@ class CircularProgressBar {
   percentElement = (options) => {
     const text = document.createElementNS(this.svg, 'text');
 
+    text.insertAdjacentElement(
+      'afterbegin',
+      this.createTspan(`${this.pieName}-percent-${options.index}`)
+    );
+
+    text.insertAdjacentElement(
+      'beforeend',
+      this.createTspan(`${this.pieName}-unit-${options.index}`, options.unit)
+    );
+
     const config = {
-      class: `${this.pieName}-percent-${options.index}`,
       x: '50%',
       y: '50%',
       fill: options.fontColor,
@@ -200,6 +207,13 @@ class CircularProgressBar {
 
     this.setAttr(text, config, false);
     return text;
+  };
+
+  createTspan = (className, unit) => {
+    const tspan = document.createElementNS(this.svg, 'tspan');
+    tspan.classList.add(className);
+    if (unit) tspan.textContent = unit;
+    return tspan;
   };
 
   createSvg = (element) => {
@@ -269,14 +283,12 @@ class CircularProgressBar {
         'stroke-dasharray': 264,
         'stroke-linecap': options.round ? 'round' : '',
         'stroke-dashoffset': options.inverse ? -dashoffset : dashoffset,
-        style: `transform:rotate(${
-          options.rotation || -90
-        }deg);transform-origin: 50% 50%`,
+        style: `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`,
       };
     }
 
     const objCircle = {
-      fill: 'none',
+      fill: options.fill,
       stroke: options.colorCircle,
       'stroke-width': options.strokeBottom || options.stroke,
       ...configCircle,
