@@ -1,3 +1,10 @@
+## 2021-08-21 (v1.0.19)
+
+### Added
+
+- 'unit' - different unit instead of percentage (%) inside the circle
+- 'fill' - inner circle color
+
 ## 2021-08-18 (v1.0.18)
 
 ### Added

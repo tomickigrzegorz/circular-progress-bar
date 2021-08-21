@@ -151,6 +151,51 @@
       </section>
       <section>
         <div class="flex info">
+          <div class="info-name">fill</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "fill": "#EFEBE9", "stroke": 6, "strokeBottom": 10, "percent": 75, "colorSlice": "#4E342E", "colorCircle": "#EFEBE9", "fontSize": "1.3em", "round": true }'>
+        </div>
+        <div class="code">
+          <pre>
+                  <code class="language-json">data-pie='{ 
+  "fill": "#EFEBE9",
+  "percent": 75,
+  "stroke": 6,
+  "strokeBottom": 10,
+  "colorSlice": "#4E342E",
+  "colorCircle": "#EFEBE9",
+  "fontSize": "1.3em",
+  "round": true
+}'</code>
+                </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">unit</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "unit": "PL", "percent": 75, "stroke": 5, "strokeBottom": 10, "colorSlice": "#fff", "colorCircle": "#F50057", "round": true }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "unit": "PL",
+  "percent": 75,
+  "stroke": 5,
+  "strokeBottom": 10,
+  "colorSlice": "#fff",
+  "colorCircle": "#F50057",
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
           <div class="info-name">stroke bottom</div>
           <div class="info-code">code</div>
         </div>
@@ -277,7 +322,7 @@
 
         setInterval(() => {
           const options = {
-            index: 12,
+            index: 14,
             percent: Math.floor((Math.random() * 100) + 1),
           }
           circle.animationTo(options);
