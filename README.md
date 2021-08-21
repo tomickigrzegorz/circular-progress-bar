@@ -100,20 +100,47 @@ setTimeout(() => {
 | animationOff   |    boolean    |   `false`   |         | Turn off the progress animation                                                                            |
 | size           |    number     |    `200`    |         | Size progress bar width and height in px                                                                   |
 | cut            |    number     |     `0`     |         | Angle of the circle sector                                                                                 |
+| unit           |    string     |     `%`     |         | Different unit instead of percentage (%) inside the circle *                                               |
+| fill           |    string     |   `none`    |         | Inner circle color                                                                                         |
 | textPosition   |    string     |  `0.35em`   |         | The position of the SVG TEXT element vertically                                                            |
 | fontSize       |    string     |  `1.6rem`   |         | Font size. The font can be shown in units rem, em, px ...                                                  |
 | fontWeight     |    string     |    `400`    |         | [number, normal, bold, bolder, lighter]                                                                    |
 | fontColor      |    string     | `'#365b74'` |         | Font color ["#ffff00","brown" \*](#colors-names)                                                           |
 | lineargradient |     array     |             |         | Array of colors "lineargradient": ["#ffff00","brown" \*](#colors-names)                                    |
 
+\* `unit` - you can style them. `unit` is in the tspan element of the class `pie-unit-x`. The class name is main class + `unit` + chart id. Below are the styles for our example.
+```css
+.pie-unit-9 {
+  fill: #f50057;
+  font-size: 1rem;
+}
+```
 ## Colors names
 
 [\* See colors names](https://htmlcolorcodes.com/color-names/)
 
 ## Browsers support
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Vivaldi |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IE10+, Edge                                                                                                                                                                                                     | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                   |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Vivaldi |
+| :---: | :---: | :---: | :---: | :---: |
+| Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-> \*IE10+ If you want the code to be supported in IE10 + you have to add pollyfil
+> \* If you want the code to be supported in IE11 you need replace a few lines in `package.json`. Below what needs to be changed in the code and compile.
+
+Replace
+```json
+"production": [
+  "defaults",
+  "not IE 11",
+  "maintained node versions"
+]
+```
+
+To this
+```json
+"production": [
+  ">0.2%",
+  "not dead",
+  "not op_mini all"
+]
+```
