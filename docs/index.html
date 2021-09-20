@@ -24,7 +24,8 @@
           <div class="info-name">minimal</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie" data-pie='{ "percent": 75 }'></div>
+        <div class="pie" data-pie='{ "percent": 75 }'>
+        </div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{
@@ -35,19 +36,22 @@
       </section>
       <section>
         <div class="flex info">
-          <div class="info-name">linear gradient</div>
+          <div class="info-name">minimal width shadow</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 75, "colorCircle": "#e6e6e6" }'>
+        <div class="pie" data-pie='{ "percent": 75 }'>
         </div>
         <div class="code">
           <pre>
-            <code class="language-json">data-pie='{ 
-  "lineargradient": ["yellow","#ff0000"],
-  "round": true,
-  "percent": 75,
-  "colorCircle": "#e6e6e6"
+            <code class="language-json">// css
+[data-index='2'] {
+  position: relative;
+  border-radius: 50%;
+  box-shadow: inset 0 0 25px 10px rgb(162, 202, 255);
+}
+// html
+data-pie='{
+  "percent": 75
 }'</code>
           </pre>
         </div>
@@ -73,6 +77,25 @@
       </section>
       <section>
         <div class="flex info">
+          <div class="info-name">linear gradient</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 75, "colorCircle": "#e6e6e6" }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "lineargradient": ["yellow","#ff0000"],
+  "round": true,
+  "percent": 75,
+  "colorCircle": "#e6e6e6"
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
           <div class="info-name">counterclockwise</div>
           <div class="info-code">code</div>
         </div>
@@ -87,6 +110,28 @@
   "colorSlice": "#AB47BC",
   "colorCircle": "#f1f1f1",
   "fontWeight": 100
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">stroke-dasharray</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="pie"
+          data-pie='{ "strokeDasharray": "1, 2", "percent": 75, "colorSlice": "#F5F5F5", "colorCircle": "#424242", "stroke": 5, "strokeBottom": 10, "round": true }'>
+        </div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{ 
+  "strokeDasharray": "1, 2",
+  "percent": 75,
+  "colorSlice": "#F5F5F5",
+  "colorCircle": "#424242",
+  "stroke": 5,
+  "strokeBottom": 10,
+  "round": true
 }'</code>
           </pre>
         </div>
@@ -264,7 +309,7 @@
         <div class="pie"
           data-pie='{ "textPosition": "1.5em", "percent": 75, "colorSlice": "#880E4F", "colorCircle": "#f1f1f1", "fontSize": "1em" }'>
           <img src="https://picsum.photos/100/100" alt="Random image"
-            style="position: absolute; top: -55px; left: 0; right: 0; bottom: 0; margin: auto; width: 50px; border-radius: 50%; padding: 2px; border: 2px solid rgb(255, 0, 0);">
+            style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 50px; border-radius: 50%; padding: 2px; border: 2px solid rgb(255, 0, 0);">
         </div>
         <div class="code">
           <pre>
@@ -322,7 +367,7 @@
 
         setInterval(() => {
           const options = {
-            index: 14,
+            index: 16,
             percent: Math.floor((Math.random() * 100) + 1),
           }
           circle.animationTo(options);
