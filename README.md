@@ -94,7 +94,6 @@ setTimeout(() => {
 | strokeBottom   |    number     |    `10`     |         | If "strokBottom" is set, it is used to generate a background circle size                                   |
 | round          |    boolean    |   `false`   |         | Path rounding                                                                                              |
 | inverse        |    boolean    |   `false`   |         | Counterclockwise animation                                                                                 |
-| opacity        |    number     |    `10`     |         | Opacity box-shadow, 10 = 1s, 9 = 0.9 ... 1 = 0.1                                                           |
 | rotation       |    number     |    `-90`    |         | Chart rotation                                                                                             |
 | number         |    boolean    |   `true`    |         | Add props number and set to false to hide the number with percent                                          |
 | animationOff   |    boolean    |   `false`   |         | Turn off the progress animation                                                                            |
@@ -106,7 +105,9 @@ setTimeout(() => {
 | fontSize       |    string     |  `1.6rem`   |         | Font size. The font can be shown in units rem, em, px ...                                                  |
 | fontWeight     |    string     |    `400`    |         | [number, normal, bold, bolder, lighter]                                                                    |
 | fontColor      |    string     | `'#365b74'` |         | Font color ["#ffff00","brown" \*](#colors-names)                                                           |
-| lineargradient |     array     |             |         | Array of colors "lineargradient": ["#ffff00","brown" \*](#colors-names)                                    |
+| lineargradient |     array     |     ``      |         | Array of colors "lineargradient": ["#ffff00","brown" \*](#colors-names)                                    |
+| strokeDasharray|    string     |     ``      |         | It works only on the lowest circle and only on whole circles - [stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/)                                                  |
+| ~~opacity~~    |  ~~number~~   |  ~~`10`~~   |         | ~~Opacity box-shadow, 10 = 1s, 9 = 0.9 ... 1 = 0.1~~                                                       |
 
 \* `unit` - you can style them. `unit` is in the tspan element of the class `pie-unit-x`. The class name is main class + `unit` + chart id. Below are the styles for our example.
 ```css
@@ -115,6 +116,16 @@ setTimeout(() => {
   font-size: 1rem;
 }
 ```
+
+## Adding a shadow
+```css
+[data-pie-index='2'] {
+  position: relative;
+  border-radius: 50%;
+  box-shadow: inset 0 0 25px 10px rgb(162, 202, 255);
+}
+```
+
 ## Colors names
 
 [\* See colors names](https://htmlcolorcodes.com/color-names/)
