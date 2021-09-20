@@ -1,3 +1,14 @@
+## 2021-09-20 (v1.0.20)
+
+### Added
+
+- 'strokeDasharray' - added to the lower circle
+
+### Changed
+
+- remove `box-shadow` from now on to get this effect you should do it in css styles
+- name `data-index` to `data-pie-index`
+
 ## 2021-08-21 (v1.0.19)
 
 ### Added
@@ -27,7 +38,7 @@
 
 ## 2021-07-15 (v1.0.15)
 
-### Change
+### Changed
 
 - Fix: Without number [#33](https://github.com/tomik23/circular-progress-bar/issues/33)
 
@@ -45,7 +56,7 @@
 
 ## 2021-05-23 (v1.0.12)
 
-### Change
+### Changed
 
 - Fix: If 0% is set [#26](https://github.com/tomik23/circular-progress-bar/issues/26)
 
