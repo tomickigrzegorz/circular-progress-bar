@@ -26,7 +26,7 @@ class CircularProgressBar {
       const ovserver = new IntersectionObserver((entries, observer) => {
         entries.map((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
-            this.cSVG(entry.target);
+            this.elSVG(entry.target);
             observer.unobserve(entry.target);
           }
         });
@@ -37,97 +37,125 @@ class CircularProgressBar {
       });
     } else {
       elements.map((element) => {
-        this.cSVG(element);
+        this.elSVG(element);
       });
     }
   };
 
-  progressBar = (svg, target, options) => {
+  progress = (svg, target, options) => {
     if (options.number) {
-      svg.insertAdjacentElement('beforeend', this.percentEl(options));
+      svg.insertAdjacentElement('beforeend', this.percent(options));
     }
 
-    const config = {
+    const progressCircle = document.querySelector(
+      `.${this.pieName}-circle-${options.index}`
+    );
+
+    const configCircle = {
       fill: 'none',
       'stroke-width': options.stroke,
       'stroke-dasharray': '264',
       'stroke-linecap': options.round ? 'round' : '',
     };
+    this.attr(progressCircle, configCircle);
 
-    const element = document.querySelector(
-      `.${this.pieName}-circle-${options.index}`
-    );
+    // animation progress
+    this.animationTo({ ...options, element: progressCircle }, true);
 
-    this.sAttr(element, config, false);
-
-    // animation
-    this.animationTo({ ...options, element }, true);
-
-    element.setAttribute(
+    // set style and rotation
+    progressCircle.setAttribute(
       'style',
       `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`
     );
 
-    // set linear gradient
-    element.setAttribute(
-      'stroke',
-      options.lineargradient
-        ? `url(#linear-${options.index})`
-        : options.colorSlice
-    );
+    // set color
+    this.color(progressCircle, options);
 
-    // // set width and height on div
+    // set width and height on div
     target.setAttribute(
       'style',
       `width:${options.size}px;height:${options.size}px;`
     );
   };
 
-  sDashOffset = (count, inverse, cut) => {
+  // set color colorSlice
+  color = (element, { lineargradient, index, colorSlice }) => {
+    element.setAttribute(
+      'stroke',
+      lineargradient ? `url(#linear-${index})` : colorSlice
+    );
+  };
+
+  dashOffset = (count, inverse, cut) => {
     const cutChar = cut ? (264 / 100) * (100 - cut) : 264;
     const angle = 264 - (count / 100) * cutChar;
 
     return inverse ? -angle : angle;
   };
 
+  // claback function
   animationTo = (options, initial = false) => {
-    // round if number is decimal
-    const percent = Math.round(options.percent);
-
     const previousConfigObj = JSON.parse(
-      document.querySelector(`[data-pie-index="${options.index}"]`).dataset.pie
+      document
+        .querySelector(`[data-pie-index="${options.index}"]`)
+        .getAttribute('data-pie')
     );
 
-    const element = document.querySelector(
+    const circleElement = document.querySelector(
       `.${this.pieName}-circle-${options.index}`
     );
 
-    if (!element) return;
+    if (!circleElement) return;
 
-    // get numer percent from data-angel
-    let angle = JSON.parse(element.getAttribute('data-angel'));
-
-    const config = initial
+    const commonConfiguration = initial
       ? options
       : { ...defaultOptions, ...previousConfigObj, ...options };
 
-    const place = document.querySelector(
+    // update color circle
+    if (!initial) {
+      this.color(circleElement, commonConfiguration);
+    }
+
+    // font color update
+    if (!initial && commonConfiguration.number) {
+      const fontconfig = {
+        fill: commonConfiguration.fontColor,
+        'font-size': commonConfiguration.fontSize,
+        'font-weight': commonConfiguration.fontWeight,
+      };
+      const textElement = document.querySelector(
+        `.${this.pieName}-text-${commonConfiguration.index}`
+      );
+      this.attr(textElement, fontconfig);
+    }
+
+    const centerNumber = document.querySelector(
       `.${this.pieName}-percent-${options.index}`
     );
 
-    if (config.animationOff) {
-      if (config.number) place.textContent = `${config.percent}`;
-      element.setAttribute(
+    if (commonConfiguration.animationOff) {
+      if (commonConfiguration.number)
+        centerNumber.textContent = `${commonConfiguration.percent}`;
+      circleElement.setAttribute(
         'stroke-dashoffset',
-        this.sDashOffset(config.percent, config.inverse)
+        this.dashOffset(
+          commonConfiguration.percent,
+          commonConfiguration.inverse
+        )
       );
       return;
     }
 
+    // get numer percent from data-angel
+    let angle = JSON.parse(circleElement.getAttribute('data-angel'));
+
+    // round if number is decimal
+    const percent = Math.round(options.percent);
+
     // if percent 0 then set at start 0%
     if (percent == 0) {
-      if (config.number) place.textContent = '0';
-      element.setAttribute('stroke-dashoffset', '264');
+      if (commonConfiguration.number) centerNumber.textContent = '0';
+      circleElement.setAttribute('stroke-dashoffset', '264');
     }
 
     if (percent > 100 || percent <= 0 || angle === percent) return;
@@ -135,7 +163,7 @@ class CircularProgressBar {
     let request;
     let i = initial ? 0 : angle;
 
-    const fps = config.speed || 1000;
+    const fps = commonConfiguration.speed || 1000;
     const interval = 1000 / fps;
     const tolerance = 0.1;
     let then = performance.now();
@@ -147,18 +175,18 @@ class CircularProgressBar {
       if (delta >= interval - tolerance) {
         then = now - (delta % interval);
 
-        angle >= config.percent ? i-- : i++;
+        angle >= commonConfiguration.percent ? i-- : i++;
       }
 
-      element.setAttribute(
+      circleElement.setAttribute(
         'stroke-dashoffset',
-        this.sDashOffset(i, config.inverse, config.cut)
+        this.dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)
       );
-      if (place && config.number) {
-        place.textContent = `${i}`;
+      if (centerNumber && commonConfiguration.number) {
+        centerNumber.textContent = `${i}`;
       }
       if (i === percent) {
-        element.setAttribute('data-angel', i);
+        circleElement.setAttribute('data-angel', i);
         cancelAnimationFrame(request);
       }
     };
@@ -167,19 +195,24 @@ class CircularProgressBar {
   };
 
   // set text element
-  percentEl = (options) => {
-    const text = document.createElementNS(this.svg, 'text');
+  percent = (options) => {
+    const text = this.creNS('text');
+    text.classList.add(`${this.pieName}-text-${options.index}`);
 
+    // create tspan element with number
+    // and insert to svg text element
     text.insertAdjacentElement(
       'afterbegin',
-      this.cTspan(`${this.pieName}-percent-${options.index}`)
+      this.tspan(`${this.pieName}-percent-${options.index}`)
     );
 
+    // create and insert unit to text element
     text.insertAdjacentElement(
       'beforeend',
-      this.cTspan(`${this.pieName}-unit-${options.index}`, options.unit)
+      this.tspan(`${this.pieName}-unit-${options.index}`, options.unit)
     );
 
+    // config to svg text
     const config = {
       x: '50%',
       y: '50%',
@@ -190,51 +223,54 @@ class CircularProgressBar {
       dy: options.textPosition || '0.35em',
     };
 
-    this.sAttr(text, config, false);
+    this.attr(text, config);
     return text;
   };
 
-  cTspan = (className, unit) => {
-    const tspan = document.createElementNS(this.svg, 'tspan');
+  tspan = (className, unit) => {
+    const tspan = this.creNS('tspan');
     tspan.classList.add(className);
     if (unit) tspan.textContent = unit;
     return tspan;
   };
 
-  cSVG = (element) => {
-    const json = JSON.parse(element.getAttribute('data-pie'));
+  elSVG = (element) => {
     const index = element.getAttribute('data-pie-index');
+    const json = JSON.parse(element.getAttribute('data-pie'));
 
     const options = { ...defaultOptions, ...json, index };
 
-    const svg = document.createElementNS(this.svg, 'svg');
-    const config = {
+    const svgElement = this.creNS('svg');
+
+    const configSVG = {
       role: 'img',
       width: options.size,
       height: options.size,
       viewBox: '0 0 100 100',
     };
 
-    this.sAttr(svg, config, false);
+    this.attr(svgElement, configSVG);
 
+    // colorCircle
     if (options.colorCircle) {
-      svg.appendChild(this.cCircle(options, 'bottom'));
+      svgElement.appendChild(this.circle(options, 'bottom'));
     }
 
+    // gradient
     if (options.lineargradient) {
-      svg.appendChild(this.cGradient(options));
+      svgElement.appendChild(this.gradient(options));
     }
 
-    svg.appendChild(this.cCircle(options, 'top', true));
+    svgElement.appendChild(this.circle(options, 'top', true));
 
-    element.appendChild(svg);
+    element.appendChild(svgElement);
 
-    this.progressBar(svg, element, options);
+    this.progress(svgElement, element, options);
   };
 
-  cGradient = ({ index, lineargradient }) => {
-    const defs = document.createElementNS(this.svg, 'defs');
-    const linearGradient = document.createElementNS(this.svg, 'linearGradient');
+  gradient = ({ index, lineargradient }) => {
+    const defs = this.creNS('defs');
+    const linearGradient = this.creNS('linearGradient');
     linearGradient.id = `linear-${index}`;
 
     const countGradient = [].slice.call(lineargradient);
@@ -243,29 +279,29 @@ class CircularProgressBar {
 
     let number = 0;
     countGradient.map((item) => {
-      const stop = document.createElementNS(this.svg, 'stop');
+      const stopElements = this.creNS('stop');
 
-      const obj = {
+      const stopObj = {
         offset: `${number}%`,
         'stop-color': `${item}`,
       };
-      this.sAttr(stop, obj, false);
+      this.attr(stopElements, stopObj);
 
-      linearGradient.appendChild(stop);
+      linearGradient.appendChild(stopElements);
       number += 100 / (countGradient.length - 1);
     });
 
     return defs;
   };
 
-  cCircle = (options, where, setAngel = false) => {
-    const circle = document.createElementNS(this.svg, 'circle');
+  circle = (options, where, setAngel = false) => {
+    const circle = this.creNS('circle');
 
     let configCircle = {};
     if (options.cut) {
       const dashoffset = 264 - (100 - options.cut) * 2.64;
       configCircle = {
-        'stroke-dasharray': 264,
+        'stroke-dasharray': '264',
         'stroke-linecap': options.round ? 'round' : '',
         'stroke-dashoffset': options.inverse ? -dashoffset : dashoffset,
         style: `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`,
@@ -297,18 +333,16 @@ class CircularProgressBar {
       ...typeCircle,
     };
 
-    this.sAttr(circle, config, false);
+    this.attr(circle, config);
 
     return circle;
   };
 
-  sAttr = (element, object, type = false) => {
+  creNS = (type) => document.createElementNS(this.svg, type);
+
+  attr = (element, object) => {
     for (const key in object) {
-      if (type) {
-        element.setAttributeNS(null, key, object[key]);
-      } else {
-        element.setAttribute(key, object[key]);
-      }
+      element?.setAttribute(key, object[key]);
     }
   };
 }
