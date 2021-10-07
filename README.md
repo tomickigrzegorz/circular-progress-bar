@@ -123,12 +123,12 @@ Modification of these elements `fontColor`,` fontSize`, `fontWeight` is also ava
 | animationOff   |    boolean    |   `false`   |         | Turn off the progress animation                                                                            |
 | size           |    number     |    `200`    |         | Size progress bar width and height in px                                                                   |
 | cut            |    number     |     `0`     |         | Angle of the circle sector                                                                                 |
-| unit           |    string     |     `%`     |         | Different unit instead of percentage (%) inside the circle *                                               |
+| unit           |    string     |     `%`     |         | Different unit instead of percentage (%) inside the circle <sup>1</sup>                                    |
 | fill           |    string     |   `none`    |         | Inner circle color                                                                                         |
 | textPosition   |    string     |  `0.35em`   |         | The position of the SVG TEXT element vertically                                                            |
 | fontSize       |    string     |  `1.6rem`   |         | Font size. The font can be shown in units rem, em, px ...                                                  |
 | fontWeight     |    string     |    `400`    |         | [number, normal, bold, bolder, lighter]                                                                    |
-| fontColor      |    string     | `'#000'` |         | Font color ["#ffff00","brown" <sup>1</sup>](#colors-names)                                                           |
+| fontColor      |    string     | `'#000'` |         | Font color ["#ffff00","brown" <sup>2</sup>](#colors-names)                                                           |
 | lineargradient |     array     |     ``      |         | Array of colors "lineargradient": ["#ffff00","brown" <sup>2</sup>](#colors-names)                                    |
 | strokeDasharray|    string     |     ``      |         | It works only on the lowest circle and only on whole circles - [stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/)                                                  |
 
