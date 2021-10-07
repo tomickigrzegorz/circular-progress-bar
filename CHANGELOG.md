@@ -1,8 +1,19 @@
+## 2021-10-07 (v1.0.21)
+
+### Added
+- a class to the svg `text` and `tspan` element
+
+### Changed
+
+- the number of updateable properties has been extended: `colorSlice`, `fontColor`, `fontSize`, `fontWeight`
+- default `fontColor: '#365b74'` to `#000`
+- new example 'mixed'
+
 ## 2021-09-20 (v1.0.20)
 
 ### Added
 
-- 'strokeDasharray' - added to the lower circle
+- `strokeDasharray` - added to the lower circle
 
 ### Changed
 
@@ -13,28 +24,28 @@
 
 ### Added
 
-- 'unit' - different unit instead of percentage (%) inside the circle
-- 'fill' - inner circle color
+- `unit` - different unit instead of percentage (%) inside the circle
+- `fill` - inner circle color
 
 ## 2021-08-18 (v1.0.18)
 
 ### Added
 
-- 'cut' - angle of the circle sector
+- `cut` - angle of the circle sector
 
 ## 2021-08-16 (v1.0.17)
 
 ### Added
 
-- 'textPosition' - the position of the SVG TEXT element vertically
-- 'speed' - frame rate animation [fps]. Let's say you want the animation to be 60fps, just add the parameter "speed": 60
+- `textPosition` - the position of the SVG TEXT element vertically
+- `speed` - frame rate animation [fps]. Let's say you want the animation to be 60fps, just add the parameter "speed": 60
 
 ## 2021-08-02 (v1.0.16)
 
 ### Added
 
-- 'rotation' - chart rotation
-- 'strokeBottom' - if "strokBottom" is set, it is used to generate a background circle size
+- `rotation` - chart rotation
+- `strokeBottom` - if "strokBottom" is set, it is used to generate a background circle size
 
 ## 2021-07-15 (v1.0.15)
 
@@ -46,13 +57,13 @@
 
 ### Added
 
-- 'animationOff' - turn off the progress animation
+- `animationOff` - turn off the progress animation
 
 ## 2021-07-13 (v1.0.13)
 
 ### Added
 
-- 'inverse' - counterclockwise animation
+- `inverse` - counterclockwise animation
 
 ## 2021-05-23 (v1.0.12)
 
@@ -64,13 +75,13 @@
 
 ### Added
 
-- 'zero-at-start' - from now on you can set 0%
+- `zero-at-start` - from now on you can set 0%
 
 ## 2021-02-01 (v1.0.10)
 
 ### Changed
 
-- Improv: Removal of the requirement to enter the 'index' of the progress bar in 'data-pie'
+- Improv: Removal of the requirement to enter the `index` of the progress bar in `data-pie`
 
 ## 2020-11-25 (v1.0.9)
 
@@ -102,7 +113,7 @@
 
 ### Added
 
-- New 'animationTo' functionality
+- New `animationTo` functionality
 - Adding babel
 
 ### Changed
