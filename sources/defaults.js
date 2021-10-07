@@ -1,8 +1,8 @@
 const defaultOptions = {
-  colorCircle: false,
+  colorCircle: '',
   colorSlice: '#00a1ff',
   end: 264,
-  fontColor: '#365b74',
+  fontColor: '#000',
   fontSize: '1.6rem',
   fontWeight: 400,
   lineargradient: false,
