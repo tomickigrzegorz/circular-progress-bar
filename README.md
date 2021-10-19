@@ -3,14 +3,14 @@
 </h1>
 
 <p align="center">
-  Simple circular progress bar. From now on, one call runs multiple circular-progress-bar. IntersectionObserver support, the animation starts when the individual chart appears in the view.
+  Simple circular progress bar. From now on, one call runs multiple circular-progress-bar.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/package-json/v/tomik23/circular-progress-bar">
-  <img src="https://img.shields.io/github/size/tomik23/circular-progress-bar/docs/circularProgressBar.min.js">
+  <img src="https://img.shields.io/github/package-json/v/tomik23/circular-progress-bar?style=for-the-badge">
+  <img src="https://img.shields.io/github/size/tomik23/circular-progress-bar/docs/circularProgressBar.min.js?style=for-the-badge">
   <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-green.svg">
+    <img src="https://img.shields.io/github/license/tomik23/circular-progress-bar?style=for-the-badge">
   </a>
 </p>
 
@@ -22,29 +22,28 @@
 
 See the demo - [example](https://tomik23.github.io/circular-progress-bar/)
 
-## Watch/Build the app
+## Installation
 
-Watch the app, just call:
+#### JavaScript
 
-```bash
-yarn watch
-# or
-npm run watch
+```html
+<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@master/docs/circularProgressBar.min.js"></script>
 ```
 
-Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomik23/circular-progress-bar#colors-names)**
+##### -- OR --
 
-```bash
-yarn build
-# or
-npm run build
+Just download the library from the `docs/circularProgressBar.min.js` and add it to head:
+
+```js
+<script src="./path/to/circularProgressBar.min.js"></script>
 ```
+
 
 ## Sample configuration
 
 1. Add a div element to the page `<div class="pie" data-pie='{ "percent": 80 }'></div>`
 2. Build the script or download it from the `docs` folder and add `circularProgressBar.min.js` to the page
-3. Call the functions `new CircularProgressBar('pie');`
+3. Call the functions `const circle = new CircularProgressBar('pie'); circle.initial();`
 
 More extensive example:
 
@@ -64,14 +63,57 @@ Minimal configuration:
 ```javascript
 // 'pie' is class name div
 const circle = new CircularProgressBar("pie");
+circle.initial();
 ```
 
-### Update circular-progress-bar dynamically
+### IntersectionObserver
+Automatic animation start when the progress bar appears in the page view.
+
+```js
+window.addEventListener('DOMContentLoaded', () => {
+  // get all progress bar
+  const elements = [].slice.call(document.querySelectorAll('.pie'));
+  // call to function
+  const circle = new CircularProgressBar('pie');
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+  // if IntersectionObserver is supported by the browser
+  if ('IntersectionObserver' in window) {
+    const config = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.75,
+    };
+
+    const ovserver = new IntersectionObserver((entries, observer) => {
+      entries.map((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
+          circle.initial(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, config);
+
+    elements.map((item) => {
+      ovserver.observe(item);
+    });
+  } else {
+    // if the browser does not support IntersectionObserver
+    // we run all progress bars at once
+    elements.map((element) => {
+      circle.initial(element);
+    });
+  }
+});
+```
+
+### Update progress bar dynamically
 
 Below there are properties that we can change dynamically
 
-```javascript
+```js
 const circle = new CircularProgressBar("pie");
+circle.initial();
 
 setTimeout(() => {
   const options = {
@@ -105,6 +147,23 @@ Modification of these elements `fontColor`,` fontSize`, `fontWeight` is also ava
 }
 ```
 
+## Watch/Build the app
+
+Watch the app, just call:
+
+```bash
+yarn watch
+# or
+npm run watch
+```
+
+Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomik23/circular-progress-bar#colors-names)**
+
+```bash
+yarn build
+# or
+npm run build
+```
 
 ## Configuration of the plugin
 

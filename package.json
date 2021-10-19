@@ -1,6 +1,6 @@
 {
   "name": "circular-progress-bar",
-  "version": "1.0.21",
+  "version": "1.1.0",
   "main": "docs/circularProgressBar.min.js",
   "description": "A circular progress bar in svg",
   "repository": "https://github.com/tomik23/circular-progress-bar.git",
@@ -20,26 +20,19 @@
     "url": "https://github.com/tomik23/circular-progress-bar/issues"
   },
   "homepage": "https://github.com/tomik23/circular-progress-bar#readme",
-  "browserslist": {
-    "production": [
-      "defaults",
-      "not IE 11",
-      "maintained node versions"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
+  ],
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/eslint-parser": "^7.15.8",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/preset-env": "^7.15.8",
     "@rollup/plugin-babel": "^5.3.0",
-    "core-js": "^3.18.2",
-    "eslint": "^7.32.0",
+    "core-js": "^3.18.3",
+    "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.4.1",
