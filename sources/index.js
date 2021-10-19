@@ -12,34 +12,14 @@ class CircularProgressBar {
       item.setAttribute('data-pie-index', index + 1);
     });
 
-    this.initial(elements);
+    this.elements = elements;
   }
 
-  initial = (elements) => {
-    if ('IntersectionObserver' in window) {
-      const config = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 1.0,
-      };
-
-      const ovserver = new IntersectionObserver((entries, observer) => {
-        entries.map((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
-            this.elSVG(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, config);
-
-      elements.map((item) => {
-        ovserver.observe(item);
-      });
-    } else {
-      elements.map((element) => {
-        this.elSVG(element);
-      });
-    }
+  initial = (outside) => {
+    const triggeredOutside = outside || this.elements;
+    Array.isArray(triggeredOutside)
+      ? triggeredOutside.map((element) => this.elSVG(element))
+      : this.elSVG(triggeredOutside);
   };
 
   progress = (svg, target, options) => {
@@ -95,6 +75,7 @@ class CircularProgressBar {
 
   // claback function
   animationTo = (options, initial = false) => {
+    const pieName = this.pieName;
     const previousConfigObj = JSON.parse(
       document
         .querySelector(`[data-pie-index="${options.index}"]`)
@@ -102,7 +83,7 @@ class CircularProgressBar {
     );
 
     const circleElement = document.querySelector(
-      `.${this.pieName}-circle-${options.index}`
+      `.${pieName}-circle-${options.index}`
     );
 
     if (!circleElement) return;
@@ -124,13 +105,13 @@ class CircularProgressBar {
         'font-weight': commonConfiguration.fontWeight,
       };
       const textElement = document.querySelector(
-        `.${this.pieName}-text-${commonConfiguration.index}`
+        `.${pieName}-text-${commonConfiguration.index}`
       );
       this.attr(textElement, fontconfig);
     }
 
     const centerNumber = document.querySelector(
-      `.${this.pieName}-percent-${options.index}`
+      `.${pieName}-percent-${options.index}`
     );
 
     if (commonConfiguration.animationOff) {
@@ -196,20 +177,22 @@ class CircularProgressBar {
 
   // set text element
   percent = (options) => {
-    const text = this.creNS('text');
-    text.classList.add(`${this.pieName}-text-${options.index}`);
+    const pieName = this.pieName;
+    const creatTextElementSVG = this.creNS('text');
+
+    creatTextElementSVG.classList.add(`${pieName}-text-${options.index}`);
 
     // create tspan element with number
     // and insert to svg text element
-    text.insertAdjacentElement(
+    creatTextElementSVG.insertAdjacentElement(
       'afterbegin',
-      this.tspan(`${this.pieName}-percent-${options.index}`)
+      this.tspan(`${pieName}-percent-${options.index}`)
     );
 
     // create and insert unit to text element
-    text.insertAdjacentElement(
+    creatTextElementSVG.insertAdjacentElement(
       'beforeend',
-      this.tspan(`${this.pieName}-unit-${options.index}`, options.unit)
+      this.tspan(`${pieName}-unit-${options.index}`, options.unit)
     );
 
     // config to svg text
@@ -223,8 +206,8 @@ class CircularProgressBar {
       dy: options.textPosition || '0.35em',
     };
 
-    this.attr(text, config);
-    return text;
+    this.attr(creatTextElementSVG, config);
+    return creatTextElementSVG;
   };
 
   tspan = (className, unit) => {
