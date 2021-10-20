@@ -7,10 +7,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/package-json/v/tomik23/circular-progress-bar?style=for-the-badge">
-  <img src="https://img.shields.io/github/size/tomik23/circular-progress-bar/docs/circularProgressBar.min.js?style=for-the-badge">
+  <img src="https://img.shields.io/github/package-json/v/tomik23/circular-progress-bar">
+  <img src="https://img.shields.io/github/size/tomik23/circular-progress-bar/docs/circularProgressBar.min.js">
   <a href="LICENSE">
-    <img src="https://img.shields.io/github/license/tomik23/circular-progress-bar?style=for-the-badge">
+    <img src="https://img.shields.io/github/license/tomik23/circular-progress-bar">
   </a>
 </p>
 
