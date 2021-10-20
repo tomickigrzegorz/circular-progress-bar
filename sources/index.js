@@ -1,11 +1,10 @@
 import defaultOptions from './defaults';
-
 class CircularProgressBar {
   constructor(pieName) {
     this.pieName = pieName;
     this.svg = 'http://www.w3.org/2000/svg';
-    const pieElements = document.querySelectorAll(`.${pieName}`);
 
+    const pieElements = document.querySelectorAll(`.${pieName}`);
     const elements = [].slice.call(pieElements);
     // add index to all progressbar
     elements.map((item, index) => {
@@ -166,8 +165,11 @@ class CircularProgressBar {
       if (centerNumber && commonConfiguration.number) {
         centerNumber.textContent = `${i}`;
       }
+
+      circleElement.setAttribute('data-angel', i);
+      circleElement.parentNode.setAttribute('aria-valuenow', i);
+
       if (i === percent) {
-        circleElement.setAttribute('data-angel', i);
         cancelAnimationFrame(request);
       }
     };
@@ -226,10 +228,12 @@ class CircularProgressBar {
     const svgElement = this.creNS('svg');
 
     const configSVG = {
-      role: 'img',
+      role: 'progressbar',
       width: options.size,
       height: options.size,
       viewBox: '0 0 100 100',
+      'aria-valuemin': '0',
+      'aria-valuemax': '100',
     };
 
     this.attr(svgElement, configSVG);
@@ -244,7 +248,7 @@ class CircularProgressBar {
       svgElement.appendChild(this.gradient(options));
     }
 
-    svgElement.appendChild(this.circle(options, 'top', true));
+    svgElement.appendChild(this.circle(options, 'top'));
 
     element.appendChild(svgElement);
 
@@ -277,7 +281,7 @@ class CircularProgressBar {
     return defs;
   };
 
-  circle = (options, where, setAngel = false) => {
+  circle = (options, where) => {
     const circle = this.creNS('circle');
 
     let configCircle = {};
@@ -287,7 +291,7 @@ class CircularProgressBar {
         'stroke-dasharray': '264',
         'stroke-linecap': options.round ? 'round' : '',
         'stroke-dashoffset': options.inverse ? -dashoffset : dashoffset,
-        style: `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`,
+        style: `transform:rotate(${options.rotation}deg);`,
       };
     }
 
@@ -307,16 +311,15 @@ class CircularProgressBar {
         ? { class: `${this.pieName}-circle-${options.index}` }
         : objCircle;
 
-    const config = {
+    const objConfig = {
       cx: '50%',
       cy: '50%',
       r: 42,
       'shape-rendering': 'geometricPrecision',
-      'data-angle': setAngel ? 0 : '',
       ...typeCircle,
     };
 
-    this.attr(circle, config);
+    this.attr(circle, objConfig);
 
     return circle;
   };
