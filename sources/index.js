@@ -291,7 +291,7 @@ class CircularProgressBar {
         'stroke-dasharray': '264',
         'stroke-linecap': options.round ? 'round' : '',
         'stroke-dashoffset': options.inverse ? -dashoffset : dashoffset,
-        style: `transform:rotate(${options.rotation}deg);`,
+        style: `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`,
       };
     }
 
