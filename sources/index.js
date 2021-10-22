@@ -2,7 +2,6 @@ import defaultOptions from './defaults';
 class CircularProgressBar {
   constructor(pieName) {
     this.pieName = pieName;
-    this.svg = 'http://www.w3.org/2000/svg';
 
     const pieElements = document.querySelectorAll(`.${pieName}`);
     const elements = [].slice.call(pieElements);
@@ -34,6 +33,7 @@ class CircularProgressBar {
       fill: 'none',
       'stroke-width': options.stroke,
       'stroke-dasharray': '264',
+      'stroke-dashoffset': options.inverse ? '-264' : '264',
       'stroke-linecap': options.round ? 'round' : '',
     };
     this.attr(progressCircle, configCircle);
@@ -41,10 +41,14 @@ class CircularProgressBar {
     // animation progress
     this.animationTo({ ...options, element: progressCircle }, true);
 
+    const animationSmooth = options.animationSmooth
+      ? `transition: stroke-dashoffset ${options.animationSmooth}`
+      : '';
+
     // set style and rotation
     progressCircle.setAttribute(
       'style',
-      `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`
+      `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%;${animationSmooth}`
     );
 
     // set color
@@ -68,7 +72,6 @@ class CircularProgressBar {
   dashOffset = (count, inverse, cut) => {
     const cutChar = cut ? (264 / 100) * (100 - cut) : 264;
     const angle = 264 - (count / 100) * cutChar;
-
     return inverse ? -angle : angle;
   };
 
@@ -324,7 +327,8 @@ class CircularProgressBar {
     return circle;
   };
 
-  creNS = (type) => document.createElementNS(this.svg, type);
+  creNS = (type) =>
+    document.createElementNS('http://www.w3.org/2000/svg', type);
 
   attr = (element, object) => {
     for (const key in object) {
