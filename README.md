@@ -171,7 +171,7 @@ npm run build
 | -------------- | :-----------: | :---------: | :-----: | ---------------------------------------------------------------------------------------------------------- |
 | percent        |    number     |             |    ✔    | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%         |
 | colorSlice     |    string     | `'#00a1ff'` |         | Progress layer color and background ["#ffff00","brown" <sup>2</sup>](#colors-names)                                  |
-| colorCircle    |    string     | `''` |         | Bottom circle color Font ["#ffff00","brown" <sup>2</sup>](#colors-names)                                             |
+| colorCircle    |    string     |     `''`    |         | Bottom circle color Font ["#ffff00","brown" <sup>2</sup>](#colors-names)                                             |
 | speed          |    number     |   `1000`    |         | Frame rate animation [fps]. Let's say you want the animation to be 60fps, just add the parameter speed: 60 |
 | stroke         |    number     |    `10`     |         | Stroke width, chart thickness                                                                              |
 | strokeBottom   |    number     |    `10`     |         | If "strokBottom" is set, it is used to generate a background circle size                                   |
@@ -180,6 +180,7 @@ npm run build
 | rotation       |    number     |    `-90`    |         | Chart rotation                                                                                             |
 | number         |    boolean    |   `true`    |         | Add props number and set to false to hide the number with percent                                          |
 | animationOff   |    boolean    |   `false`   |         | Turn off the progress animation                                                                            |
+| animationSmooth|    string     |     `''`    |         | Animation type setting, e.g. `500ms ease-out` - [more on transition](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)                                                                            |
 | size           |    number     |    `200`    |         | Size progress bar width and height in px                                                                   |
 | cut            |    number     |     `0`     |         | Angle of the circle sector                                                                                 |
 | unit           |    string     |     `%`     |         | Different unit instead of percentage (%) inside the circle <sup>1</sup>                                    |
@@ -187,7 +188,7 @@ npm run build
 | textPosition   |    string     |  `0.35em`   |         | The position of the SVG TEXT element vertically                                                            |
 | fontSize       |    string     |  `1.6rem`   |         | Font size. The font can be shown in units rem, em, px ...                                                  |
 | fontWeight     |    string     |    `400`    |         | [number, normal, bold, bolder, lighter]                                                                    |
-| fontColor      |    string     | `'#000'` |         | Font color ["#ffff00","brown" <sup>2</sup>](#colors-names)                                                           |
+| fontColor      |    string     |  `'#000'`   |         | Font color ["#ffff00","brown" <sup>2</sup>](#colors-names)                                                           |
 | lineargradient |     array     |     ``      |         | Array of colors "lineargradient": ["#ffff00","brown" <sup>2</sup>](#colors-names)                                    |
 | strokeDasharray|    string     |     ``      |         | It works only on the lowest circle and only on whole circles - [stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/)                                                  |
 

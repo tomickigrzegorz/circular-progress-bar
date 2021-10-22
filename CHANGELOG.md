@@ -1,3 +1,22 @@
+## 2021-10-22 (v1.1.3)
+
+### Added
+- `animationSmooth` - new props (animation type setting, e.g. `500ms ease-out`) [#50](https://github.com/tomik23/circular-progress-bar/issues/50)
+
+## 2021-10-20 (v1.1.2)
+
+### Added
+- aria-label [#49](https://github.com/tomik23/circular-progress-bar/issues/49)
+### Fixed
+- transform-origin issue [#52](https://github.com/tomik23/circular-progress-bar/issues/52)
+
+
+## 2021-10-19 (v1.1.0)
+
+### Changed
+
+- removing IntersectionObserver from code
+
 ## 2021-10-07 (v1.0.21)
 
 ### Added
@@ -49,9 +68,9 @@
 
 ## 2021-07-15 (v1.0.15)
 
-### Changed
+### Fixed
 
-- Fix: Without number [#33](https://github.com/tomik23/circular-progress-bar/issues/33)
+- without number [#33](https://github.com/tomik23/circular-progress-bar/issues/33)
 
 ## 2021-07-13 (v1.0.14)
 
@@ -67,9 +86,9 @@
 
 ## 2021-05-23 (v1.0.12)
 
-### Changed
+### Fixed
 
-- Fix: If 0% is set [#26](https://github.com/tomik23/circular-progress-bar/issues/26)
+- if 0% is set [#26](https://github.com/tomik23/circular-progress-bar/issues/26)
 
 ## 2021-05-23 (v1.0.11)
 
@@ -81,58 +100,60 @@
 
 ### Changed
 
-- Improv: Removal of the requirement to enter the `index` of the progress bar in `data-pie`
+- improv: Removal of the requirement to enter the `index` of the progress bar in `data-pie`
 
 ## 2020-11-25 (v1.0.9)
 
-### Changed
+### Fixed
 
-- Fix: Reducing the size of charts on mobile devices [#19](https://github.com/tomik23/circular-progress-bar/issues/19)
-- Fix: The animation does not start if the progress-bar is shown vertically [#21](https://github.com/tomik23/circular-progress-bar/issues/21)
+- reducing the size of charts on mobile devices [#19](https://github.com/tomik23/circular-progress-bar/issues/19)
+- the animation does not start if the progress-bar is shown vertically [#21](https://github.com/tomik23/circular-progress-bar/issues/21)
 
 ## 2020-11-24 (v1.0.8)
 
 ### Added
 
 - UMD version
-- Chore: "scroll down" information to the section in the examples
+
+### Changed
+- chore: "scroll down" information to the section in the examples
 
 ## 2020-10-26 (v1.0.7)
 
-### Changed
+### Fixed
 
-- Fix: stroke-width undefined [#12](https://github.com/tomik23/circular-progress-bar/issues/12)
+- stroke-width undefined [#12](https://github.com/tomik23/circular-progress-bar/issues/12)
 
 ## 2020-10-24 (v1.0.7)
 
-### Changed
+### Fixed
 
-- Fix: Problem with class renaming [#10](https://github.com/tomik23/circular-progress-bar/issues/10)
+- problem with class renaming [#10](https://github.com/tomik23/circular-progress-bar/issues/10)
 
 ## 2020-10-23 (v1.0.7)
 
 ### Added
 
-- New `animationTo` functionality
-- Adding babel
+- new `animationTo` functionality
+- adding babel
 
 ### Changed
 
-- Update devDependencies
-- Update README.md
-- Removed 'rollup-plugin-closure-compiler'
+- update devDependencies
+- update README.md
+- removed 'rollup-plugin-closure-compiler'
 
 ## 2020-08-26 (v1.0.6)
 
-### Changed
+### Fixed
 
-- Fix: Several circular-progress-bars [#6](https://github.com/tomik23/circular-progress-bar/issues/6)
+- several circular-progress-bars [#6](https://github.com/tomik23/circular-progress-bar/issues/6)
 
 ## 2020-07-18
 
 ### Changed
 
-- Update README.md
+- update README.md
 
 ## 2020-07-09
 
@@ -143,30 +164,30 @@
 
 ### Changed
 
-- Update devDependencies
+- update devDependencies
 
 ## 2020-05-22
 
-### Changed
+### Fixed
 
-- Fixed: vertical centering of the text element
+- vertical centering of the text element
 
 ## 2020-05-21
 
 ### Changed
 
-- No showing divs with percentages if percentages are off
-- Replacing div with percentages by the svg text element
+- no showing divs with percentages if percentages are off
+- replacing div with percentages by the svg text element
 
 ## 2020-05-01
 
 ### Added
 
-- Linear gradient
+- linear gradient
 
 ### Changed
 
-- Update devDependencies
+- update devDependencies
 
 ## 2020-04-17
 
@@ -176,25 +197,25 @@
 
 ### Changed
 
-- Update devDependencies
-- Refactoring
-- Update readme
+- update devDependencies
+- refactoring
+- update readme
 
 ## 2020-04-15
 
 ### Added
 
-- Polyfill for IntersectionObserver
+- polyfill for IntersectionObserver
 
 ## 2020-04-14
 
 ### Added
 
-- Path rounding
+- path rounding
 
 ### Changed
 
-- Update devDependencies
+- update devDependencies
 
 ## 2020-04-12
 
@@ -204,4 +225,4 @@
 
 ### Changed
 
-- Update devDependencies
+- update devDependencies
