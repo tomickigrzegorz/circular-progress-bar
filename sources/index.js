@@ -1,7 +1,8 @@
 import defaultOptions from './defaults';
 class CircularProgressBar {
-  constructor(pieName) {
+  constructor(pieName, globalConfig = {}) {
     this.pieName = pieName;
+    this.globalConfig = globalConfig;
 
     const pieElements = document.querySelectorAll(`.${pieName}`);
     const elements = [].slice.call(pieElements);
@@ -92,7 +93,11 @@ class CircularProgressBar {
 
     const commonConfiguration = initial
       ? options
-      : { ...defaultOptions, ...previousConfigObj, ...options };
+      : {
+          ...defaultOptions,
+          ...previousConfigObj,
+          ...options,
+        };
 
     // update color circle
     if (!initial) {
@@ -226,7 +231,7 @@ class CircularProgressBar {
     const index = element.getAttribute('data-pie-index');
     const json = JSON.parse(element.getAttribute('data-pie'));
 
-    const options = { ...defaultOptions, ...json, index };
+    const options = { ...defaultOptions, ...json, index, ...this.globalConfig };
 
     const svgElement = this.creNS('svg');
 
