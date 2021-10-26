@@ -426,10 +426,39 @@ data-pie='{
           </pre>
         </div>
       </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">global configuration</div>
+          <div class="info-code">code</div>
+        </div>
+        <div class="global" data-pie='{ "percent": 75 }'></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">// html
+data-pie='{
+ "percent": 75
+}'
+
+// js
+const globalConfig = {
+  "speed": 30,
+  "animationSmooth": "1s ease-out",
+  "strokeBottom": 5,
+  "colorSlice": "#FF6D00",
+  "colorCircle": "#f1f1f1",
+  "round": true
+}
+
+const global = new CircularProgressBar('global', globalConfig);
+</code>
+          </pre>
+        </div>
+      </section>
     </div>
 
     <script>
       window.addEventListener('DOMContentLoaded', () => {
+        // update circle when range change
         const pie = document.querySelectorAll('.pie');
         const range = document.querySelector('[type="range"]');
 
@@ -443,6 +472,7 @@ data-pie='{
           })
         })
 
+        // start the animation when the element is in the page view
         const elements = [].slice.call(document.querySelectorAll('.pie'));
         const circle = new CircularProgressBar('pie');
 
@@ -487,16 +517,31 @@ data-pie='{
           circle.animationTo(options);
         }, 3000);
 
-        document.querySelectorAll('pre code').forEach((el) => {
-          hljs.highlightElement(el);
-        });
+        // global configuration
+        const globalConfig = {
+          "speed": 30,
+          "animationSmooth": "1s ease-out",
+          "strokeBottom": 5,
+          "colorSlice": "#FF6D00",
+          "colorCircle": "#f1f1f1",
+          "round": true
+        }
 
-        const infoCode = document.querySelectorAll('.info-code');
-        infoCode.forEach(info => {
-          info.addEventListener('click', (e) => {
-            e.target.closest('section').classList.toggle('show-code');
-          })
-        })
+        const global = new CircularProgressBar('global', globalConfig);
+        global.initial();
+
+
+        // update global example when change range
+        const pieGlobal = document.querySelectorAll('.global');
+        range.addEventListener('input', (e) => {
+          pieGlobal.forEach((el, index) => {
+            const options = {
+              index: index + 1,
+              percent: e.target.value,
+            };
+            global.animationTo(options);
+          });
+        });
 
       });
     </script>

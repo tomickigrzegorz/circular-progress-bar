@@ -1,17 +1,17 @@
 import defaultOptions from './helpers/defaults';
 import {
-  styleTransform,
-  strokeDasharray,
-  strokeLinecap,
-  fontSettings,
-  querySelector,
-  setColor,
-  setAttribute,
   createNSElement,
   dashOffset,
-  insertAdElement,
+  fontSettings,
   gradient,
+  insertAdElement,
   percent,
+  querySelector,
+  setAttribute,
+  setColor,
+  strokeDasharray,
+  strokeLinecap,
+  styleTransform,
 } from './helpers/function';
 
 /**
@@ -19,11 +19,14 @@ import {
  */
 export default class CircularProgressBar {
   /**
-   * CircularProgressBar construktor
+   * CircularProgressBar constructor
+   *
    * @param {String} pieName - class name
+   * @param {Object} globalObj - global configuration
    */
-  constructor(pieName) {
+  constructor(pieName, globalObj = {}) {
     this.className = pieName;
+    this.globalObj = globalObj;
 
     const pieElements = document.querySelectorAll(`.${pieName}`);
     const elements = [].slice.call(pieElements);
@@ -85,6 +88,7 @@ export default class CircularProgressBar {
 
   /**
    * Callback function
+   *
    * @param {Object} options
    * @param {Boolean} initial
    */
@@ -100,10 +104,15 @@ export default class CircularProgressBar {
 
     if (!circleElement) return;
 
-    //
+    // merging all configuration objects
     const commonConfiguration = initial
       ? options
-      : { ...defaultOptions, ...previousConfigObj, ...options };
+      : {
+          ...defaultOptions,
+          ...previousConfigObj,
+          ...options,
+          ...this.globalObj,
+        };
 
     // update color circle
     if (!initial) {
@@ -186,13 +195,15 @@ export default class CircularProgressBar {
   }
 
   /**
+   * Create svg elements
+   *
    * @param {HTMLElement} element
    */
   createSVG(element) {
     const index = element.getAttribute('data-pie-index');
     const json = JSON.parse(element.getAttribute('data-pie'));
 
-    const options = { ...defaultOptions, ...json, index };
+    const options = { ...defaultOptions, ...json, index, ...this.globalObj };
 
     const svg = createNSElement('svg');
 
@@ -225,6 +236,7 @@ export default class CircularProgressBar {
   }
 
   /**
+   * Create circle top/bottom
    *
    * @param {Object} options
    * @param {String} where
