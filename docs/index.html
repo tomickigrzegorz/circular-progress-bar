@@ -441,6 +441,8 @@ data-pie='{
 
 // js
 const globalConfig = {
+  "speed": 30,
+  "animationSmooth": "1s ease-out",
   "strokeBottom": 5,
   "colorSlice": "#FF6D00",
   "colorCircle": "#f1f1f1",
@@ -469,7 +471,6 @@ const global = new CircularProgressBar('global', globalConfig);
             circle.animationTo(options);
           })
         })
-
 
         // start the animation when the element is in the page view
         const elements = [].slice.call(document.querySelectorAll('.pie'));
@@ -518,6 +519,8 @@ const global = new CircularProgressBar('global', globalConfig);
 
         // global configuration
         const globalConfig = {
+          "speed": 30,
+          "animationSmooth": "1s ease-out",
           "strokeBottom": 5,
           "colorSlice": "#FF6D00",
           "colorCircle": "#f1f1f1",
@@ -526,6 +529,20 @@ const global = new CircularProgressBar('global', globalConfig);
 
         const global = new CircularProgressBar('global', globalConfig);
         global.initial();
+
+
+        // update global example when change range
+        const pieGlobal = document.querySelectorAll('.global');
+        range.addEventListener('input', (e) => {
+          pieGlobal.forEach((el, index) => {
+            const options = {
+              index: index + 1,
+              percent: e.target.value,
+            };
+            global.animationTo(options);
+          });
+        });
+
       });
     </script>
     <script src="presentation.js"></script>
