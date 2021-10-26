@@ -1,8 +1,32 @@
-import defaultOptions from './defaults';
-class CircularProgressBar {
-  constructor(pieName, globalConfig = {}) {
-    this.pieName = pieName;
-    this.globalConfig = globalConfig;
+import defaultOptions from './helpers/defaults';
+import {
+  createNSElement,
+  dashOffset,
+  fontSettings,
+  gradient,
+  insertAdElement,
+  percent,
+  querySelector,
+  setAttribute,
+  setColor,
+  strokeDasharray,
+  strokeLinecap,
+  styleTransform,
+} from './helpers/function';
+
+/**
+ * @class
+ */
+export default class CircularProgressBar {
+  /**
+   * CircularProgressBar constructor
+   *
+   * @param {String} pieName - class name
+   * @param {Object} globalObj - global configuration
+   */
+  constructor(pieName, globalObj = {}) {
+    this.className = pieName;
+    this.globalObj = globalObj;
 
     const pieElements = document.querySelectorAll(`.${pieName}`);
     const elements = [].slice.call(pieElements);
@@ -14,122 +38,107 @@ class CircularProgressBar {
     this.elements = elements;
   }
 
-  initial = (outside) => {
+  /**
+   * @param {object} outside
+   */
+  initial(outside) {
     const triggeredOutside = outside || this.elements;
     Array.isArray(triggeredOutside)
-      ? triggeredOutside.map((element) => this.elSVG(element))
-      : this.elSVG(triggeredOutside);
-  };
+      ? triggeredOutside.map((element) => this.createSVG(element))
+      : this.createSVG(triggeredOutside);
+  }
 
-  progress = (svg, target, options) => {
+  /**
+   * @param {SVGAElement} svg
+   * @param {HTMLElement} target
+   * @param {Object} options
+   */
+  progress(svg, target, options) {
+    const pieName = this.className;
     if (options.number) {
-      svg.insertAdjacentElement('beforeend', this.percent(options));
+      insertAdElement(svg, percent(options, pieName));
     }
 
-    const progressCircle = document.querySelector(
-      `.${this.pieName}-circle-${options.index}`
-    );
+    const progressCircle = querySelector(`.${pieName}-circle-${options.index}`);
 
     const configCircle = {
       fill: 'none',
       'stroke-width': options.stroke,
-      'stroke-dasharray': '264',
-      'stroke-dashoffset': options.inverse ? '-264' : '264',
-      'stroke-linecap': options.round ? 'round' : '',
+      'stroke-dashoffset': '264',
+      ...strokeDasharray(),
+      ...strokeLinecap(options),
     };
-    this.attr(progressCircle, configCircle);
+    setAttribute(progressCircle, configCircle);
 
     // animation progress
     this.animationTo({ ...options, element: progressCircle }, true);
 
-    const animationSmooth = options.animationSmooth
-      ? `transition: stroke-dashoffset ${options.animationSmooth}`
-      : '';
-
     // set style and rotation
-    progressCircle.setAttribute(
-      'style',
-      `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%;${animationSmooth}`
-    );
+    progressCircle.setAttribute('style', styleTransform(options));
 
     // set color
-    this.color(progressCircle, options);
+    setColor(progressCircle, options);
 
     // set width and height on div
     target.setAttribute(
       'style',
       `width:${options.size}px;height:${options.size}px;`
     );
-  };
+  }
 
-  // set color colorSlice
-  color = (element, { lineargradient, index, colorSlice }) => {
-    element.setAttribute(
-      'stroke',
-      lineargradient ? `url(#linear-${index})` : colorSlice
-    );
-  };
-
-  dashOffset = (count, inverse, cut) => {
-    const cutChar = cut ? (264 / 100) * (100 - cut) : 264;
-    const angle = 264 - (count / 100) * cutChar;
-    return inverse ? -angle : angle;
-  };
-
-  // claback function
-  animationTo = (options, initial = false) => {
-    const pieName = this.pieName;
+  /**
+   * Callback function
+   *
+   * @param {Object} options
+   * @param {Boolean} initial
+   */
+  animationTo(options, initial = false) {
+    const pieName = this.className;
     const previousConfigObj = JSON.parse(
-      document
-        .querySelector(`[data-pie-index="${options.index}"]`)
-        .getAttribute('data-pie')
+      querySelector(`[data-pie-index="${options.index}"]`).getAttribute(
+        'data-pie'
+      )
     );
 
-    const circleElement = document.querySelector(
-      `.${pieName}-circle-${options.index}`
-    );
+    const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
 
     if (!circleElement) return;
 
+    // merging all configuration objects
     const commonConfiguration = initial
       ? options
       : {
           ...defaultOptions,
           ...previousConfigObj,
           ...options,
+          ...this.globalObj,
         };
 
     // update color circle
     if (!initial) {
-      this.color(circleElement, commonConfiguration);
+      setColor(circleElement, commonConfiguration);
     }
 
     // font color update
     if (!initial && commonConfiguration.number) {
       const fontconfig = {
         fill: commonConfiguration.fontColor,
-        'font-size': commonConfiguration.fontSize,
-        'font-weight': commonConfiguration.fontWeight,
+        ...fontSettings(commonConfiguration),
       };
-      const textElement = document.querySelector(
+      const textElement = querySelector(
         `.${pieName}-text-${commonConfiguration.index}`
       );
-      this.attr(textElement, fontconfig);
+      setAttribute(textElement, fontconfig);
     }
 
-    const centerNumber = document.querySelector(
-      `.${pieName}-percent-${options.index}`
-    );
+    const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
 
     if (commonConfiguration.animationOff) {
       if (commonConfiguration.number)
         centerNumber.textContent = `${commonConfiguration.percent}`;
       circleElement.setAttribute(
         'stroke-dashoffset',
-        this.dashOffset(
-          commonConfiguration.percent,
-          commonConfiguration.inverse
-        )
+        dashOffset(commonConfiguration.percent, commonConfiguration.inverse)
       );
       return;
     }
@@ -168,7 +177,7 @@ class CircularProgressBar {
 
       circleElement.setAttribute(
         'stroke-dashoffset',
-        this.dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)
+        dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)
       );
       if (centerNumber && commonConfiguration.number) {
         centerNumber.textContent = `${i}`;
@@ -183,57 +192,20 @@ class CircularProgressBar {
     };
 
     requestAnimationFrame(performAnimation);
-  };
+  }
 
-  // set text element
-  percent = (options) => {
-    const pieName = this.pieName;
-    const creatTextElementSVG = this.creNS('text');
-
-    creatTextElementSVG.classList.add(`${pieName}-text-${options.index}`);
-
-    // create tspan element with number
-    // and insert to svg text element
-    creatTextElementSVG.insertAdjacentElement(
-      'afterbegin',
-      this.tspan(`${pieName}-percent-${options.index}`)
-    );
-
-    // create and insert unit to text element
-    creatTextElementSVG.insertAdjacentElement(
-      'beforeend',
-      this.tspan(`${pieName}-unit-${options.index}`, options.unit)
-    );
-
-    // config to svg text
-    const config = {
-      x: '50%',
-      y: '50%',
-      fill: options.fontColor,
-      'font-size': options.fontSize,
-      'font-weight': options.fontWeight,
-      'text-anchor': 'middle',
-      dy: options.textPosition || '0.35em',
-    };
-
-    this.attr(creatTextElementSVG, config);
-    return creatTextElementSVG;
-  };
-
-  tspan = (className, unit) => {
-    const tspan = this.creNS('tspan');
-    tspan.classList.add(className);
-    if (unit) tspan.textContent = unit;
-    return tspan;
-  };
-
-  elSVG = (element) => {
+  /**
+   * Create svg elements
+   *
+   * @param {HTMLElement} element
+   */
+  createSVG(element) {
     const index = element.getAttribute('data-pie-index');
     const json = JSON.parse(element.getAttribute('data-pie'));
 
-    const options = { ...defaultOptions, ...json, index, ...this.globalConfig };
+    const options = { ...defaultOptions, ...json, index, ...this.globalObj };
 
-    const svgElement = this.creNS('svg');
+    const svg = createNSElement('svg');
 
     const configSVG = {
       role: 'progressbar',
@@ -244,62 +216,43 @@ class CircularProgressBar {
       'aria-valuemax': '100',
     };
 
-    this.attr(svgElement, configSVG);
+    setAttribute(svg, configSVG);
 
     // colorCircle
     if (options.colorCircle) {
-      svgElement.appendChild(this.circle(options, 'bottom'));
+      svg.appendChild(this.circle(options));
     }
 
     // gradient
     if (options.lineargradient) {
-      svgElement.appendChild(this.gradient(options));
+      svg.appendChild(gradient(options));
     }
 
-    svgElement.appendChild(this.circle(options, 'top'));
+    svg.appendChild(this.circle(options, 'top'));
 
-    element.appendChild(svgElement);
+    element.appendChild(svg);
 
-    this.progress(svgElement, element, options);
-  };
+    this.progress(svg, element, options);
+  }
 
-  gradient = ({ index, lineargradient }) => {
-    const defs = this.creNS('defs');
-    const linearGradient = this.creNS('linearGradient');
-    linearGradient.id = `linear-${index}`;
-
-    const countGradient = [].slice.call(lineargradient);
-
-    defs.appendChild(linearGradient);
-
-    let number = 0;
-    countGradient.map((item) => {
-      const stopElements = this.creNS('stop');
-
-      const stopObj = {
-        offset: `${number}%`,
-        'stop-color': `${item}`,
-      };
-      this.attr(stopElements, stopObj);
-
-      linearGradient.appendChild(stopElements);
-      number += 100 / (countGradient.length - 1);
-    });
-
-    return defs;
-  };
-
-  circle = (options, where) => {
-    const circle = this.creNS('circle');
+  /**
+   * Create circle top/bottom
+   *
+   * @param {Object} options
+   * @param {String} where
+   * @returns {SVGElement}
+   */
+  circle(options, where = 'bottom') {
+    const circle = createNSElement('circle');
 
     let configCircle = {};
     if (options.cut) {
       const dashoffset = 264 - (100 - options.cut) * 2.64;
       configCircle = {
-        'stroke-dasharray': '264',
-        'stroke-linecap': options.round ? 'round' : '',
         'stroke-dashoffset': options.inverse ? -dashoffset : dashoffset,
-        style: `transform:rotate(${options.rotation}deg);transform-origin: 50% 50%`,
+        style: styleTransform(options),
+        ...strokeDasharray(),
+        ...strokeLinecap(options),
       };
     }
 
@@ -311,12 +264,12 @@ class CircularProgressBar {
     };
 
     if (options.strokeDasharray) {
-      Object.assign(objCircle, { 'stroke-dasharray': options.strokeDasharray });
+      Object.assign(objCircle, { ...strokeDasharray(options.strokeDasharray) });
     }
 
     const typeCircle =
       where === 'top'
-        ? { class: `${this.pieName}-circle-${options.index}` }
+        ? { class: `${this.className}-circle-${options.index}` }
         : objCircle;
 
     const objConfig = {
@@ -327,19 +280,8 @@ class CircularProgressBar {
       ...typeCircle,
     };
 
-    this.attr(circle, objConfig);
+    setAttribute(circle, objConfig);
 
     return circle;
-  };
-
-  creNS = (type) =>
-    document.createElementNS('http://www.w3.org/2000/svg', type);
-
-  attr = (element, object) => {
-    for (const key in object) {
-      element?.setAttribute(key, object[key]);
-    }
-  };
+  }
 }
-
-export default CircularProgressBar;

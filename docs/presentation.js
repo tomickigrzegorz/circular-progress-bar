@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   const infoCode = document.querySelectorAll('.info-code');
-  infoCode.forEach((info) => { 
+  infoCode.forEach((info) => {
     info.addEventListener('click', (e) => {
       e.target.closest('section').classList.toggle('show-code');
     });
