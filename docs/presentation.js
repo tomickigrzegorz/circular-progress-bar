@@ -15,4 +15,15 @@ const githubConrner = `
 
 window.addEventListener('DOMContentLoaded', () => {
   document.body.insertAdjacentHTML('beforeend', githubConrner);
+
+  document.querySelectorAll('pre code').forEach((el) => {
+    hljs.highlightElement(el);
+  });
+
+  const infoCode = document.querySelectorAll('.info-code');
+  infoCode.forEach((info) => {
+    info.addEventListener('click', (e) => {
+      e.target.closest('section').classList.toggle('show-code');
+    });
+  });
 });

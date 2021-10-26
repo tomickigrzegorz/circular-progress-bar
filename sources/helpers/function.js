@@ -35,6 +35,7 @@ const strokeLinecap = ({ round }) => {
 
 /**
  * Set font sieze/weight
+ *
  * @param {Object} options
  * @returns {Object}
  */
@@ -54,6 +55,7 @@ const querySelector = (element) => document.querySelector(element);
 
 /**
  * Set color or linear-gradient
+ *
  * @param {String} element
  * @param {Object} object
  */
@@ -65,6 +67,8 @@ const setColor = (element, { lineargradient, index, colorSlice }) => {
 };
 
 /**
+ * Set attribute to specific element
+ *
  * @param {String} element
  * @param {Object} object
  */
@@ -76,6 +80,7 @@ const setAttribute = (element, object) => {
 
 /**
  * Create svg element
+ *
  * @param {String} type
  * @returns {SVGElement}
  */
@@ -84,6 +89,7 @@ const createNSElement = (type) =>
 
 /**
  * Create svg tspan
+ *
  * @param {String} className
  * @param {String} unit
  * @returns {HTMLElement}
@@ -98,6 +104,7 @@ const tspan = (className, unit) => {
 
 /**
  * Function generate stroke-dashoffset
+ *
  * @param {Number} count
  * @param {Boolean} inverse - Counterclockwise animation
  * @param {Number} cut - Angle of the circle sector
@@ -120,6 +127,7 @@ const insertAdElement = (element, el, type = 'beforeend') =>
 
 /**
  * Generator function linear-gradient stop svg elements
+ *
  * @param {Object} object
  */
 const gradient = ({ index, lineargradient }) => {
@@ -151,6 +159,7 @@ const gradient = ({ index, lineargradient }) => {
 /**
  * A function that generates tspan
  * elements with a number and unit
+ *
  * @param {Object} options - Global configuration
  * @param {String} className
  */
@@ -187,16 +196,16 @@ const percent = (options, className) => {
 };
 
 export {
-  styleTransform,
+  createNSElement,
+  dashOffset,
+  fontSettings,
+  gradient,
+  insertAdElement,
+  percent,
+  querySelector,
+  setAttribute,
+  setColor,
   strokeDasharray,
   strokeLinecap,
-  fontSettings,
-  querySelector,
-  setColor,
-  setAttribute,
-  dashOffset,
-  createNSElement,
-  insertAdElement,
-  gradient,
-  percent,
+  styleTransform,
 };
