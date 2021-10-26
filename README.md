@@ -147,6 +147,27 @@ Modification of these elements `fontColor`,` fontSize`, `fontWeight` is also ava
 }
 ```
 
+### Global configuration
+html
+```html
+<div class="global" data-pie='{ "percent": 90 }'></div>
+<div class="global" data-pie='{ "percent": 10 }'></div>
+...
+```
+
+javascript
+```js
+const globalConfig = {
+  "strokeBottom": 5,
+  "colorSlice": "#EC407A",
+  "colorCircle": "#f1f1f1",
+  "round": true
+}
+
+const global = new CircularProgressBar('global', globalConfig);
+global.initial();
+```
+
 ## Watch/Build the app
 
 Watch the app, just call:
