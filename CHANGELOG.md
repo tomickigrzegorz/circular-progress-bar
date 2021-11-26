@@ -1,3 +1,19 @@
+## 2021-11-26 (v1.1.6)
+
+### Improvements
+- creating a dist folder with libraries in iife, esm, umd format as well as their minimized versions [#58](https://github.com/tomik23/circular-progress-bar/pull/58)
+
+## 2021-10-27 (v1.1.5)
+
+### Changed
+- code optimization for production smaller bundle size [#57](https://github.com/tomik23/circular-progress-bar/pull/57)
+
+## 2021-10-26 (v1.1.4)
+
+### Added
+- global configuration for the library [#56](https://github.com/tomik23/circular-progress-bar/pull/56)
+
+
 ## 2021-10-22 (v1.1.3)
 
 ### Added
