@@ -27,12 +27,12 @@ See the demo - [example](https://tomik23.github.io/circular-progress-bar/)
 #### JavaScript
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@master/docs/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.6/dist/circularProgressBar.min.js"></script>
 ```
 
 ##### -- OR --
 
-Just download the library from the `docs/circularProgressBar.min.js` and add it to head:
+Just download the library from the `dist/circularProgressBar.min.js` and add it to head:
 
 ```js
 <script src="./path/to/circularProgressBar.min.js"></script>
