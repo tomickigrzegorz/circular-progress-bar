@@ -27,7 +27,7 @@ See the demo - [example](https://tomik23.github.io/circular-progress-bar/)
 #### JavaScript
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.6/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.7/dist/circularProgressBar.min.js"></script>
 ```
 
 ##### -- OR --
