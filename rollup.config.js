@@ -29,7 +29,7 @@ export default [
       name: 'CircularProgressBar',
       format: 'iife',
       sourcemap: false,
-      file: 'dist/CircularProgressBar.min.js',
+      file: 'dist/circularProgressBar.min.js',
       plugins: [terser()],
     },
   },
