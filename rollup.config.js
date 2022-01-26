@@ -9,10 +9,45 @@ import pkg from './package.json';
 const { PRODUCTION } = process.env;
 const input = 'sources/index.js';
 
+const targets = {
+  targets: {
+    browsers: ['defaults', 'not IE 11', 'maintained node versions'],
+  },
+};
+
+const targetsIE = {
+  targets: {
+    browsers: ['>0.2%', 'not dead', 'not op_mini all'],
+  },
+};
+
+const pluginsConfig = (target) => [
+  babel({
+    babelHelpers: 'bundled',
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          // debug: true,
+          // useBuiltIns: 'usage',
+          useBuiltIns: 'entry',
+          corejs: 3,
+          loose: true,
+          ...target,
+        },
+      ],
+    ],
+    plugins: [['@babel/proposal-class-properties', { loose: true }]],
+  }),
+  cleanup(),
+];
+
 export default [
+  // ------------------------------------------------------------
+  // iife
   {
     input,
-    plugins: [babel({ babelHelpers: 'bundled' }), cleanup()],
+    plugins: pluginsConfig(targets),
     watch: false,
     output: {
       name: 'CircularProgressBar',
@@ -23,7 +58,7 @@ export default [
   },
   {
     input,
-    plugins: [babel({ babelHelpers: 'bundled' }), cleanup()],
+    plugins: pluginsConfig(targets),
     watch: false,
     output: {
       name: 'CircularProgressBar',
@@ -35,26 +70,24 @@ export default [
   },
   {
     input,
-    plugins: [babel({ babelHelpers: 'bundled' }), cleanup()],
+    plugins: pluginsConfig(targets),
     output: {
       name: 'CircularProgressBar',
       format: 'iife',
       sourcemap: true,
       file: 'docs/circularProgressBar.min.js',
       plugins: [
-        terser({
-          mangle: true,
-          compress: { drop_console: true, drop_debugger: true },
-        }),
         !PRODUCTION && serve({ open: true, contentBase: ['docs'] }),
         !PRODUCTION && livereload(),
       ],
     },
   },
+  // ------------------------------------------------------------
+  // umd
   {
     input,
     watch: false,
-    plugins: [babel({ babelHelpers: 'bundled' }), cleanup()],
+    plugins: pluginsConfig(targets),
     output: [
       {
         name: 'CircularProgressBar',
@@ -76,10 +109,12 @@ export default [
       },
     ],
   },
+  // ------------------------------------------------------------
+  // esm
   {
     input,
     watch: false,
-    plugins: [babel({ babelHelpers: 'bundled' }), cleanup()],
+    plugins: pluginsConfig(targets),
     output: [
       {
         name: 'CircularProgressBar',
@@ -98,6 +133,22 @@ export default [
             compress: { drop_console: true, drop_debugger: true },
           }),
         ],
+      },
+    ],
+  },
+  // ------------------------------------------------------------
+  // ie
+  {
+    input,
+    watch: false,
+    plugins: pluginsConfig(targetsIE),
+    output: [
+      {
+        name: 'CircularProgressBar',
+        format: 'iife',
+        sourcemap: false,
+        file: 'dist/circularProgressBar.ie.min.js',
+        plugins: [terser()],
       },
     ],
   },
