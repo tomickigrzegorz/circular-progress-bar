@@ -8,7 +8,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/package-json/v/tomik23/circular-progress-bar">
-  <img src="https://img.shields.io/github/size/tomik23/circular-progress-bar/docs/circularProgressBar.min.js">
+  <img src="https://img.shields.io/github/size/tomik23/circular-progress-bar/dist/circularProgressBar.min.js">
   <a href="LICENSE">
     <img src="https://img.shields.io/github/license/tomik23/circular-progress-bar">
   </a>
@@ -27,7 +27,7 @@ See the demo - [example](https://tomik23.github.io/circular-progress-bar/)
 #### JavaScript
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.7/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.8/dist/circularProgressBar.min.js"></script>
 ```
 
 ##### -- OR --
@@ -231,28 +231,19 @@ npm run build
   box-shadow: inset 0 0 25px 10px rgb(162, 202, 255);
 }
 ```
-## Browsers support
+## Browser support
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Vivaldi |
-| :---: | :---: | :---: | :---: | :---: |
-| Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+circular-progress-bar supports all major browsers including IE 10 and above
 
-> If you want the code to be supported in IE11 you need replace a few lines in `package.json`. Below what needs to be changed in the code and compile.
+Configuration for IE:
 
-Replace
-```json
-"production": [
-  "defaults",
-  "not IE 11",
-  "maintained node versions"
-]
-```
+### local files
+- dist/js/circularProgressBar.ie.min.js
 
-To this
-```json
-"production": [
-  ">0.2%",
-  "not dead",
-  "not op_mini all"
-]
-```
+### cdn
+
+- https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.8/dist/circularProgressBar.ie.min
+
+## License
+
+This project is available under the [MIT](https://opensource.org/licenses/mit-license.php) license.
