@@ -1,3 +1,8 @@
+## 2022-02-26 (v1.1.8)
+
+### Added
+- separate version for IE in dist folder
+
 ## 2021-11-26 (v1.1.6)
 
 ### Improvements
