@@ -27,7 +27,7 @@ See the demo - [example](https://tomik23.github.io/circular-progress-bar/)
 #### JavaScript
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.8/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.9/dist/circularProgressBar.min.js"></script>
 ```
 
 ##### -- OR --
@@ -42,7 +42,7 @@ Just download the library from the `dist/circularProgressBar.min.js` and add it 
 ## Sample configuration
 
 1. Add a div element to the page `<div class="pie" data-pie='{ "percent": 80 }'></div>`
-2. Build the script or download it from the `docs` folder and add `circularProgressBar.min.js` to the page
+2. Build the script or download it from the `dist` folder and add `circularProgressBar.min.js` to the page, [umd, esm, iife]
 3. Call the functions `const circle = new CircularProgressBar('pie'); circle.initial();`
 
 More extensive example:
@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const ovserver = new IntersectionObserver((entries, observer) => {
       entries.map((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.75) {
           circle.initial(entry.target);
           observer.unobserve(entry.target);
         }
@@ -118,6 +118,7 @@ circle.initial();
 setTimeout(() => {
   const options = {
     // item number you want to update
+    // read data-pie-index from the element
     index: 1,
     // update props
     percent: 30,
@@ -161,7 +162,8 @@ const globalConfig = {
   "strokeBottom": 5,
   "colorSlice": "#EC407A",
   "colorCircle": "#f1f1f1",
-  "round": true
+  "round": true,
+  /* e.t.c */
 }
 
 const global = new CircularProgressBar('global', globalConfig);
@@ -191,6 +193,7 @@ npm run build
 | props          |     type      |   default   | require | description                                                                                                |
 | -------------- | :-----------: | :---------: | :-----: | ---------------------------------------------------------------------------------------------------------- |
 | percent        |    number     |             |    ✔    | Represents the progress bar and animation of the animation progress expressed by a number e.g. 65%         |
+| index          |    number     |     ``      |         | Set your number `data-pie-index`, if you do not set it, it will be dynamically set depending on the order of elements |
 | colorSlice     |    string     | `'#00a1ff'` |         | Progress layer color and background ["#ffff00","brown" <sup>2</sup>](#colors-names)                                  |
 | colorCircle    |    string     |     `''`    |         | Bottom circle color Font ["#ffff00","brown" <sup>2</sup>](#colors-names)                                             |
 | speed          |    number     |   `1000`    |         | Frame rate animation [fps]. Let's say you want the animation to be 60fps, just add the parameter speed: 60 |
@@ -242,7 +245,7 @@ Configuration for IE:
 
 ### cdn
 
-- https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.8/dist/circularProgressBar.ie.min
+- https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.9/dist/circularProgressBar.ie.min
 
 ## License
 
