@@ -1,4 +1,4 @@
-import defaultOptions from './helpers/defaults';
+import defaultOptions from "./helpers/defaults";
 import {
   createNSElement,
   dashOffset,
@@ -12,7 +12,7 @@ import {
   strokeDasharray,
   strokeLinecap,
   styleTransform,
-} from './helpers/function';
+} from "./helpers/function";
 
 /**
  * @class
@@ -25,27 +25,31 @@ export default class CircularProgressBar {
    * @param {Object} globalObj - global configuration
    */
   constructor(pieName, globalObj = {}) {
-    this.className = pieName;
-    this.globalObj = globalObj;
+    this._className = pieName;
+    this._globalObj = globalObj;
 
     const pieElements = document.querySelectorAll(`.${pieName}`);
     const elements = [].slice.call(pieElements);
     // add index to all progressbar
-    elements.map((item, index) => {
-      item.setAttribute('data-pie-index', index + 1);
+    elements.map((item, idx) => {
+      const id = JSON.parse(item.getAttribute("data-pie"));
+      item.setAttribute(
+        "data-pie-index",
+        id.index || globalObj.index || idx + 1
+      );
     });
 
-    this.elements = elements;
+    this._elements = elements;
   }
 
   /**
    * @param {object} outside
    */
   initial(outside) {
-    const triggeredOutside = outside || this.elements;
+    const triggeredOutside = outside || this._elements;
     Array.isArray(triggeredOutside)
-      ? triggeredOutside.map((element) => this.createSVG(element))
-      : this.createSVG(triggeredOutside);
+      ? triggeredOutside.map((element) => this._createSVG(element))
+      : this._createSVG(triggeredOutside);
   }
 
   /**
@@ -53,8 +57,8 @@ export default class CircularProgressBar {
    * @param {HTMLElement} target
    * @param {Object} options
    */
-  progress(svg, target, options) {
-    const pieName = this.className;
+  _progress(svg, target, options) {
+    const pieName = this._className;
     if (options.number) {
       insertAdElement(svg, percent(options, pieName));
     }
@@ -62,9 +66,9 @@ export default class CircularProgressBar {
     const progressCircle = querySelector(`.${pieName}-circle-${options.index}`);
 
     const configCircle = {
-      fill: 'none',
-      'stroke-width': options.stroke,
-      'stroke-dashoffset': '264',
+      fill: "none",
+      "stroke-width": options.stroke,
+      "stroke-dashoffset": "264",
       ...strokeDasharray(),
       ...strokeLinecap(options),
     };
@@ -74,14 +78,14 @@ export default class CircularProgressBar {
     this.animationTo({ ...options, element: progressCircle }, true);
 
     // set style and rotation
-    progressCircle.setAttribute('style', styleTransform(options));
+    progressCircle.setAttribute("style", styleTransform(options));
 
     // set color
     setColor(progressCircle, options);
 
     // set width and height on div
     target.setAttribute(
-      'style',
+      "style",
       `width:${options.size}px;height:${options.size}px;`
     );
   }
@@ -93,10 +97,10 @@ export default class CircularProgressBar {
    * @param {Boolean} initial
    */
   animationTo(options, initial = false) {
-    const pieName = this.className;
+    const pieName = this._className;
     const previousConfigObj = JSON.parse(
       querySelector(`[data-pie-index="${options.index}"]`).getAttribute(
-        'data-pie'
+        "data-pie"
       )
     );
 
@@ -111,7 +115,7 @@ export default class CircularProgressBar {
           ...defaultOptions,
           ...previousConfigObj,
           ...options,
-          ...this.globalObj,
+          ...this._globalObj,
         };
 
     // update color circle
@@ -137,22 +141,22 @@ export default class CircularProgressBar {
       if (commonConfiguration.number)
         centerNumber.textContent = `${commonConfiguration.percent}`;
       circleElement.setAttribute(
-        'stroke-dashoffset',
+        "stroke-dashoffset",
         dashOffset(commonConfiguration.percent, commonConfiguration.inverse)
       );
       return;
     }
 
     // get numer percent from data-angel
-    let angle = JSON.parse(circleElement.getAttribute('data-angel'));
+    let angle = JSON.parse(circleElement.getAttribute("data-angel"));
 
     // round if number is decimal
     const percent = Math.round(options.percent);
 
     // if percent 0 then set at start 0%
     if (percent == 0) {
-      if (commonConfiguration.number) centerNumber.textContent = '0';
-      circleElement.setAttribute('stroke-dashoffset', '264');
+      if (commonConfiguration.number) centerNumber.textContent = "0";
+      circleElement.setAttribute("stroke-dashoffset", "264");
     }
 
     if (percent > 100 || percent <= 0 || angle === percent) return;
@@ -176,15 +180,15 @@ export default class CircularProgressBar {
       }
 
       circleElement.setAttribute(
-        'stroke-dashoffset',
+        "stroke-dashoffset",
         dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)
       );
       if (centerNumber && commonConfiguration.number) {
         centerNumber.textContent = `${i}`;
       }
 
-      circleElement.setAttribute('data-angel', i);
-      circleElement.parentNode.setAttribute('aria-valuenow', i);
+      circleElement.setAttribute("data-angel", i);
+      circleElement.parentNode.setAttribute("aria-valuenow", i);
 
       if (i === percent) {
         cancelAnimationFrame(request);
@@ -199,28 +203,28 @@ export default class CircularProgressBar {
    *
    * @param {HTMLElement} element
    */
-  createSVG(element) {
-    const index = element.getAttribute('data-pie-index');
-    const json = JSON.parse(element.getAttribute('data-pie'));
+  _createSVG(element) {
+    const index = element.getAttribute("data-pie-index");
+    const json = JSON.parse(element.getAttribute("data-pie"));
 
-    const options = { ...defaultOptions, ...json, index, ...this.globalObj };
+    const options = { ...defaultOptions, ...json, index, ...this._globalObj };
 
-    const svg = createNSElement('svg');
+    const svg = createNSElement("svg");
 
     const configSVG = {
-      role: 'progressbar',
+      role: "progressbar",
       width: options.size,
       height: options.size,
-      viewBox: '0 0 100 100',
-      'aria-valuemin': '0',
-      'aria-valuemax': '100',
+      viewBox: "0 0 100 100",
+      "aria-valuemin": "0",
+      "aria-valuemax": "100",
     };
 
     setAttribute(svg, configSVG);
 
     // colorCircle
     if (options.colorCircle) {
-      svg.appendChild(this.circle(options));
+      svg.appendChild(this._circle(options));
     }
 
     // gradient
@@ -228,11 +232,11 @@ export default class CircularProgressBar {
       svg.appendChild(gradient(options));
     }
 
-    svg.appendChild(this.circle(options, 'top'));
+    svg.appendChild(this._circle(options, "top"));
 
     element.appendChild(svg);
 
-    this.progress(svg, element, options);
+    this._progress(svg, element, options);
   }
 
   /**
@@ -242,14 +246,14 @@ export default class CircularProgressBar {
    * @param {String} where
    * @returns {SVGElement}
    */
-  circle(options, where = 'bottom') {
-    const circle = createNSElement('circle');
+  _circle(options, where = "bottom") {
+    const circle = createNSElement("circle");
 
     let configCircle = {};
     if (options.cut) {
       const dashoffset = 264 - (100 - options.cut) * 2.64;
       configCircle = {
-        'stroke-dashoffset': options.inverse ? -dashoffset : dashoffset,
+        "stroke-dashoffset": options.inverse ? -dashoffset : dashoffset,
         style: styleTransform(options),
         ...strokeDasharray(),
         ...strokeLinecap(options),
@@ -259,7 +263,7 @@ export default class CircularProgressBar {
     const objCircle = {
       fill: options.fill,
       stroke: options.colorCircle,
-      'stroke-width': options.strokeBottom || options.stroke,
+      "stroke-width": options.strokeBottom || options.stroke,
       ...configCircle,
     };
 
@@ -268,15 +272,15 @@ export default class CircularProgressBar {
     }
 
     const typeCircle =
-      where === 'top'
-        ? { class: `${this.className}-circle-${options.index}` }
+      where === "top"
+        ? { class: `${this._className}-circle-${options.index}` }
         : objCircle;
 
     const objConfig = {
-      cx: '50%',
-      cy: '50%',
+      cx: "50%",
+      cy: "50%",
       r: 42,
-      'shape-rendering': 'geometricPrecision',
+      "shape-rendering": "geometricPrecision",
       ...typeCircle,
     };
 
