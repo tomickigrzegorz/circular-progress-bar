@@ -1,46 +1,54 @@
-import { babel } from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
-import serve from 'rollup-plugin-serve';
-import livereload from 'rollup-plugin-livereload';
-import cleanup from 'rollup-plugin-cleanup';
+import { babel } from "@rollup/plugin-babel";
+import { terser } from "rollup-plugin-terser";
+import serve from "rollup-plugin-serve";
+import livereload from "rollup-plugin-livereload";
+import cleanup from "rollup-plugin-cleanup";
 
-import pkg from './package.json';
+import pkg from "./package.json";
 
 const { PRODUCTION } = process.env;
-const input = 'sources/index.js';
+const input = "sources/index.js";
 
 const targets = {
   targets: {
-    browsers: ['defaults', 'not IE 11', 'maintained node versions'],
+    browsers: ["defaults", "not IE 11", "maintained node versions"],
   },
 };
 
 const targetsIE = {
   targets: {
-    browsers: ['>0.2%', 'not dead', 'not op_mini all'],
+    browsers: [">0.2%", "not dead", "not op_mini all"],
   },
 };
 
 const pluginsConfig = (target) => [
   babel({
-    babelHelpers: 'bundled',
+    babelHelpers: "bundled",
     presets: [
       [
-        '@babel/preset-env',
+        "@babel/preset-env",
         {
           // debug: true,
           // useBuiltIns: 'usage',
-          useBuiltIns: 'entry',
+          useBuiltIns: "entry",
           corejs: 3,
           loose: true,
           ...target,
         },
       ],
     ],
-    plugins: [['@babel/proposal-class-properties', { loose: true }]],
+    plugins: [["@babel/proposal-class-properties", { loose: true }]],
   }),
   cleanup(),
 ];
+
+const terserConfig = {
+  mangle: {
+    properties: {
+      regex: /^_/,
+    },
+  },
+};
 
 export default [
   // ------------------------------------------------------------
@@ -50,8 +58,8 @@ export default [
     plugins: pluginsConfig(targets),
     watch: false,
     output: {
-      name: 'CircularProgressBar',
-      format: 'iife',
+      name: "CircularProgressBar",
+      format: "iife",
       file: pkg.main,
       sourcemap: true,
     },
@@ -61,23 +69,30 @@ export default [
     plugins: pluginsConfig(targets),
     watch: false,
     output: {
-      name: 'CircularProgressBar',
-      format: 'iife',
+      name: "CircularProgressBar",
+      format: "iife",
       sourcemap: false,
-      file: 'dist/circularProgressBar.min.js',
-      plugins: [terser()],
+      file: "dist/circularProgressBar.min.js",
+      plugins: [
+        terser({
+          ...terserConfig,
+        }),
+      ],
     },
   },
   {
     input,
     plugins: pluginsConfig(targets),
     output: {
-      name: 'CircularProgressBar',
-      format: 'iife',
+      name: "CircularProgressBar",
+      format: "iife",
       sourcemap: true,
-      file: 'docs/circularProgressBar.min.js',
+      file: "docs/circularProgressBar.min.js",
       plugins: [
-        !PRODUCTION && serve({ open: true, contentBase: ['docs'] }),
+        terser({
+          ...terserConfig,
+        }),
+        !PRODUCTION && serve({ open: true, contentBase: ["docs"] }),
         !PRODUCTION && livereload(),
       ],
     },
@@ -90,19 +105,19 @@ export default [
     plugins: pluginsConfig(targets),
     output: [
       {
-        name: 'CircularProgressBar',
-        format: 'umd',
+        name: "CircularProgressBar",
+        format: "umd",
         sourcemap: true,
-        file: 'dist/circularProgressBar.umd.js',
+        file: "dist/circularProgressBar.umd.js",
       },
       {
-        name: 'CircularProgressBar',
-        format: 'umd',
+        name: "CircularProgressBar",
+        format: "umd",
         sourcemap: false,
-        file: 'dist/circularProgressBar.umd.min.js',
+        file: "dist/circularProgressBar.umd.min.js",
         plugins: [
           terser({
-            mangle: true,
+            ...terserConfig,
             compress: { drop_console: true, drop_debugger: true },
           }),
         ],
@@ -117,19 +132,19 @@ export default [
     plugins: pluginsConfig(targets),
     output: [
       {
-        name: 'CircularProgressBar',
-        format: 'es',
+        name: "CircularProgressBar",
+        format: "es",
         sourcemap: true,
-        file: 'dist/circularProgressBar.esm.js',
+        file: "dist/circularProgressBar.esm.js",
       },
       {
-        name: 'CircularProgressBar',
-        format: 'es',
+        name: "CircularProgressBar",
+        format: "es",
         sourcemap: false,
-        file: 'dist/circularProgressBar.esm.min.js',
+        file: "dist/circularProgressBar.esm.min.js",
         plugins: [
           terser({
-            mangle: true,
+            ...terserConfig,
             compress: { drop_console: true, drop_debugger: true },
           }),
         ],
@@ -144,11 +159,11 @@ export default [
     plugins: pluginsConfig(targetsIE),
     output: [
       {
-        name: 'CircularProgressBar',
-        format: 'iife',
+        name: "CircularProgressBar",
+        format: "iife",
         sourcemap: false,
-        file: 'dist/circularProgressBar.ie.min.js',
-        plugins: [terser()],
+        file: "dist/circularProgressBar.ie.min.js",
+        plugins: [terser({ ...terserConfig })],
       },
     ],
   },
