@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/github.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="global.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/github.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
     <title>circular progress bar</title>
   </head>
@@ -15,17 +17,15 @@
     <h1>circular-progress-bar</h1>
     <div class="flex progress-wrapper">
       <div class="progress">progress</div>
-      <input type="range" value="75" min="0" max="100" step="1">
+      <input type="range" value="75" min="0" max="100" step="1" />
     </div>
     <div class="flex container">
-
       <section>
         <div class="flex info">
           <div class="info-name">minimal</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie" data-pie='{ "percent": 75 }'>
-        </div>
+        <div class="pie" data-pie='{ "percent": 75 }'></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{
@@ -39,8 +39,7 @@
           <div class="info-name">minimal width shadow</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie" data-pie='{ "percent": 75 }'>
-        </div>
+        <div class="pie" data-pie='{ "percent": 75 }'></div>
         <div class="code">
           <pre>
             <code class="language-json">// css
@@ -61,9 +60,10 @@ data-pie='{
           <div class="info-name">simple</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "percent": 75, "colorSlice": "#BF360C", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "percent": 75, "colorSlice": "#BF360C", "colorCircle": "#f1f1f1", "fontWeight": 100 }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -80,9 +80,10 @@ data-pie='{
           <div class="info-name">linear gradient</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 75, "colorCircle": "#e6e6e6" }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "lineargradient": ["yellow","#ff0000"], "round": true, "percent": 75, "colorCircle": "#e6e6e6" }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -99,9 +100,10 @@ data-pie='{
           <div class="info-name">counterclockwise</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "inverse": true, "percent": 75, "colorSlice": "#AB47BC", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "inverse": true, "percent": 75, "colorSlice": "#AB47BC", "colorCircle": "#f1f1f1", "fontWeight": 100 }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -119,9 +121,10 @@ data-pie='{
           <div class="info-name">stroke-dasharray</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "strokeDasharray": "1, 2", "percent": 75, "colorSlice": "#F5F5F5", "colorCircle": "#424242", "stroke": 5, "strokeBottom": 10, "round": true }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "strokeDasharray": "1, 2", "percent": 75, "colorSlice": "#F5F5F5", "colorCircle": "#424242", "stroke": 5, "strokeBottom": 10, "round": true }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -141,9 +144,10 @@ data-pie='{
           <div class="info-name">animation off</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "animationOff": true, "percent": 75, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "animationOff": true, "percent": 75, "colorSlice": "#CDDC39", "colorCircle": "#f1f1f1", "fontWeight": 100 }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -161,8 +165,10 @@ data-pie='{
           <div class="info-name">without number</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie" data-pie='{ "percent": 75, "colorSlice": "#000", "colorCircle": "#e6e6e6", "number": false }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "percent": 75, "colorSlice": "#000", "colorCircle": "#e6e6e6", "number": false }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -179,9 +185,10 @@ data-pie='{
           <div class="info-name">rotation</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "rotation": 90, "percent": 75, "colorSlice": "#ff8c69", "colorCircle": "#f1f1f1", "fontWeight": 100 }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "rotation": 90, "percent": 75, "colorSlice": "#ff8c69", "colorCircle": "#f1f1f1", "fontWeight": 100 }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -199,9 +206,10 @@ data-pie='{
           <div class="info-name">fill</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "fill": "#EFEBE9", "stroke": 6, "strokeBottom": 10, "percent": 75, "colorSlice": "#4E342E", "colorCircle": "#EFEBE9", "fontSize": "1.3em", "round": true }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "fill": "#EFEBE9", "stroke": 6, "strokeBottom": 10, "percent": 75, "colorSlice": "#4E342E", "colorCircle": "#EFEBE9", "fontSize": "1.3em", "round": true }'
+        ></div>
         <div class="code">
           <pre>
                   <code class="language-json">data-pie='{ 
@@ -222,9 +230,10 @@ data-pie='{
           <div class="info-name">unit</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "unit": "PL", "percent": 75, "stroke": 5, "strokeBottom": 10, "colorSlice": "#fff", "colorCircle": "#F50057", "round": true }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "unit": "PL", "percent": 75, "stroke": 5, "strokeBottom": 10, "colorSlice": "#fff", "colorCircle": "#F50057", "round": true }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -244,9 +253,10 @@ data-pie='{
           <div class="info-name">stroke bottom</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "strokeBottom": 5, "percent": 75, "colorSlice": "#EC407A", "colorCircle": "#f1f1f1", "round": true }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "strokeBottom": 5, "percent": 75, "colorSlice": "#EC407A", "colorCircle": "#f1f1f1", "round": true }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -264,9 +274,10 @@ data-pie='{
           <div class="info-name">SPEED</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "speed": 30, "percent": 75, "colorSlice": "#DD2C00", "colorCircle": "#f1f1f1", "round": true }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "speed": 30, "percent": 75, "colorSlice": "#DD2C00", "colorCircle": "#f1f1f1", "round": true }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -284,9 +295,10 @@ data-pie='{
           <div class="info-name">cut</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "cut": 30, "percent": 75, "rotation": 144, "colorSlice": "#F50057", "colorCircle": "#f1f1f1", "textPosition": "1em", "fontSize": "1.2rem" }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "cut": 30, "percent": 75, "rotation": 144, "colorSlice": "#F50057", "colorCircle": "#f1f1f1", "textPosition": "1em", "fontSize": "1.2rem" }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -306,10 +318,26 @@ data-pie='{
           <div class="info-name">texpositon</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "textPosition": "1.5em", "percent": 75, "colorSlice": "#880E4F", "colorCircle": "#f1f1f1", "fontSize": "1em" }'>
-          <img src="https://picsum.photos/100/100" alt="Random image"
-            style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 50px; border-radius: 50%; padding: 2px; border: 2px solid rgb(255, 0, 0);">
+        <div
+          class="pie"
+          data-pie='{ "textPosition": "1.5em", "percent": 75, "colorSlice": "#880E4F", "colorCircle": "#f1f1f1", "fontSize": "1em" }'
+        >
+          <img
+            src="https://picsum.photos/100/100"
+            alt="Random image"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              margin: auto;
+              width: 50px;
+              border-radius: 50%;
+              padding: 2px;
+              border: 2px solid rgb(255, 0, 0);
+            "
+          />
         </div>
         <div class="code">
           <pre>
@@ -328,8 +356,10 @@ data-pie='{
           <div class="info-name">mixed</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "percent": 75, "textPosition": "0em", "colorSlice": "#FF1744", "colorCircle": "#fff", "stroke": 5, "strokeBottom": 10, "strokeDasharray": "1, 3", "fontSize": "1.2rem", "fontWeight": 600, "round": true  }'>
+        <div
+          class="pie"
+          data-pie='{ "percent": 75, "textPosition": "0em", "colorSlice": "#FF1744", "colorCircle": "#fff", "stroke": 5, "strokeBottom": 10, "strokeDasharray": "1, 3", "fontSize": "1.2rem", "fontWeight": 600, "round": true  }'
+        >
           <div class="heart">&#10084;</div>
         </div>
         <div class="code">
@@ -383,9 +413,10 @@ data-pie='{
           <div class="info-name">update props</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "percent": 75, "colorSlice": "#4CAF50", "fontColor": "#4CAF50", "colorCircle": "#f1f1f1", "fontSize": "1.4rem" }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "percent": 75, "colorSlice": "#4CAF50", "fontColor": "#4CAF50", "colorCircle": "#f1f1f1", "fontSize": "1.4rem" }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-js">&#x3C;script&#x3E;
@@ -412,9 +443,10 @@ data-pie='{
           <div class="info-name">smooth animation</div>
           <div class="info-code">code</div>
         </div>
-        <div class="pie"
-          data-pie='{ "animationSmooth": "1s ease-out", "percent": 75, "colorSlice": "#6200EA", "colorCircle": "#f1f1f1" }'>
-        </div>
+        <div
+          class="pie"
+          data-pie='{ "animationSmooth": "1s ease-out", "percent": 75, "colorSlice": "#6200EA", "colorCircle": "#f1f1f1" }'
+        ></div>
         <div class="code">
           <pre>
             <code class="language-json">data-pie='{ 
@@ -441,12 +473,13 @@ data-pie='{
 
 // js
 const globalConfig = {
-  "speed": 30,
-  "animationSmooth": "1s ease-out",
-  "strokeBottom": 5,
-  "colorSlice": "#FF6D00",
-  "colorCircle": "#f1f1f1",
-  "round": true
+  index: 58,
+  speed: 30,
+  animationSmooth: "1s ease-out",
+  strokeBottom: 5,
+  colorSlice: "#FF6D00",
+  colorCircle: "#f1f1f1",
+  round: true
 }
 
 const global = new CircularProgressBar('global', globalConfig);
@@ -457,37 +490,37 @@ const global = new CircularProgressBar('global', globalConfig);
     </div>
 
     <script>
-      window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("DOMContentLoaded", () => {
         // update circle when range change
-        const pie = document.querySelectorAll('.pie');
+        const pie = document.querySelectorAll(".pie");
         const range = document.querySelector('[type="range"]');
 
-        range.addEventListener('input', (e) => {
+        range.addEventListener("input", (e) => {
           pie.forEach((el, index) => {
             const options = {
               index: index + 1,
-              percent: e.target.value
-            }
+              percent: e.target.value,
+            };
             circle.animationTo(options);
-          })
-        })
+          });
+        });
 
         // start the animation when the element is in the page view
-        const elements = [].slice.call(document.querySelectorAll('.pie'));
-        const circle = new CircularProgressBar('pie');
+        const elements = [].slice.call(document.querySelectorAll(".pie"));
+        const circle = new CircularProgressBar("pie");
 
         // circle.initial();
 
-        if ('IntersectionObserver' in window) {
+        if ("IntersectionObserver" in window) {
           const config = {
             root: null,
-            rootMargin: '0px',
+            rootMargin: "0px",
             threshold: 0.75,
           };
 
           const ovserver = new IntersectionObserver((entries, observer) => {
             entries.map((entry) => {
-              if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.75) {
                 circle.initial(entry.target);
                 observer.unobserve(entry.target);
               }
@@ -505,48 +538,46 @@ const global = new CircularProgressBar('global', globalConfig);
 
         setInterval(() => {
           const typeFont = [100, 200, 300, 400, 500, 600, 700];
-          const colorHex = `#${Math.floor((Math.random() * 0xffffff) << 0).toString(16)}`;
+          const colorHex = `#${Math.floor(
+            (Math.random() * 0xffffff) << 0
+          ).toString(16)}`;
           const options = {
             index: 17,
-            percent: Math.floor((Math.random() * 100) + 1),
+            percent: Math.floor(Math.random() * 100 + 1),
             colorSlice: colorHex,
             fontColor: colorHex,
             fontSize: `${Math.floor(Math.random() * (1.4 - 1 + 1) + 1)}rem`,
-            fontWeight: typeFont[Math.floor(Math.random() * typeFont.length)]
-          }
+            fontWeight: typeFont[Math.floor(Math.random() * typeFont.length)],
+          };
           circle.animationTo(options);
         }, 3000);
 
         // global configuration
         const globalConfig = {
-          "speed": 30,
-          "animationSmooth": "1s ease-out",
-          "strokeBottom": 5,
-          "colorSlice": "#FF6D00",
-          "colorCircle": "#f1f1f1",
-          "round": true
-        }
+          index: 58,
+          speed: 30,
+          animationSmooth: "1s ease-out",
+          strokeBottom: 5,
+          colorSlice: "#FF6D00",
+          colorCircle: "#f1f1f1",
+          round: true,
+        };
 
-        const global = new CircularProgressBar('global', globalConfig);
+        const global = new CircularProgressBar("global", globalConfig);
         global.initial();
 
-
+        // --------------------------------------------------
         // update global example when change range
-        const pieGlobal = document.querySelectorAll('.global');
-        range.addEventListener('input', (e) => {
-          pieGlobal.forEach((el, index) => {
-            const options = {
-              index: index + 1,
-              percent: e.target.value,
-            };
-            global.animationTo(options);
-          });
+        range.addEventListener("input", (e) => {
+          const options = {
+            index: 58,
+            percent: e.target.value,
+          };
+          global.animationTo(options);
         });
-
       });
     </script>
     <script src="presentation.js"></script>
     <script src="circularProgressBar.min.js"></script>
   </body>
-
 </html>
