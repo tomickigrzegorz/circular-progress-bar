@@ -6,7 +6,7 @@
 const styleTransform = ({ rotation, animationSmooth }) => {
   const smoothAnimation = animationSmooth
     ? `transition: stroke-dashoffset ${animationSmooth}`
-    : '';
+    : "";
 
   return `transform:rotate(${rotation}deg);transform-origin: 50% 50%;${smoothAnimation}`;
 };
@@ -18,7 +18,7 @@ const styleTransform = ({ rotation, animationSmooth }) => {
  */
 const strokeDasharray = (type) => {
   return {
-    'stroke-dasharray': type || '264',
+    "stroke-dasharray": type || "264",
   };
 };
 
@@ -29,7 +29,7 @@ const strokeDasharray = (type) => {
  */
 const strokeLinecap = ({ round }) => {
   return {
-    'stroke-linecap': round ? 'round' : '',
+    "stroke-linecap": round ? "round" : "",
   };
 };
 
@@ -41,8 +41,8 @@ const strokeLinecap = ({ round }) => {
  */
 const fontSettings = (options) => {
   return {
-    'font-size': options.fontSize,
-    'font-weight': options.fontWeight,
+    "font-size": options.fontSize,
+    "font-weight": options.fontWeight,
   };
 };
 
@@ -61,7 +61,7 @@ const querySelector = (element) => document.querySelector(element);
  */
 const setColor = (element, { lineargradient, index, colorSlice }) => {
   element.setAttribute(
-    'stroke',
+    "stroke",
     lineargradient ? `url(#linear-${index})` : colorSlice
   );
 };
@@ -85,7 +85,7 @@ const setAttribute = (element, object) => {
  * @returns {SVGElement}
  */
 const createNSElement = (type) =>
-  document.createElementNS('http://www.w3.org/2000/svg', type);
+  document.createElementNS("http://www.w3.org/2000/svg", type);
 
 /**
  * Create svg tspan
@@ -95,7 +95,7 @@ const createNSElement = (type) =>
  * @returns {HTMLElement}
  */
 const tspan = (className, unit) => {
-  const element = createNSElement('tspan');
+  const element = createNSElement("tspan");
 
   element.classList.add(className);
   if (unit) element.textContent = unit;
@@ -122,7 +122,7 @@ const dashOffset = (count, inverse, cut) => {
  * @param {HTMLElement} el
  * @param {String} type
  */
-const insertAdElement = (element, el, type = 'beforeend') =>
+const insertAdElement = (element, el, type = "beforeend") =>
   element.insertAdjacentElement(type, el);
 
 /**
@@ -131,8 +131,8 @@ const insertAdElement = (element, el, type = 'beforeend') =>
  * @param {Object} object
  */
 const gradient = ({ index, lineargradient }) => {
-  const defsElement = createNSElement('defs');
-  const linearGradient = createNSElement('linearGradient');
+  const defsElement = createNSElement("defs");
+  const linearGradient = createNSElement("linearGradient");
   linearGradient.id = `linear-${index}`;
 
   const countGradient = [].slice.call(lineargradient);
@@ -141,11 +141,11 @@ const gradient = ({ index, lineargradient }) => {
 
   let number = 0;
   countGradient.map((item) => {
-    const stopElements = createNSElement('stop');
+    const stopElements = createNSElement("stop");
 
     const stopObj = {
       offset: `${number}%`,
-      'stop-color': `${item}`,
+      "stop-color": `${item}`,
     };
     setAttribute(stopElements, stopObj);
 
@@ -164,7 +164,7 @@ const gradient = ({ index, lineargradient }) => {
  * @param {String} className
  */
 const percent = (options, className) => {
-  const creatTextElementSVG = createNSElement('text');
+  const creatTextElementSVG = createNSElement("text");
 
   creatTextElementSVG.classList.add(`${className}-text-${options.index}`);
 
@@ -183,11 +183,11 @@ const percent = (options, className) => {
 
   // config to svg text
   const obj = {
-    x: '50%',
-    y: '50%',
+    x: "50%",
+    y: "50%",
     fill: options.fontColor,
-    'text-anchor': 'middle',
-    dy: options.textPosition || '0.35em',
+    "text-anchor": "middle",
+    dy: options.textPosition || "0.35em",
     ...fontSettings(options),
   };
 
