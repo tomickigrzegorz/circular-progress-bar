@@ -1,4 +1,21 @@
-## 2022-02-26 (v1.1.8)
+## 2022-02-12 (v1.1.9)
+
+### Added
+- `index` - new props. You can add `index` both to the `data-pie` and to the global configuration. From now on you can set your own index of the entire div - `data-pie-index`. You can easily refer to an element, such as in the example "GLOBAL CONFIGURATION"
+
+### Build
+- added script to change library version everywhere during production build
+
+### Improvements
+- reducing the size of the library by mangle properties and methods:
+```js
+mangle: {
+  properties: {
+    regex: /^_/,
+  },
+},
+```
+## 2022-01-26 (v1.1.8)
 
 ### Added
 - separate version for IE in dist folder
