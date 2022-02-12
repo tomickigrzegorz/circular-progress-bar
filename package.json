@@ -1,14 +1,16 @@
 {
   "name": "circular-progress-bar",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "main": "dist/circularProgressBar.js",
   "description": "A circular progress bar in svg",
   "repository": "https://github.com/tomik23/circular-progress-bar.git",
   "author": "Grzegorz Tomicki",
   "license": "MIT",
   "scripts": {
+    "watch": "rollup --config --watch --sourcemap",
     "build": "rollup --config --environment PRODUCTION",
-    "watch": "rollup --config --watch --sourcemap"
+    "prod": "yarn build && yarn lib:version",
+    "lib:version": "node scripts/version.js"
   },
   "keywords": [
     "js",
