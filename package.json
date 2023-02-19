@@ -3,7 +3,7 @@
   "version": "1.1.9",
   "main": "dist/circularProgressBar.js",
   "description": "A circular progress bar in svg",
-  "repository": "https://github.com/tomik23/circular-progress-bar.git",
+  "repository": "https://github.com/tomickigrzegorz/circular-progress-bar.git",
   "author": "Grzegorz Tomicki",
   "license": "MIT",
   "scripts": {
@@ -19,9 +19,9 @@
     "animation"
   ],
   "bugs": {
-    "url": "https://github.com/tomik23/circular-progress-bar/issues"
+    "url": "https://github.com/tomickigrzegorz/circular-progress-bar/issues"
   },
-  "homepage": "https://github.com/tomik23/circular-progress-bar#readme",
+  "homepage": "https://github.com/tomickigrzegorz/circular-progress-bar#readme",
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/eslint-parser": "^7.15.8",
