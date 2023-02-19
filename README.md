@@ -7,10 +7,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/package-json/v/tomik23/circular-progress-bar">
-  <img src="https://img.shields.io/github/size/tomik23/circular-progress-bar/dist/circularProgressBar.min.js">
+  <img src="https://img.shields.io/github/package-json/v/tomickigrzegorz/circular-progress-bar">
+  <img src="https://img.shields.io/github/size/tomickigrzegorz/circular-progress-bar/dist/circularProgressBar.min.js">
   <a href="LICENSE">
-    <img src="https://img.shields.io/github/license/tomik23/circular-progress-bar">
+    <img src="https://img.shields.io/github/license/tomickigrzegorz/circular-progress-bar">
   </a>
 </p>
 
@@ -20,14 +20,14 @@
 
 ## Demo
 
-See the demo - [example](https://tomik23.github.io/circular-progress-bar/)
+See the demo - [example](https://tomickigrzegorz.github.io/circular-progress-bar/)
 
 ## Installation
 
 #### JavaScript
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.9/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.1.9/dist/circularProgressBar.min.js"></script>
 ```
 
 ##### -- OR --
@@ -180,7 +180,7 @@ yarn watch
 npm run watch
 ```
 
-Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomik23/circular-progress-bar#colors-names)**
+Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomickigrzegorz/circular-progress-bar#colors-names)**
 
 ```bash
 yarn build
@@ -245,7 +245,7 @@ Configuration for IE:
 
 ### cdn
 
-- https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@1.1.9/dist/circularProgressBar.ie.min.js
+- https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.1.9/dist/circularProgressBar.ie.min.js
 
 ## License
 

@@ -23,30 +23,30 @@ mangle: {
 ## 2021-11-26 (v1.1.6)
 
 ### Improvements
-- creating a dist folder with libraries in iife, esm, umd format as well as their minimized versions [#58](https://github.com/tomik23/circular-progress-bar/pull/58)
+- creating a dist folder with libraries in iife, esm, umd format as well as their minimized versions [#58](https://github.com/tomickigrzegorz/circular-progress-bar/pull/58)
 
 ## 2021-10-27 (v1.1.5)
 
 ### Changed
-- code optimization for production smaller bundle size [#57](https://github.com/tomik23/circular-progress-bar/pull/57)
+- code optimization for production smaller bundle size [#57](https://github.com/tomickigrzegorz/circular-progress-bar/pull/57)
 
 ## 2021-10-26 (v1.1.4)
 
 ### Added
-- global configuration for the library [#56](https://github.com/tomik23/circular-progress-bar/pull/56)
+- global configuration for the library [#56](https://github.com/tomickigrzegorz/circular-progress-bar/pull/56)
 
 
 ## 2021-10-22 (v1.1.3)
 
 ### Added
-- `animationSmooth` - new props (animation type setting, e.g. `500ms ease-out`) [#50](https://github.com/tomik23/circular-progress-bar/issues/50)
+- `animationSmooth` - new props (animation type setting, e.g. `500ms ease-out`) [#50](https://github.com/tomickigrzegorz/circular-progress-bar/issues/50)
 
 ## 2021-10-20 (v1.1.2)
 
 ### Added
-- aria-label [#49](https://github.com/tomik23/circular-progress-bar/issues/49)
+- aria-label [#49](https://github.com/tomickigrzegorz/circular-progress-bar/issues/49)
 ### Fixed
-- transform-origin issue [#52](https://github.com/tomik23/circular-progress-bar/issues/52)
+- transform-origin issue [#52](https://github.com/tomickigrzegorz/circular-progress-bar/issues/52)
 
 
 ## 2021-10-19 (v1.1.0)
@@ -108,7 +108,7 @@ mangle: {
 
 ### Fixed
 
-- without number [#33](https://github.com/tomik23/circular-progress-bar/issues/33)
+- without number [#33](https://github.com/tomickigrzegorz/circular-progress-bar/issues/33)
 
 ## 2021-07-13 (v1.0.14)
 
@@ -126,7 +126,7 @@ mangle: {
 
 ### Fixed
 
-- if 0% is set [#26](https://github.com/tomik23/circular-progress-bar/issues/26)
+- if 0% is set [#26](https://github.com/tomickigrzegorz/circular-progress-bar/issues/26)
 
 ## 2021-05-23 (v1.0.11)
 
@@ -144,8 +144,8 @@ mangle: {
 
 ### Fixed
 
-- reducing the size of charts on mobile devices [#19](https://github.com/tomik23/circular-progress-bar/issues/19)
-- the animation does not start if the progress-bar is shown vertically [#21](https://github.com/tomik23/circular-progress-bar/issues/21)
+- reducing the size of charts on mobile devices [#19](https://github.com/tomickigrzegorz/circular-progress-bar/issues/19)
+- the animation does not start if the progress-bar is shown vertically [#21](https://github.com/tomickigrzegorz/circular-progress-bar/issues/21)
 
 ## 2020-11-24 (v1.0.8)
 
@@ -160,13 +160,13 @@ mangle: {
 
 ### Fixed
 
-- stroke-width undefined [#12](https://github.com/tomik23/circular-progress-bar/issues/12)
+- stroke-width undefined [#12](https://github.com/tomickigrzegorz/circular-progress-bar/issues/12)
 
 ## 2020-10-24 (v1.0.7)
 
 ### Fixed
 
-- problem with class renaming [#10](https://github.com/tomik23/circular-progress-bar/issues/10)
+- problem with class renaming [#10](https://github.com/tomickigrzegorz/circular-progress-bar/issues/10)
 
 ## 2020-10-23 (v1.0.7)
 
@@ -185,11 +185,11 @@ mangle: {
 
 ### Fixed
 
-- several circular-progress-bars [#6](https://github.com/tomik23/circular-progress-bar/issues/6)
+- several circular-progress-bars [#6](https://github.com/tomickigrzegorz/circular-progress-bar/issues/6)
 
 ## 2020-07-18
 
-### Changed
+### Changeds
 
 - update README.md
 
