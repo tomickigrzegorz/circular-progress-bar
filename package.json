@@ -1,6 +1,6 @@
 {
   "name": "circular-progress-bar",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "main": "dist/circularProgressBar.js",
   "description": "A circular progress bar in svg",
   "repository": "https://github.com/tomickigrzegorz/circular-progress-bar.git",
