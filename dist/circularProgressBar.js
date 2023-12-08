@@ -2,15 +2,15 @@ var CircularProgressBar = (function () {
   'use strict';
 
   const defaultOptions = {
-    colorSlice: '#00a1ff',
-    fontColor: '#000',
-    fontSize: '1.6rem',
+    colorSlice: "#00a1ff",
+    fontColor: "#000",
+    fontSize: "1.6rem",
     fontWeight: 400,
     lineargradient: false,
     number: true,
     round: false,
-    fill: 'none',
-    unit: '%',
+    fill: "none",
+    unit: "%",
     rotation: -90,
     size: 200,
     stroke: 10
@@ -20,25 +20,25 @@ var CircularProgressBar = (function () {
     rotation,
     animationSmooth
   }) => {
-    const smoothAnimation = animationSmooth ? `transition: stroke-dashoffset ${animationSmooth}` : '';
+    const smoothAnimation = animationSmooth ? `transition: stroke-dashoffset ${animationSmooth}` : "";
     return `transform:rotate(${rotation}deg);transform-origin: 50% 50%;${smoothAnimation}`;
   };
   const strokeDasharray = type => {
     return {
-      'stroke-dasharray': type || '264'
+      "stroke-dasharray": type || "264"
     };
   };
   const strokeLinecap = ({
     round
   }) => {
     return {
-      'stroke-linecap': round ? 'round' : ''
+      "stroke-linecap": round ? "round" : ""
     };
   };
   const fontSettings = options => {
     return {
-      'font-size': options.fontSize,
-      'font-weight': options.fontWeight
+      "font-size": options.fontSize,
+      "font-weight": options.fontWeight
     };
   };
   const querySelector = element => document.querySelector(element);
@@ -47,16 +47,16 @@ var CircularProgressBar = (function () {
     index,
     colorSlice
   }) => {
-    element.setAttribute('stroke', lineargradient ? `url(#linear-${index})` : colorSlice);
+    element.setAttribute("stroke", lineargradient ? `url(#linear-${index})` : colorSlice);
   };
   const setAttribute = (element, object) => {
     for (const key in object) {
       element == null ? void 0 : element.setAttribute(key, object[key]);
     }
   };
-  const createNSElement = type => document.createElementNS('http://www.w3.org/2000/svg', type);
+  const createNSElement = type => document.createElementNS("http://www.w3.org/2000/svg", type);
   const tspan = (className, unit) => {
-    const element = createNSElement('tspan');
+    const element = createNSElement("tspan");
     element.classList.add(className);
     if (unit) element.textContent = unit;
     return element;
@@ -66,22 +66,22 @@ var CircularProgressBar = (function () {
     const angle = 264 - count / 100 * cutChar;
     return inverse ? -angle : angle;
   };
-  const insertAdElement = (element, el, type = 'beforeend') => element.insertAdjacentElement(type, el);
+  const insertAdElement = (element, el, type = "beforeend") => element.insertAdjacentElement(type, el);
   const gradient = ({
     index,
     lineargradient
   }) => {
-    const defsElement = createNSElement('defs');
-    const linearGradient = createNSElement('linearGradient');
+    const defsElement = createNSElement("defs");
+    const linearGradient = createNSElement("linearGradient");
     linearGradient.id = `linear-${index}`;
     const countGradient = [].slice.call(lineargradient);
     defsElement.appendChild(linearGradient);
     let number = 0;
     countGradient.map(item => {
-      const stopElements = createNSElement('stop');
+      const stopElements = createNSElement("stop");
       const stopObj = {
         offset: `${number}%`,
-        'stop-color': `${item}`
+        "stop-color": `${item}`
       };
       setAttribute(stopElements, stopObj);
       linearGradient.appendChild(stopElements);
@@ -90,16 +90,16 @@ var CircularProgressBar = (function () {
     return defsElement;
   };
   const percent = (options, className) => {
-    const creatTextElementSVG = createNSElement('text');
+    const creatTextElementSVG = createNSElement("text");
     creatTextElementSVG.classList.add(`${className}-text-${options.index}`);
     insertAdElement(creatTextElementSVG, tspan(`${className}-percent-${options.index}`));
     insertAdElement(creatTextElementSVG, tspan(`${className}-unit-${options.index}`, options.unit));
     const obj = {
-      x: '50%',
-      y: '50%',
+      x: "50%",
+      y: "50%",
       fill: options.fontColor,
-      'text-anchor': 'middle',
-      dy: options.textPosition || '0.35em',
+      "text-anchor": "middle",
+      dy: options.textPosition || "0.35em",
       ...fontSettings(options)
     };
     setAttribute(creatTextElementSVG, obj);
@@ -172,11 +172,12 @@ var CircularProgressBar = (function () {
       }
       let angle = JSON.parse(circleElement.getAttribute("data-angel"));
       const percent = Math.round(options.percent);
-      if (percent == 0) {
+      console.log("percent", percent);
+      if (percent === 0) {
         if (commonConfiguration.number) centerNumber.textContent = "0";
         circleElement.setAttribute("stroke-dashoffset", "264");
       }
-      if (percent > 100 || percent <= 0 || angle === percent) return;
+      if (percent > 100 || percent < 0 || angle === percent) return;
       let request;
       let i = initial ? 0 : angle;
       const fps = commonConfiguration.speed || 1000;
