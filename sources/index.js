@@ -153,7 +153,6 @@ export default class CircularProgressBar {
     // round if number is decimal
     const percent = Math.round(options.percent);
 
-    console.log("percent", percent);
     // if percent 0 then set at start 0%
     if (percent === 0) {
       if (commonConfiguration.number) centerNumber.textContent = "0";
