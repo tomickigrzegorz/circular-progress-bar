@@ -172,7 +172,6 @@ var CircularProgressBar = (function () {
       }
       let angle = JSON.parse(circleElement.getAttribute("data-angel"));
       const percent = Math.round(options.percent);
-      console.log("percent", percent);
       if (percent === 0) {
         if (commonConfiguration.number) centerNumber.textContent = "0";
         circleElement.setAttribute("stroke-dashoffset", "264");
