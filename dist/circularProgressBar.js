@@ -64,7 +64,7 @@ var CircularProgressBar = (function () {
   const dashOffset = (count, inverse, cut) => {
     const cutChar = cut ? 264 / 100 * (100 - cut) : 264;
     const angle = 264 - count / 100 * cutChar;
-    return inverse ? -angle : angle;
+    return inverse ? `${264 - angle}` : angle;
   };
   const insertAdElement = (element, el, type = "beforeend") => element.insertAdjacentElement(type, el);
   const gradient = ({
