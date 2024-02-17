@@ -13,10 +13,11 @@ const defaultOptions = {
   stroke: 10
 };
 
-const styleTransform = ({
-  rotation,
-  animationSmooth
-}) => {
+const styleTransform = _ref => {
+  let {
+    rotation,
+    animationSmooth
+  } = _ref;
   const smoothAnimation = animationSmooth ? `transition: stroke-dashoffset ${animationSmooth}` : "";
   return `transform:rotate(${rotation}deg);transform-origin: 50% 50%;${smoothAnimation}`;
 };
@@ -25,9 +26,10 @@ const strokeDasharray = type => {
     "stroke-dasharray": type || "264"
   };
 };
-const strokeLinecap = ({
-  round
-}) => {
+const strokeLinecap = _ref2 => {
+  let {
+    round
+  } = _ref2;
   return {
     "stroke-linecap": round ? "round" : ""
   };
@@ -39,16 +41,17 @@ const fontSettings = options => {
   };
 };
 const querySelector = element => document.querySelector(element);
-const setColor = (element, {
-  lineargradient,
-  index,
-  colorSlice
-}) => {
+const setColor = (element, _ref3) => {
+  let {
+    lineargradient,
+    index,
+    colorSlice
+  } = _ref3;
   element.setAttribute("stroke", lineargradient ? `url(#linear-${index})` : colorSlice);
 };
 const setAttribute = (element, object) => {
   for (const key in object) {
-    element == null ? void 0 : element.setAttribute(key, object[key]);
+    element?.setAttribute(key, object[key]);
   }
 };
 const createNSElement = type => document.createElementNS("http://www.w3.org/2000/svg", type);
@@ -61,13 +64,19 @@ const tspan = (className, unit) => {
 const dashOffset = (count, inverse, cut) => {
   const cutChar = cut ? 264 / 100 * (100 - cut) : 264;
   const angle = 264 - count / 100 * cutChar;
-  return inverse ? -angle : angle;
+  return inverse ? `${264 - angle}` : angle;
 };
-const insertAdElement = (element, el, type = "beforeend") => element.insertAdjacentElement(type, el);
-const gradient = ({
-  index,
-  lineargradient
-}) => {
+const insertAdElement = function (element, el, type) {
+  if (type === void 0) {
+    type = "beforeend";
+  }
+  return element.insertAdjacentElement(type, el);
+};
+const gradient = _ref4 => {
+  let {
+    index,
+    lineargradient
+  } = _ref4;
   const defsElement = createNSElement("defs");
   const linearGradient = createNSElement("linearGradient");
   linearGradient.id = `linear-${index}`;
@@ -104,7 +113,10 @@ const percent = (options, className) => {
 };
 
 class CircularProgressBar {
-  constructor(pieName, globalObj = {}) {
+  constructor(pieName, globalObj) {
+    if (globalObj === void 0) {
+      globalObj = {};
+    }
     this._className = pieName;
     this._globalObj = globalObj;
     const pieElements = document.querySelectorAll(`.${pieName}`);
@@ -133,19 +145,24 @@ class CircularProgressBar {
       ...strokeLinecap(options)
     };
     setAttribute(progressCircle, configCircle);
-    this.animationTo({ ...options,
+    this.animationTo({
+      ...options,
       element: progressCircle
     }, true);
     progressCircle.setAttribute("style", styleTransform(options));
     setColor(progressCircle, options);
     target.setAttribute("style", `width:${options.size}px;height:${options.size}px;`);
   }
-  animationTo(options, initial = false) {
+  animationTo(options, initial) {
+    if (initial === void 0) {
+      initial = false;
+    }
     const pieName = this._className;
     const previousConfigObj = JSON.parse(querySelector(`[data-pie-index="${options.index}"]`).getAttribute("data-pie"));
     const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
     if (!circleElement) return;
-    const commonConfiguration = initial ? options : { ...defaultOptions,
+    const commonConfiguration = initial ? options : {
+      ...defaultOptions,
       ...previousConfigObj,
       ...options,
       ...this._globalObj
@@ -202,7 +219,8 @@ class CircularProgressBar {
   _createSVG(element) {
     const index = element.getAttribute("data-pie-index");
     const json = JSON.parse(element.getAttribute("data-pie"));
-    const options = { ...defaultOptions,
+    const options = {
+      ...defaultOptions,
       ...json,
       index,
       ...this._globalObj
@@ -227,7 +245,10 @@ class CircularProgressBar {
     element.appendChild(svg);
     this._progress(svg, element, options);
   }
-  _circle(options, where = "bottom") {
+  _circle(options, where) {
+    if (where === void 0) {
+      where = "bottom";
+    }
     const circle = createNSElement("circle");
     let configCircle = {};
     if (options.cut) {
@@ -246,7 +267,8 @@ class CircularProgressBar {
       ...configCircle
     };
     if (options.strokeDasharray) {
-      Object.assign(objCircle, { ...strokeDasharray(options.strokeDasharray)
+      Object.assign(objCircle, {
+        ...strokeDasharray(options.strokeDasharray)
       });
     }
     const typeCircle = where === "top" ? {
