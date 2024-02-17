@@ -1,4 +1,4 @@
-## 2024-02-03 (v1.2.1)
+## 2024-02-17 (v1.2.1)
 - inverse option is not working in ios [#87](https://github.com/tomickigrzegorz/circular-progress-bar/issues/87)
 
 ### Fixed
