@@ -62,7 +62,7 @@ const querySelector = (element) => document.querySelector(element);
 const setColor = (element, { lineargradient, index, colorSlice }) => {
   element.setAttribute(
     "stroke",
-    lineargradient ? `url(#linear-${index})` : colorSlice
+    lineargradient ? `url(#linear-${index})` : colorSlice,
   );
 };
 
@@ -116,7 +116,8 @@ const dashOffset = (count, inverse, cut) => {
 
   // https://github.com/tomickigrzegorz/circular-progress-bar/issues/87
   // inverse option is not working in ios safari
-  return inverse ? `${264 - angle}` : angle;
+  // return inverse ? `${264 - angle}` : angle;
+  return inverse ? -angle : angle;
 };
 
 /**
@@ -174,13 +175,13 @@ const percent = (options, className) => {
   // and insert to svg text element
   insertAdElement(
     creatTextElementSVG,
-    tspan(`${className}-percent-${options.index}`)
+    tspan(`${className}-percent-${options.index}`),
   );
 
   // create and insert unit to text element
   insertAdElement(
     creatTextElementSVG,
-    tspan(`${className}-unit-${options.index}`, options.unit)
+    tspan(`${className}-unit-${options.index}`, options.unit),
   );
 
   // config to svg text

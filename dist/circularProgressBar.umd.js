@@ -70,7 +70,7 @@
   const dashOffset = (count, inverse, cut) => {
     const cutChar = cut ? 264 / 100 * (100 - cut) : 264;
     const angle = 264 - count / 100 * cutChar;
-    return inverse ? `${264 - angle}` : angle;
+    return inverse ? -angle : angle;
   };
   const insertAdElement = function (element, el, type) {
     if (type === void 0) {
