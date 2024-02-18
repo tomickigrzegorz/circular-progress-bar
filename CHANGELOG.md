@@ -1,5 +1,5 @@
 ## 2024-02-17 (v1.2.1)
-- inverse option is not working in ios [#87](https://github.com/tomickigrzegorz/circular-progress-bar/issues/87)
+- update dependencies
 
 ### Fixed
 - percentage of circle no longer changing after reaching 0% - [#83](https://github.com/tomickigrzegorz/circular-progress-bar/issues/83)
