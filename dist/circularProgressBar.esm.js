@@ -190,7 +190,7 @@ class CircularProgressBar {
       if (commonConfiguration.number) centerNumber.textContent = "0";
       circleElement.setAttribute("stroke-dashoffset", "264");
     }
-    if (percent > 100 || percent <= 0 || angle === percent) return;
+    if (percent > 100 || percent < 0 || angle === percent) return;
     let request;
     let i = initial ? 0 : angle;
     const fps = commonConfiguration.speed || 1000;
@@ -202,7 +202,7 @@ class CircularProgressBar {
       const delta = now - then;
       if (delta >= interval - tolerance) {
         then = now - delta % interval;
-        angle >= commonConfiguration.percent ? i-- : i++;
+        i = i < commonConfiguration.percent ? i + 1 : i - 1;
       }
       circleElement.setAttribute("stroke-dashoffset", dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut));
       if (centerNumber && commonConfiguration.number) {
