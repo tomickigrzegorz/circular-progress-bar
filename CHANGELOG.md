@@ -1,7 +1,6 @@
-## 2024-02-20 (v1.2.2)
+## 2024-02-20 (v1.2.3)
 ### Fixed
 - percentage of circle don't stop round when percent is "0" - [#90](https://github.com/tomickigrzegorz/circular-progress-bar/issues/90)
-
 
 ## 2024-02-17 (v1.2.1)
 - update dependencies
