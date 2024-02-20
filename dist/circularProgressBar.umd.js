@@ -196,7 +196,7 @@
         if (commonConfiguration.number) centerNumber.textContent = "0";
         circleElement.setAttribute("stroke-dashoffset", "264");
       }
-      if (percent > 100 || percent < 0 || angle === percent) return;
+      if (percent > 100 || percent <= 0 || angle === percent) return;
       let request;
       let i = initial ? 0 : angle;
       const fps = commonConfiguration.speed || 1000;

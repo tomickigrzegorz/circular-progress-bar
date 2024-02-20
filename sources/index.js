@@ -35,7 +35,7 @@ export default class CircularProgressBar {
       const id = JSON.parse(item.getAttribute("data-pie"));
       item.setAttribute(
         "data-pie-index",
-        id.index || globalObj.index || idx + 1
+        id.index || globalObj.index || idx + 1,
       );
     });
 
@@ -86,7 +86,7 @@ export default class CircularProgressBar {
     // set width and height on div
     target.setAttribute(
       "style",
-      `width:${options.size}px;height:${options.size}px;`
+      `width:${options.size}px;height:${options.size}px;`,
     );
   }
 
@@ -100,8 +100,8 @@ export default class CircularProgressBar {
     const pieName = this._className;
     const previousConfigObj = JSON.parse(
       querySelector(`[data-pie-index="${options.index}"]`).getAttribute(
-        "data-pie"
-      )
+        "data-pie",
+      ),
     );
 
     const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
@@ -130,7 +130,7 @@ export default class CircularProgressBar {
         ...fontSettings(commonConfiguration),
       };
       const textElement = querySelector(
-        `.${pieName}-text-${commonConfiguration.index}`
+        `.${pieName}-text-${commonConfiguration.index}`,
       );
       setAttribute(textElement, fontconfig);
     }
@@ -142,7 +142,7 @@ export default class CircularProgressBar {
         centerNumber.textContent = `${commonConfiguration.percent}`;
       circleElement.setAttribute(
         "stroke-dashoffset",
-        dashOffset(commonConfiguration.percent, commonConfiguration.inverse)
+        dashOffset(commonConfiguration.percent, commonConfiguration.inverse),
       );
       return;
     }
@@ -159,7 +159,7 @@ export default class CircularProgressBar {
       circleElement.setAttribute("stroke-dashoffset", "264");
     }
 
-    if (percent > 100 || percent < 0 || angle === percent) return;
+    if (percent > 100 || percent <= 0 || angle === percent) return;
 
     let request;
     let i = initial ? 0 : angle;
@@ -181,7 +181,7 @@ export default class CircularProgressBar {
 
       circleElement.setAttribute(
         "stroke-dashoffset",
-        dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)
+        dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut),
       );
       if (centerNumber && commonConfiguration.number) {
         centerNumber.textContent = `${i}`;

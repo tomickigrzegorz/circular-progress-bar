@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -539,7 +539,7 @@ const global = new CircularProgressBar('global', globalConfig);
         setInterval(() => {
           const typeFont = [100, 200, 300, 400, 500, 600, 700];
           const colorHex = `#${Math.floor(
-            (Math.random() * 0xffffff) << 0
+            (Math.random() * 0xffffff) << 0,
           ).toString(16)}`;
           const options = {
             index: 17,
