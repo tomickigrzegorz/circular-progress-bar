@@ -159,7 +159,7 @@ export default class CircularProgressBar {
       circleElement.setAttribute("stroke-dashoffset", "264");
     }
 
-    if (percent > 100 || percent <= 0 || angle === percent) return;
+    if (percent > 100 || percent < 0 || angle === percent) return;
 
     let request;
     let i = initial ? 0 : angle;
@@ -176,7 +176,8 @@ export default class CircularProgressBar {
       if (delta >= interval - tolerance) {
         then = now - (delta % interval);
 
-        angle >= commonConfiguration.percent ? i-- : i++;
+        // angle >= commonConfiguration.percent ? i-- : i++;
+        i = i < commonConfiguration.percent ? i + 1 : i - 1;
       }
 
       circleElement.setAttribute(
@@ -190,7 +191,6 @@ export default class CircularProgressBar {
       circleElement.setAttribute("data-angel", i);
       circleElement.parentNode.setAttribute("aria-valuenow", i);
 
-      // console.log(i, percent);
       if (i === percent) {
         cancelAnimationFrame(request);
       }
