@@ -184,7 +184,7 @@ var CircularProgressBar = (function () {
       const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
       if (commonConfiguration.animationOff) {
         if (commonConfiguration.number) centerNumber.textContent = `${commonConfiguration.percent}`;
-        circleElement.setAttribute("stroke-dashoffset", dashOffset(commonConfiguration.percent, commonConfiguration.inverse));
+        circleElement.setAttribute("stroke-dashoffset", dashOffset(commonConfiguration.percent * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse));
         return;
       }
       let angle = JSON.parse(circleElement.getAttribute("data-angel"));
