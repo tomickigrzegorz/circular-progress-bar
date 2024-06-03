@@ -1,3 +1,8 @@
+## 2024-05-04 (v1.2.4)
+### Fixed
+- "cut" property not working with "animationOff" - [#92](https://github.com/tomickigrzegorz/circular-progress-bar/pull/92)
+
+
 ## 2024-02-20 (v1.2.3)
 ### Fixed
 - percentage of circle don't stop round when percent is "0" - [#90](https://github.com/tomickigrzegorz/circular-progress-bar/issues/90)
