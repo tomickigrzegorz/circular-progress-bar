@@ -27,7 +27,7 @@ See the demo - [example](https://tomickigrzegorz.github.io/circular-progress-bar
 #### JavaScript
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.2.3/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.2.4/dist/circularProgressBar.min.js"></script>
 ```
 
 ##### -- OR --
@@ -245,7 +245,7 @@ Configuration for IE:
 
 ### cdn
 
-- https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.2.3/dist/circularProgressBar.ie.min.js
+- https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.2.4/dist/circularProgressBar.ie.min.js
 
 ## License
 
