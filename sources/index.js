@@ -142,7 +142,7 @@ export default class CircularProgressBar {
         centerNumber.textContent = `${commonConfiguration.percent}`;
       circleElement.setAttribute(
         "stroke-dashoffset",
-        dashOffset(commonConfiguration.percent, commonConfiguration.inverse),
+        dashOffset(commonConfiguration.percent * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse),
       );
       return;
     }
