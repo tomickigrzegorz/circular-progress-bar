@@ -111,13 +111,13 @@ const tspan = (className, unit) => {
  * @returns {Number}
  */
 const dashOffset = (count, inverse, cut) => {
-  const cutChar = cut ? (264 / 100) * (100 - cut) : 264;
-  const angle = 264 - (count / 100) * cutChar;
 
-  // https://github.com/tomickigrzegorz/circular-progress-bar/issues/87
-  // inverse option is not working in ios safari
-  // return inverse ? `${264 - angle}` : angle;
-  return inverse ? -angle : angle;
+  const maxPercent = 100;
+  const full = cut ? 264 * ((100 - cut) / 100) : 264;
+  const normalizedPercent = Math.min(count, maxPercent);
+  const progress = (normalizedPercent / 100) * full;
+
+  return inverse ? progress : full - progress;
 };
 
 /**
