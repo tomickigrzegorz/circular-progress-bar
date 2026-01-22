@@ -65,9 +65,11 @@ var CircularProgressBar = (function () {
     return element;
   };
   const dashOffset = (count, inverse, cut) => {
-    const cutChar = cut ? 264 / 100 * (100 - cut) : 264;
-    const angle = 264 - count / 100 * cutChar;
-    return inverse ? -angle : angle;
+    const maxPercent = 100;
+    const full = cut ? 264 * ((100 - cut) / 100) : 264;
+    const normalizedPercent = Math.min(count, maxPercent);
+    const progress = normalizedPercent / 100 * full;
+    return inverse ? progress : full - progress;
   };
   const insertAdElement = function (element, el, type) {
     if (type === void 0) {
@@ -193,7 +195,7 @@ var CircularProgressBar = (function () {
         if (commonConfiguration.number) centerNumber.textContent = "0";
         circleElement.setAttribute("stroke-dashoffset", "264");
       }
-      if (percent > 100 || percent < 0 || angle === percent) return;
+      if (percent < 0 || angle === percent) return;
       let request;
       let i = initial ? 0 : angle;
       const fps = commonConfiguration.speed || 1000;
