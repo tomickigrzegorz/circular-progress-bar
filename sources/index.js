@@ -1,4 +1,4 @@
-import defaultOptions from "./helpers/defaults";
+  import defaultOptions from "./helpers/defaults";
 import {
   createNSElement,
   dashOffset,
@@ -159,7 +159,7 @@ export default class CircularProgressBar {
       circleElement.setAttribute("stroke-dashoffset", "264");
     }
 
-    if (percent > 100 || percent < 0 || angle === percent) return;
+    if (percent < 0 || angle === percent) return;
 
     let request;
     let i = initial ? 0 : angle;
