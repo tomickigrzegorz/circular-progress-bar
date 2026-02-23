@@ -1,3 +1,33 @@
+## 2026-02-23 (v1.2.5)
+
+### Changed
+- migrated from ESLint + Prettier to Biome for linting and formatting
+- replaced `[].slice.call()` with spread operator `[...]`
+- replaced `map()` with `forEach()` for side-effect only iterations
+- replaced `for...in` with `Object.entries()` in `setAttribute()`
+- extracted magic number `264` to `CIRCUMFERENCE` constant
+- **migrated source code from JavaScript to TypeScript** (`sources/**` → `.ts`)
+
+### Improvements
+- added early return validation in `_createSVG()` when `data-pie` attribute is missing
+- simplified gradient color stop calculation using array index
+- changed `let` to `const` where variables are not reassigned
+
+### TypeScript
+- added `CPBOptions` interface — public API type for all configuration options
+- added `InternalOptions` type — `CPBOptions` with required `index: string`
+- `setAttribute()` helper now accepts `Record<string, unknown>` and coerces values via `String()`
+- `dashOffset()` now explicitly returns `number`; call sites wrap result in `String()`
+- generated type declarations exported to `dist/types/index.d.ts`
+- added `"types"` field in `package.json` pointing to `dist/types/index.d.ts`
+
+### Build
+- added new npm scripts: `lint`, `format`, `check`
+- added `typecheck` script — runs `tsc --noEmit`
+- added `build:types` script — runs `tsc --emitDeclarationOnly`
+- `build` script now also generates `.d.ts` declarations after Rollup
+- added devDependencies: `typescript`, `@rollup/plugin-typescript`, `tslib`
+
 ## 2024-05-04 (v1.2.4)
 ### Fixed
 - "cut" property not working with "animationOff" - [#92](https://github.com/tomickigrzegorz/circular-progress-bar/pull/92)

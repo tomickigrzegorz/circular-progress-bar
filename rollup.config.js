@@ -1,3 +1,4 @@
+import typescript from "@rollup/plugin-typescript";
 import { babel } from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 import serve from "rollup-plugin-serve";
@@ -7,7 +8,7 @@ import cleanup from "rollup-plugin-cleanup";
 import pkg from "./package.json";
 
 const { PRODUCTION } = process.env;
-const input = "sources/index.js";
+const input = "sources/index.ts";
 
 const targets = {
   targets: {
@@ -22,6 +23,11 @@ const targetsIE = {
 };
 
 const pluginsConfig = (target) => [
+  typescript({
+    declaration: false,
+    declarationMap: false,
+    declarationDir: undefined,
+  }),
   babel({
     babelHelpers: "bundled",
     presets: [
