@@ -5,6 +5,7 @@ import type { CPBOptions } from "./defaults";
  */
 const CIRCUMFERENCE = 264;
 
+/** Builds the CSS transform style and optional smooth transition for an SVG element */
 const styleTransform = ({
   rotation,
   animationSmooth,
@@ -16,12 +17,14 @@ const styleTransform = ({
   return `transform:rotate(${rotation}deg);transform-origin: 50% 50%;${smoothAnimation}`;
 };
 
+/** Returns stroke-dasharray attribute; defaults to full circumference when no argument */
 const strokeDasharray = (type?: string): Record<string, string> => {
   return {
     "stroke-dasharray": type || String(CIRCUMFERENCE),
   };
 };
 
+/** Returns stroke-linecap attribute: "round" or empty string */
 const strokeLinecap = ({
   round,
 }: Pick<CPBOptions, "round">): Record<string, string> => {
@@ -30,6 +33,7 @@ const strokeLinecap = ({
   };
 };
 
+/** Returns font-size and font-weight attributes for the SVG text element */
 const fontSettings = (
   options: Pick<CPBOptions, "fontSize" | "fontWeight">,
 ): Record<string, string | number | undefined> => {
@@ -39,9 +43,11 @@ const fontSettings = (
   };
 };
 
+/** Shorthand for document.querySelector */
 const querySelector = (element: string): Element | null =>
   document.querySelector(element);
 
+/** Sets the stroke color — gradient URL or solid colorSlice */
 const setColor = (
   element: Element | null,
   {
@@ -56,6 +62,7 @@ const setColor = (
   );
 };
 
+/** Iterates an object and sets each key-value pair as an attribute on the element */
 const setAttribute = (
   element: Element | null,
   object: Record<string, unknown>,
@@ -65,9 +72,11 @@ const setAttribute = (
   });
 };
 
+/** Creates an SVG namespace element of the given tag type */
 const createNSElement = (type: string): Element =>
   document.createElementNS("http://www.w3.org/2000/svg", type);
 
+/** Creates an SVG tspan element with a class and optional text content */
 const tspan = (className: string, unit?: string): Element => {
   const element = createNSElement("tspan");
 
@@ -85,12 +94,14 @@ const dashOffset = (count: number, inverse?: boolean, cut?: number): number => {
   return inverse ? -angle : angle;
 };
 
+/** Inserts an element relative to another using insertAdjacentElement */
 const insertAdElement = (
   element: Element,
   el: Element,
   type: InsertPosition = "beforeend",
 ): Element | null => element.insertAdjacentElement(type, el);
 
+/** Builds an SVG <defs> element containing a linearGradient with evenly spaced color stops */
 const gradient = ({
   index,
   lineargradient,
@@ -116,6 +127,7 @@ const gradient = ({
   return defsElement;
 };
 
+/** Creates the SVG text element with percent and unit tspan children */
 const createPercentElement = (options: CPBOptions, className: string): Element => {
   const creatTextElementSVG = createNSElement("text");
 

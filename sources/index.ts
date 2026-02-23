@@ -16,11 +16,13 @@ import {
   styleTransform,
 } from "./helpers/function";
 
+/** Animated circular SVG progress bar */
 export default class CircularProgressBar {
   private _className: string;
   private _globalObj: CPBOptions;
   private _elements: Element[];
 
+  /** Queries all elements matching the class name and assigns data-pie-index attributes */
   constructor(pieName: string, globalObj: CPBOptions = {}) {
     this._className = pieName;
     this._globalObj = globalObj;
@@ -41,6 +43,7 @@ export default class CircularProgressBar {
     this._elements = elements;
   }
 
+  /** Creates SVG elements and starts the initial animation for all matching elements */
   initial(outside?: Element | Element[]): void {
     const elements = outside || this._elements;
     if (Array.isArray(elements)) {
@@ -52,6 +55,7 @@ export default class CircularProgressBar {
     }
   }
 
+  /** Appends the percent text, configures the progress circle attributes, and triggers animation */
   private _progress(
     svg: Element,
     target: Element,
@@ -86,6 +90,7 @@ export default class CircularProgressBar {
     );
   }
 
+  /** Animates the progress bar to a new percent value; also used internally on initial render */
   animationTo(
     options: CPBOptions & { index: string | number },
     initial = false,
@@ -204,6 +209,7 @@ export default class CircularProgressBar {
     requestAnimationFrame(performAnimation);
   }
 
+  /** Builds the full SVG structure for a single progress bar element */
   private _createSVG(element: Element): void {
     const index = element.getAttribute("data-pie-index");
     const dataPie = element.getAttribute("data-pie");
@@ -247,6 +253,7 @@ export default class CircularProgressBar {
     this._progress(svg, element, options);
   }
 
+  /** Creates a circle element — "bottom" is the background track, "top" is the animated progress arc */
   private _circle(
     options: InternalOptions,
     where: "top" | "bottom" = "bottom",
