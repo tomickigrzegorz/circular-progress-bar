@@ -3,12 +3,21 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "types": [
+      "node"
+    ],
     "strict": true,
     "rootDir": "sources",
     "declaration": true,
     "declarationDir": "dist/types",
     "skipLibCheck": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ]
   },
-  "include": ["sources/**/*.ts"]
+  "include": [
+    "sources/**/*.ts"
+  ]
 }

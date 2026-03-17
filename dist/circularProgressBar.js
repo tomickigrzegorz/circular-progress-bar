@@ -20,38 +20,47 @@ var CircularProgressBar = (function () {
      * Circle circumference for r=42: 2 * PI * 42 ≈ 264
      */
     const CIRCUMFERENCE = 264;
+    /** Builds the CSS transform style and optional smooth transition for an SVG element */
     const styleTransform = ({ rotation, animationSmooth, }) => {
         const smoothAnimation = animationSmooth
             ? `transition: stroke-dashoffset ${animationSmooth}`
             : "";
         return `transform:rotate(${rotation}deg);transform-origin: 50% 50%;${smoothAnimation}`;
     };
+    /** Returns stroke-dasharray attribute; defaults to full circumference when no argument */
     const strokeDasharray = (type) => {
         return {
             "stroke-dasharray": type || String(CIRCUMFERENCE),
         };
     };
+    /** Returns stroke-linecap attribute: "round" or empty string */
     const strokeLinecap = ({ round, }) => {
         return {
             "stroke-linecap": round ? "round" : "",
         };
     };
+    /** Returns font-size and font-weight attributes for the SVG text element */
     const fontSettings = (options) => {
         return {
             "font-size": options.fontSize,
             "font-weight": options.fontWeight,
         };
     };
+    /** Shorthand for document.querySelector */
     const querySelector = (element) => document.querySelector(element);
+    /** Sets the stroke color — gradient URL or solid colorSlice */
     const setColor = (element, { lineargradient, index, colorSlice, }) => {
         element?.setAttribute("stroke", lineargradient ? `url(#linear-${index})` : colorSlice ?? "");
     };
+    /** Iterates an object and sets each key-value pair as an attribute on the element */
     const setAttribute = (element, object) => {
         Object.entries(object).forEach(([key, value]) => {
             element?.setAttribute(key, String(value));
         });
     };
+    /** Creates an SVG namespace element of the given tag type */
     const createNSElement = (type) => document.createElementNS("http://www.w3.org/2000/svg", type);
+    /** Creates an SVG tspan element with a class and optional text content */
     const tspan = (className, unit) => {
         const element = createNSElement("tspan");
         element.classList.add(className);
@@ -66,7 +75,9 @@ var CircularProgressBar = (function () {
         // inverse option is not working in ios safari
         return inverse ? -angle : angle;
     };
+    /** Inserts an element relative to another using insertAdjacentElement */
     const insertAdElement = (element, el, type = "beforeend") => element.insertAdjacentElement(type, el);
+    /** Builds an SVG <defs> element containing a linearGradient with evenly spaced color stops */
     const gradient = ({ index, lineargradient, }) => {
         const defsElement = createNSElement("defs");
         const linearGradient = createNSElement("linearGradient");
@@ -84,6 +95,7 @@ var CircularProgressBar = (function () {
         });
         return defsElement;
     };
+    /** Creates the SVG text element with percent and unit tspan children */
     const createPercentElement = (options, className) => {
         const creatTextElementSVG = createNSElement("text");
         creatTextElementSVG.classList.add(`${className}-text-${options.index}`);
@@ -101,10 +113,12 @@ var CircularProgressBar = (function () {
         return creatTextElementSVG;
     };
 
+    /** Animated circular SVG progress bar */
     class CircularProgressBar {
         _className;
         _globalObj;
         _elements;
+        /** Queries all elements matching the class name and assigns data-pie-index attributes */
         constructor(pieName, globalObj = {}) {
             this._className = pieName;
             this._globalObj = globalObj;
@@ -116,6 +130,7 @@ var CircularProgressBar = (function () {
             });
             this._elements = elements;
         }
+        /** Creates SVG elements and starts the initial animation for all matching elements */
         initial(outside) {
             const elements = outside || this._elements;
             if (Array.isArray(elements)) {
@@ -127,6 +142,7 @@ var CircularProgressBar = (function () {
                 this._createSVG(elements);
             }
         }
+        /** Appends the percent text, configures the progress circle attributes, and triggers animation */
         _progress(svg, target, options) {
             const pieName = this._className;
             if (options.number) {
@@ -148,6 +164,7 @@ var CircularProgressBar = (function () {
             setColor(progressCircle, options);
             target.setAttribute("style", `width:${options.size}px;height:${options.size}px;`);
         }
+        /** Animates the progress bar to a new percent value; also used internally on initial render */
         animationTo(options, initial = false) {
             const pieName = this._className;
             const pieEl = querySelector(`[data-pie-index="${options.index}"]`);
@@ -224,6 +241,7 @@ var CircularProgressBar = (function () {
             };
             requestAnimationFrame(performAnimation);
         }
+        /** Builds the full SVG structure for a single progress bar element */
         _createSVG(element) {
             const index = element.getAttribute("data-pie-index");
             const dataPie = element.getAttribute("data-pie");
@@ -258,6 +276,7 @@ var CircularProgressBar = (function () {
             element.appendChild(svg);
             this._progress(svg, element, options);
         }
+        /** Creates a circle element — "bottom" is the background track, "top" is the animated progress arc */
         _circle(options, where = "bottom") {
             const circle = createNSElement("circle");
             let configCircle = {};
