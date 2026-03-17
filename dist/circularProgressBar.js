@@ -50,7 +50,7 @@ var CircularProgressBar = (function () {
     const querySelector = (element) => document.querySelector(element);
     /** Sets the stroke color — gradient URL or solid colorSlice */
     const setColor = (element, { lineargradient, index, colorSlice, }) => {
-        element?.setAttribute("stroke", lineargradient ? `url(#linear-${index})` : colorSlice ?? "");
+        element?.setAttribute("stroke", lineargradient ? `url(#linear-${index})` : (colorSlice ?? ""));
     };
     /** Iterates an object and sets each key-value pair as an attribute on the element */
     const setAttribute = (element, object) => {
