@@ -58,7 +58,7 @@ const setColor = (
 ): void => {
   element?.setAttribute(
     "stroke",
-    lineargradient ? `url(#linear-${index})` : colorSlice ?? "",
+    lineargradient ? `url(#linear-${index})` : (colorSlice ?? ""),
   );
 };
 
@@ -107,7 +107,9 @@ const gradient = ({
   lineargradient,
 }: Pick<CPBOptions, "index" | "lineargradient">): Element => {
   const defsElement = createNSElement("defs");
-  const linearGradient = createNSElement("linearGradient") as SVGLinearGradientElement;
+  const linearGradient = createNSElement(
+    "linearGradient",
+  ) as SVGLinearGradientElement;
   linearGradient.id = `linear-${index}`;
 
   const colors = [...(lineargradient as string[])];
@@ -128,7 +130,10 @@ const gradient = ({
 };
 
 /** Creates the SVG text element with percent and unit tspan children */
-const createPercentElement = (options: CPBOptions, className: string): Element => {
+const createPercentElement = (
+  options: CPBOptions,
+  className: string,
+): Element => {
   const creatTextElementSVG = createNSElement("text");
 
   creatTextElementSVG.classList.add(`${className}-text-${options.index}`);
