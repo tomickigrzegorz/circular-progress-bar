@@ -1,3 +1,10 @@
+/*!
+* @name circular-progress-bar
+* @version 1.2.5
+* @author Grzegorz Tomicki
+* @link https://github.com/tomickigrzegorz/circular-progress-bar
+* @license MIT
+*/
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :

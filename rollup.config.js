@@ -7,6 +7,8 @@ import cleanup from "rollup-plugin-cleanup";
 
 import pkg from "./package.json";
 
+const banner = `/*!\n* @name circular-progress-bar\n* @version ${pkg.version}\n* @author ${pkg.author}\n* @link https://github.com/tomickigrzegorz/circular-progress-bar\n* @license MIT\n*/`;
+
 const { PRODUCTION } = process.env;
 const input = "sources/index.ts";
 
@@ -64,6 +66,7 @@ export default [
     plugins: pluginsConfig(targets),
     watch: false,
     output: {
+      banner,
       name: "CircularProgressBar",
       format: "iife",
       file: pkg.main,
@@ -75,6 +78,7 @@ export default [
     plugins: pluginsConfig(targets),
     watch: false,
     output: {
+      banner,
       name: "CircularProgressBar",
       format: "iife",
       sourcemap: false,
@@ -115,6 +119,7 @@ export default [
         format: "umd",
         sourcemap: true,
         file: "dist/circularProgressBar.umd.js",
+        banner,
       },
       {
         name: "CircularProgressBar",
@@ -142,12 +147,14 @@ export default [
         format: "es",
         sourcemap: true,
         file: "dist/circularProgressBar.esm.js",
+        banner,
       },
       {
         name: "CircularProgressBar",
         format: "es",
         sourcemap: false,
         file: "dist/circularProgressBar.esm.min.js",
+        banner,
         plugins: [
           terser({
             ...terserConfig,
@@ -170,6 +177,7 @@ export default [
         sourcemap: false,
         file: "dist/circularProgressBar.ie.min.js",
         plugins: [terser({ ...terserConfig })],
+        banner,
       },
     ],
   },

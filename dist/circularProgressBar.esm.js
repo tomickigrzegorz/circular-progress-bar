@@ -1,3 +1,10 @@
+/*!
+* @name circular-progress-bar
+* @version 1.2.5
+* @author Grzegorz Tomicki
+* @link https://github.com/tomickigrzegorz/circular-progress-bar
+* @license MIT
+*/
 const defaultOptions = {
     colorSlice: "#00a1ff",
     fontColor: "#000",
