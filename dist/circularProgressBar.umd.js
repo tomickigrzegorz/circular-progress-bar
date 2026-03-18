@@ -1,3 +1,10 @@
+/*!
+* @name circular-progress-bar
+* @version 1.3.0
+* @author Grzegorz Tomicki
+* @link https://github.com/tomickigrzegorz/circular-progress-bar
+* @license MIT
+*/
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -19,6 +26,7 @@
     stroke: 10
   };
 
+  const CIRCUMFERENCE = 264;
   const styleTransform = _ref => {
     let {
       rotation,
@@ -29,7 +37,7 @@
   };
   const strokeDasharray = type => {
     return {
-      "stroke-dasharray": type || "264"
+      "stroke-dasharray": type || String(CIRCUMFERENCE)
     };
   };
   const strokeLinecap = _ref2 => {
@@ -53,12 +61,13 @@
       index,
       colorSlice
     } = _ref3;
-    element.setAttribute("stroke", lineargradient ? `url(#linear-${index})` : colorSlice);
+    element?.setAttribute("stroke", lineargradient ? `url(#linear-${index})` : colorSlice ?? "");
   };
   const setAttribute = (element, object) => {
-    for (const key in object) {
-      element?.setAttribute(key, object[key]);
-    }
+    Object.entries(object).forEach(_ref4 => {
+      let [key, value] = _ref4;
+      element?.setAttribute(key, String(value));
+    });
   };
   const createNSElement = type => document.createElementNS("http://www.w3.org/2000/svg", type);
   const tspan = (className, unit) => {
@@ -68,11 +77,9 @@
     return element;
   };
   const dashOffset = (count, inverse, cut) => {
-    const maxPercent = 100;
-    const full = cut ? 264 * ((100 - cut) / 100) : 264;
-    const normalizedPercent = Math.min(count, maxPercent);
-    const progress = normalizedPercent / 100 * full;
-    return inverse ? progress : full - progress;
+    const cutChar = cut ? CIRCUMFERENCE / 100 * (100 - cut) : CIRCUMFERENCE;
+    const angle = CIRCUMFERENCE - count / 100 * cutChar;
+    return inverse ? -angle : angle;
   };
   const insertAdElement = function (element, el, type) {
     if (type === void 0) {
@@ -80,30 +87,28 @@
     }
     return element.insertAdjacentElement(type, el);
   };
-  const gradient = _ref4 => {
+  const gradient = _ref5 => {
     let {
       index,
       lineargradient
-    } = _ref4;
+    } = _ref5;
     const defsElement = createNSElement("defs");
     const linearGradient = createNSElement("linearGradient");
     linearGradient.id = `linear-${index}`;
-    const countGradient = [].slice.call(lineargradient);
+    const colors = [...lineargradient];
+    const step = 100 / (colors.length - 1);
     defsElement.appendChild(linearGradient);
-    let number = 0;
-    countGradient.map(item => {
-      const stopElements = createNSElement("stop");
-      const stopObj = {
-        offset: `${number}%`,
-        "stop-color": `${item}`
-      };
-      setAttribute(stopElements, stopObj);
-      linearGradient.appendChild(stopElements);
-      number += 100 / (countGradient.length - 1);
+    colors.forEach((color, i) => {
+      const stopElement = createNSElement("stop");
+      setAttribute(stopElement, {
+        offset: `${i * step}%`,
+        "stop-color": color
+      });
+      linearGradient.appendChild(stopElement);
     });
     return defsElement;
   };
-  const percent = (options, className) => {
+  const createPercentElement = (options, className) => {
     const creatTextElementSVG = createNSElement("text");
     creatTextElementSVG.classList.add(`${className}-text-${options.index}`);
     insertAdElement(creatTextElementSVG, tspan(`${className}-percent-${options.index}`));
@@ -125,30 +130,40 @@
       if (globalObj === void 0) {
         globalObj = {};
       }
+      this._className = void 0;
+      this._globalObj = void 0;
+      this._elements = void 0;
       this._className = pieName;
       this._globalObj = globalObj;
       const pieElements = document.querySelectorAll(`.${pieName}`);
-      const elements = [].slice.call(pieElements);
-      elements.map((item, idx) => {
-        const id = JSON.parse(item.getAttribute("data-pie"));
-        item.setAttribute("data-pie-index", id.index || globalObj.index || idx + 1);
+      const elements = [...pieElements];
+      elements.forEach((item, idx) => {
+        const config = JSON.parse(item.getAttribute("data-pie") ?? "{}");
+        item.setAttribute("data-pie-index", String(config.index || globalObj.index || idx + 1));
       });
       this._elements = elements;
     }
     initial(outside) {
-      const triggeredOutside = outside || this._elements;
-      Array.isArray(triggeredOutside) ? triggeredOutside.map(element => this._createSVG(element)) : this._createSVG(triggeredOutside);
+      const elements = outside || this._elements;
+      if (Array.isArray(elements)) {
+        elements.forEach(element => {
+          this._createSVG(element);
+        });
+      } else {
+        this._createSVG(elements);
+      }
     }
     _progress(svg, target, options) {
       const pieName = this._className;
       if (options.number) {
-        insertAdElement(svg, percent(options, pieName));
+        insertAdElement(svg, createPercentElement(options, pieName));
       }
       const progressCircle = querySelector(`.${pieName}-circle-${options.index}`);
+      if (!progressCircle) return;
       const configCircle = {
         fill: "none",
         "stroke-width": options.stroke,
-        "stroke-dashoffset": "264",
+        "stroke-dashoffset": String(CIRCUMFERENCE),
         ...strokeDasharray(),
         ...strokeLinecap(options)
       };
@@ -166,14 +181,19 @@
         initial = false;
       }
       const pieName = this._className;
-      const previousConfigObj = JSON.parse(querySelector(`[data-pie-index="${options.index}"]`).getAttribute("data-pie"));
+      const pieEl = querySelector(`[data-pie-index="${options.index}"]`);
+      if (!pieEl) return;
+      const dataPie = pieEl.getAttribute("data-pie");
+      if (!dataPie) return;
+      const previousConfigObj = JSON.parse(dataPie);
       const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
       if (!circleElement) return;
       const commonConfiguration = initial ? options : {
         ...defaultOptions,
         ...previousConfigObj,
         ...options,
-        ...this._globalObj
+        ...this._globalObj,
+        index: String(options.index)
       };
       if (!initial) {
         setColor(circleElement, commonConfiguration);
@@ -188,17 +208,21 @@
       }
       const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
       if (commonConfiguration.animationOff) {
-        if (commonConfiguration.number) centerNumber.textContent = `${commonConfiguration.percent}`;
-        circleElement.setAttribute("stroke-dashoffset", dashOffset(commonConfiguration.percent * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse));
+        if (commonConfiguration.number && centerNumber) {
+          centerNumber.textContent = `${commonConfiguration.percent}`;
+        }
+        circleElement.setAttribute("stroke-dashoffset", String(dashOffset((commonConfiguration.percent ?? 0) * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse)));
         return;
       }
-      let angle = JSON.parse(circleElement.getAttribute("data-angel"));
-      const percent = Math.round(options.percent);
-      if (percent === 0) {
-        if (commonConfiguration.number) centerNumber.textContent = "0";
-        circleElement.setAttribute("stroke-dashoffset", "264");
+      const angle = JSON.parse(circleElement.getAttribute("data-angel") ?? "0");
+      const targetPercent = Math.round(options.percent ?? 0);
+      if (targetPercent === 0) {
+        if (commonConfiguration.number && centerNumber) {
+          centerNumber.textContent = "0";
+        }
+        circleElement.setAttribute("stroke-dashoffset", String(CIRCUMFERENCE));
       }
-      if (percent < 0 || angle === percent) return;
+      if (targetPercent > 100 || targetPercent < 0 || angle === targetPercent) return;
       let request;
       let i = initial ? 0 : angle;
       const fps = commonConfiguration.speed || 1000;
@@ -210,15 +234,15 @@
         const delta = now - then;
         if (delta >= interval - tolerance) {
           then = now - delta % interval;
-          i = i < commonConfiguration.percent ? i + 1 : i - 1;
+          i = i < (commonConfiguration.percent ?? 0) ? i + 1 : i - 1;
         }
-        circleElement.setAttribute("stroke-dashoffset", dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut));
+        circleElement.setAttribute("stroke-dashoffset", String(dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)));
         if (centerNumber && commonConfiguration.number) {
           centerNumber.textContent = `${i}`;
         }
-        circleElement.setAttribute("data-angel", i);
-        circleElement.parentNode.setAttribute("aria-valuenow", i);
-        if (i === percent) {
+        circleElement.setAttribute("data-angel", String(i));
+        circleElement.parentNode?.setAttribute("aria-valuenow", String(i));
+        if (i === targetPercent) {
           cancelAnimationFrame(request);
         }
       };
@@ -226,12 +250,15 @@
     }
     _createSVG(element) {
       const index = element.getAttribute("data-pie-index");
-      const json = JSON.parse(element.getAttribute("data-pie"));
+      const dataPie = element.getAttribute("data-pie");
+      if (!dataPie) return;
+      if (!index) return;
+      const json = JSON.parse(dataPie);
       const options = {
         ...defaultOptions,
         ...json,
-        index,
-        ...this._globalObj
+        ...this._globalObj,
+        index: String(this._globalObj.index ?? index)
       };
       const svg = createNSElement("svg");
       const configSVG = {
@@ -260,7 +287,7 @@
       const circle = createNSElement("circle");
       let configCircle = {};
       if (options.cut) {
-        const dashoffset = 264 - (100 - options.cut) * 2.64;
+        const dashoffset = CIRCUMFERENCE - (100 - (options.cut ?? 0)) * (CIRCUMFERENCE / 100);
         configCircle = {
           "stroke-dashoffset": options.inverse ? -dashoffset : dashoffset,
           style: styleTransform(options),
