@@ -1,4 +1,3 @@
-import typescript from "@rollup/plugin-typescript";
 import { babel } from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 import serve from "rollup-plugin-serve";
@@ -10,7 +9,7 @@ import pkg from "./package.json";
 const banner = `/*!\n* @name circular-progress-bar\n* @version ${pkg.version}\n* @author ${pkg.author}\n* @link https://github.com/tomickigrzegorz/circular-progress-bar\n* @license MIT\n*/`;
 
 const { PRODUCTION } = process.env;
-const input = "sources/index.ts";
+const input = "sources/index.js";
 
 const targets = {
   targets: {
@@ -25,11 +24,6 @@ const targetsIE = {
 };
 
 const pluginsConfig = (target) => [
-  typescript({
-    declaration: false,
-    declarationMap: false,
-    declarationDir: undefined,
-  }),
   babel({
     babelHelpers: "bundled",
     presets: [

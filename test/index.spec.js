@@ -1,5 +1,4 @@
-/// <reference types="node" />
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
@@ -8,17 +7,17 @@ const lib = readFileSync(
   "utf-8",
 );
 
-const setup = async (page: Page, html: string): Promise<void> => {
+const setup = async (page, html) => {
   await page.setContent(`<!DOCTYPE html><html><body>${html}</body></html>`);
   await page.addScriptTag({ content: lib });
 };
 
-const el = (percent: number, opts = "") =>
+const el = (percent, opts = "") =>
   `<div class="pie" data-pie='{"percent":${percent}${opts ? "," + opts : ""}}'></div>`;
 
-const init = (page: Page) =>
+const init = (page) =>
   page.evaluate(() => {
-    const c = new (window as any).CircularProgressBar("pie");
+    const c = new window.CircularProgressBar("pie");
     c.initial();
   });
 
@@ -89,7 +88,7 @@ test("animationTo updates percent", async ({ page }) => {
   await setup(page, el(0, '"animationOff":true'));
   await init(page);
   await page.evaluate(() => {
-    const c = new (window as any).CircularProgressBar("pie");
+    const c = new window.CircularProgressBar("pie");
     c.animationTo({ percent: 80, index: 1 });
   });
   const text = await page.locator(".pie-percent-1").textContent();

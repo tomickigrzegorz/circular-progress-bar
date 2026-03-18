@@ -1,4 +1,4 @@
-## 2026-02-23 (v1.2.5)
+## 2026-03-18 (v1.2.5)
 
 ### Changed
 - migrated from ESLint + Prettier to Biome for linting and formatting
@@ -6,27 +6,27 @@
 - replaced `map()` with `forEach()` for side-effect only iterations
 - replaced `for...in` with `Object.entries()` in `setAttribute()`
 - extracted magic number `264` to `CIRCUMFERENCE` constant
-- **migrated source code from JavaScript to TypeScript** (`sources/**` → `.ts`)
+- source files converted to JavaScript (`.js`) with separate hand-crafted TypeScript declaration files (`.d.ts`)
+
+### Types
+- added `CPBOptions` interface — public API type for all configuration options
+- added `InternalOptions` type — `CPBOptions` with required `index: string`
+- `sources/index.d.ts` — class declaration with public methods
+- `sources/helpers/defaults.d.ts` — `CPBOptions`, `InternalOptions`
+- `sources/helpers/function.d.ts` — typed signatures for all helper functions
 
 ### Improvements
 - added early return validation in `_createSVG()` when `data-pie` attribute is missing
 - simplified gradient color stop calculation using array index
 - changed `let` to `const` where variables are not reassigned
 
-### TypeScript
-- added `CPBOptions` interface — public API type for all configuration options
-- added `InternalOptions` type — `CPBOptions` with required `index: string`
-- `setAttribute()` helper now accepts `Record<string, unknown>` and coerces values via `String()`
-- `dashOffset()` now explicitly returns `number`; call sites wrap result in `String()`
-- generated type declarations exported to `dist/types/index.d.ts`
-- added `"types"` field in `package.json` pointing to `dist/types/index.d.ts`
-
 ### Build
 - added new npm scripts: `lint`, `format`, `check`
-- added `typecheck` script — runs `tsc --noEmit`
-- added `build:types` script — runs `tsc --emitDeclarationOnly`
-- `build` script now also generates `.d.ts` declarations after Rollup
-- added devDependencies: `typescript`, `@rollup/plugin-typescript`, `tslib`
+- added `typecheck` script — runs `tsc --noEmit` against `.d.ts` files
+- added `"module"` field in `package.json` pointing to ESM build
+- added `"exports"` field for modern module resolution (import/require/types)
+- added `"files"` field — controls what gets published to npm
+- added Playwright E2E test suite (`test/index.spec.js`) with 13 test cases
 
 ## 2024-05-04 (v1.2.4)
 ### Fixed
