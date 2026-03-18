@@ -13,13 +13,7 @@ const input = "sources/index.js";
 
 const targets = {
   targets: {
-    browsers: ["defaults", "not IE 11", "maintained node versions"],
-  },
-};
-
-const targetsIE = {
-  targets: {
-    browsers: [">0.2%", "not dead", "not op_mini all"],
+    browsers: ["defaults", "maintained node versions"],
   },
 };
 
@@ -155,23 +149,6 @@ export default [
             compress: { drop_console: true, drop_debugger: true },
           }),
         ],
-      },
-    ],
-  },
-  // ------------------------------------------------------------
-  // ie
-  {
-    input,
-    watch: false,
-    plugins: pluginsConfig(targetsIE),
-    output: [
-      {
-        name: "CircularProgressBar",
-        format: "iife",
-        sourcemap: false,
-        file: "dist/circularProgressBar.ie.min.js",
-        plugins: [terser({ ...terserConfig })],
-        banner,
       },
     ],
   },

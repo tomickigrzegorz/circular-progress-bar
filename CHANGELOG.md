@@ -1,4 +1,4 @@
-## 2026-03-18 (v1.2.5)
+## 2026-03-18 (v1.3.0)
 
 ### Changed
 - migrated from ESLint + Prettier to Biome for linting and formatting
@@ -7,6 +7,7 @@
 - replaced `for...in` with `Object.entries()` in `setAttribute()`
 - extracted magic number `264` to `CIRCUMFERENCE` constant
 - source files converted to JavaScript (`.js`) with separate hand-crafted TypeScript declaration files (`.d.ts`)
+- **dropped IE support** — removed `circularProgressBar.ie.min.js` build and IE browser targets
 
 ### Types
 - added `CPBOptions` interface — public API type for all configuration options
@@ -26,6 +27,8 @@
 - added `"module"` field in `package.json` pointing to ESM build
 - added `"exports"` field for modern module resolution (import/require/types)
 - added `"files"` field — controls what gets published to npm
+- added `"type": "module"` to `package.json`
+- added GitHub Actions workflow for automatic npm publish on git tag
 - added Playwright E2E test suite (`test/index.spec.js`) with 13 test cases
 
 ## 2024-05-04 (v1.2.4)
