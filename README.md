@@ -24,17 +24,45 @@ See the demo - [example](https://tomickigrzegorz.github.io/circular-progress-bar
 
 ## Installation
 
-#### JavaScript
+#### CDN (jsDelivr)
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.3.0/dist/circularProgressBar.min.js"></script>
 ```
 
-##### -- OR --
+#### npm
 
-Just download the library from the `dist/circularProgressBar.min.js` and add it to head:
+```bash
+npm install circular-progress-bar
+# or
+yarn add circular-progress-bar
+```
+
+#### ESM (bundler / Vite / Webpack)
 
 ```js
+import CircularProgressBar from "circular-progress-bar";
+```
+
+> No CSS import needed — all styles are applied programmatically via SVG attributes.
+
+#### ESM via CDN (no bundler)
+
+```html
+<script type="module">
+  import CircularProgressBar from "https://cdn.jsdelivr.net/npm/circular-progress-bar/dist/circularProgressBar.esm.min.js";
+</script>
+```
+
+#### UMD (CommonJS / Node)
+
+```js
+const CircularProgressBar = require("circular-progress-bar");
+```
+
+#### Local file
+
+```html
 <script src="./path/to/circularProgressBar.min.js"></script>
 ```
 
