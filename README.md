@@ -24,17 +24,45 @@ See the demo - [example](https://tomickigrzegorz.github.io/circular-progress-bar
 
 ## Installation
 
-#### JavaScript
+#### CDN (jsDelivr)
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.2.4/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.3.0/dist/circularProgressBar.min.js"></script>
 ```
 
-##### -- OR --
+#### npm
 
-Just download the library from the `dist/circularProgressBar.min.js` and add it to head:
+```bash
+npm install circular-progress-bar
+# or
+yarn add circular-progress-bar
+```
+
+#### ESM (bundler / Vite / Webpack)
 
 ```js
+import CircularProgressBar from "circular-progress-bar";
+```
+
+> No CSS import needed — all styles are applied programmatically via SVG attributes.
+
+#### ESM via CDN (no bundler)
+
+```html
+<script type="module">
+  import CircularProgressBar from "https://cdn.jsdelivr.net/npm/circular-progress-bar/dist/circularProgressBar.esm.min.js";
+</script>
+```
+
+#### UMD (CommonJS / Node)
+
+```js
+const CircularProgressBar = require("circular-progress-bar");
+```
+
+#### Local file
+
+```html
 <script src="./path/to/circularProgressBar.min.js"></script>
 ```
 
@@ -149,14 +177,13 @@ Modification of these elements `fontColor`,` fontSize`, `fontWeight` is also ava
 ```
 
 ### Global configuration
-html
+
 ```html
 <div class="global" data-pie='{ "percent": 90 }'></div>
 <div class="global" data-pie='{ "percent": 10 }'></div>
 ...
 ```
 
-javascript
 ```js
 const globalConfig = {
   "strokeBottom": 5,
@@ -170,6 +197,24 @@ const global = new CircularProgressBar('global', globalConfig);
 global.initial();
 ```
 
+## TypeScript
+
+The library includes built-in TypeScript declarations — no `@types/` package needed.
+
+```ts
+import CircularProgressBar from "circular-progress-bar";
+import type { CPBOptions } from "circular-progress-bar/sources/helpers/defaults";
+
+const options: CPBOptions = {
+  percent: 75,
+  colorSlice: "#E91E63",
+  round: true,
+};
+
+const circle = new CircularProgressBar("pie", options);
+circle.initial();
+```
+
 ## Watch/Build the app
 
 Watch the app, just call:
@@ -180,7 +225,7 @@ yarn watch
 npm run watch
 ```
 
-Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomickigrzegorz/circular-progress-bar#colors-names)**
+Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomickigrzegorz/circular-progress-bar#browser-support)**
 
 ```bash
 yarn build
@@ -236,16 +281,7 @@ npm run build
 ```
 ## Browser support
 
-circular-progress-bar supports all major browsers including IE 10 and above
-
-Configuration for IE:
-
-### local files
-- dist/js/circularProgressBar.ie.min.js
-
-### cdn
-
-- https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.2.4/dist/circularProgressBar.ie.min.js
+circular-progress-bar supports all modern browsers (Chrome, Firefox, Safari, Edge).
 
 ## License
 

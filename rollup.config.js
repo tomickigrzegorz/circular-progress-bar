@@ -6,18 +6,14 @@ import cleanup from "rollup-plugin-cleanup";
 
 import pkg from "./package.json";
 
+const banner = `/*!\n* @name circular-progress-bar\n* @version ${pkg.version}\n* @author ${pkg.author}\n* @link https://github.com/tomickigrzegorz/circular-progress-bar\n* @license MIT\n*/`;
+
 const { PRODUCTION } = process.env;
 const input = "sources/index.js";
 
 const targets = {
   targets: {
-    browsers: ["defaults", "not IE 11", "maintained node versions"],
-  },
-};
-
-const targetsIE = {
-  targets: {
-    browsers: [">0.2%", "not dead", "not op_mini all"],
+    browsers: ["defaults", "maintained node versions"],
   },
 };
 
@@ -58,6 +54,7 @@ export default [
     plugins: pluginsConfig(targets),
     watch: false,
     output: {
+      banner,
       name: "CircularProgressBar",
       format: "iife",
       file: pkg.main,
@@ -69,6 +66,7 @@ export default [
     plugins: pluginsConfig(targets),
     watch: false,
     output: {
+      banner,
       name: "CircularProgressBar",
       format: "iife",
       sourcemap: false,
@@ -109,6 +107,7 @@ export default [
         format: "umd",
         sourcemap: true,
         file: "dist/circularProgressBar.umd.js",
+        banner,
       },
       {
         name: "CircularProgressBar",
@@ -136,34 +135,20 @@ export default [
         format: "es",
         sourcemap: true,
         file: "dist/circularProgressBar.esm.js",
+        banner,
       },
       {
         name: "CircularProgressBar",
         format: "es",
         sourcemap: false,
         file: "dist/circularProgressBar.esm.min.js",
+        banner,
         plugins: [
           terser({
             ...terserConfig,
             compress: { drop_console: true, drop_debugger: true },
           }),
         ],
-      },
-    ],
-  },
-  // ------------------------------------------------------------
-  // ie
-  {
-    input,
-    watch: false,
-    plugins: pluginsConfig(targetsIE),
-    output: [
-      {
-        name: "CircularProgressBar",
-        format: "iife",
-        sourcemap: false,
-        file: "dist/circularProgressBar.ie.min.js",
-        plugins: [terser({ ...terserConfig })],
       },
     ],
   },

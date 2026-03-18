@@ -1,114 +1,107 @@
-  import defaultOptions from "./helpers/defaults";
+import defaultOptions from "./helpers/defaults.js";
 import {
+  CIRCUMFERENCE,
   createNSElement,
+  createPercentElement,
   dashOffset,
   fontSettings,
   gradient,
   insertAdElement,
-  percent,
   querySelector,
   setAttribute,
   setColor,
   strokeDasharray,
   strokeLinecap,
   styleTransform,
-} from "./helpers/function";
+} from "./helpers/function.js";
 
-/**
- * @class
- */
+/** Animated circular SVG progress bar */
 export default class CircularProgressBar {
-  /**
-   * CircularProgressBar constructor
-   *
-   * @param {String} pieName - class name
-   * @param {Object} globalObj - global configuration
-   */
+  _className;
+  _globalObj;
+  _elements;
+
+  /** Queries all elements matching the class name and assigns data-pie-index attributes */
   constructor(pieName, globalObj = {}) {
     this._className = pieName;
     this._globalObj = globalObj;
 
     const pieElements = document.querySelectorAll(`.${pieName}`);
-    const elements = [].slice.call(pieElements);
-    // add index to all progressbar
-    elements.map((item, idx) => {
-      const id = JSON.parse(item.getAttribute("data-pie"));
+    const elements = [...pieElements];
+
+    elements.forEach((item, idx) => {
+      const config = JSON.parse(item.getAttribute("data-pie") ?? "{}");
       item.setAttribute(
         "data-pie-index",
-        id.index || globalObj.index || idx + 1,
+        String(config.index || globalObj.index || idx + 1),
       );
     });
 
     this._elements = elements;
   }
 
-  /**
-   * @param {object} outside
-   */
+  /** Creates SVG elements and starts the initial animation for all matching elements */
   initial(outside) {
-    const triggeredOutside = outside || this._elements;
-    Array.isArray(triggeredOutside)
-      ? triggeredOutside.map((element) => this._createSVG(element))
-      : this._createSVG(triggeredOutside);
+    const elements = outside || this._elements;
+    if (Array.isArray(elements)) {
+      elements.forEach((element) => {
+        this._createSVG(element);
+      });
+    } else {
+      this._createSVG(elements);
+    }
   }
 
-  /**
-   * @param {SVGAElement} svg
-   * @param {HTMLElement} target
-   * @param {Object} options
-   */
+  /** Appends the percent text, configures the progress circle attributes, and triggers animation */
   _progress(svg, target, options) {
     const pieName = this._className;
     if (options.number) {
-      insertAdElement(svg, percent(options, pieName));
+      insertAdElement(svg, createPercentElement(options, pieName));
     }
 
-    const progressCircle = querySelector(`.${pieName}-circle-${options.index}`);
+    const progressCircle = querySelector(
+      `.${pieName}-circle-${options.index}`,
+    );
+    if (!progressCircle) return;
 
     const configCircle = {
       fill: "none",
       "stroke-width": options.stroke,
-      "stroke-dashoffset": "264",
+      "stroke-dashoffset": String(CIRCUMFERENCE),
       ...strokeDasharray(),
       ...strokeLinecap(options),
     };
     setAttribute(progressCircle, configCircle);
 
-    // animation progress
     this.animationTo({ ...options, element: progressCircle }, true);
 
-    // set style and rotation
     progressCircle.setAttribute("style", styleTransform(options));
 
-    // set color
     setColor(progressCircle, options);
 
-    // set width and height on div
     target.setAttribute(
       "style",
       `width:${options.size}px;height:${options.size}px;`,
     );
   }
 
-  /**
-   * Callback function
-   *
-   * @param {Object} options
-   * @param {Boolean} initial
-   */
+  /** Animates the progress bar to a new percent value; also used internally on initial render */
   animationTo(options, initial = false) {
     const pieName = this._className;
-    const previousConfigObj = JSON.parse(
-      querySelector(`[data-pie-index="${options.index}"]`).getAttribute(
-        "data-pie",
-      ),
+
+    const pieEl = querySelector(`[data-pie-index="${options.index}"]`);
+    if (!pieEl) return;
+
+    const dataPie = pieEl.getAttribute("data-pie");
+    if (!dataPie) return;
+
+    const previousConfigObj = JSON.parse(dataPie);
+
+    const circleElement = querySelector(
+      `.${pieName}-circle-${options.index}`,
     );
-
-    const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
-
     if (!circleElement) return;
 
-    // merging all configuration objects
     const commonConfiguration = initial
       ? options
       : {
@@ -116,14 +109,13 @@ export default class CircularProgressBar {
           ...previousConfigObj,
           ...options,
           ...this._globalObj,
+          index: String(options.index),
         };
 
-    // update color circle
     if (!initial) {
       setColor(circleElement, commonConfiguration);
     }
 
-    // font color update
     if (!initial && commonConfiguration.number) {
       const fontconfig = {
         fill: commonConfiguration.fontColor,
@@ -135,31 +127,42 @@ export default class CircularProgressBar {
       setAttribute(textElement, fontconfig);
     }
 
-    const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
+    const centerNumber = querySelector(
+      `.${pieName}-percent-${options.index}`,
+    );
 
     if (commonConfiguration.animationOff) {
-      if (commonConfiguration.number)
+      if (commonConfiguration.number && centerNumber) {
         centerNumber.textContent = `${commonConfiguration.percent}`;
+      }
       circleElement.setAttribute(
         "stroke-dashoffset",
-        dashOffset(commonConfiguration.percent * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse),
+        String(
+          dashOffset(
+            (commonConfiguration.percent ?? 0) *
+              ((100 - (commonConfiguration.cut || 0)) / 100),
+            commonConfiguration.inverse,
+          ),
+        ),
       );
       return;
     }
 
-    // get numer percent from data-angel
-    let angle = JSON.parse(circleElement.getAttribute("data-angel"));
+    const angle = JSON.parse(
+      circleElement.getAttribute("data-angel") ?? "0",
+    );
 
-    // round if number is decimal
-    const percent = Math.round(options.percent);
+    const targetPercent = Math.round(options.percent ?? 0);
 
-    // if percent 0 then set at start 0%
-    if (percent === 0) {
-      if (commonConfiguration.number) centerNumber.textContent = "0";
-      circleElement.setAttribute("stroke-dashoffset", "264");
+    if (targetPercent === 0) {
+      if (commonConfiguration.number && centerNumber) {
+        centerNumber.textContent = "0";
+      }
+      circleElement.setAttribute("stroke-dashoffset", String(CIRCUMFERENCE));
     }
 
-    if (percent < 0 || angle === percent) return;
+    if (targetPercent > 100 || targetPercent < 0 || angle === targetPercent)
+      return;
 
     let request;
     let i = initial ? 0 : angle;
@@ -175,42 +178,45 @@ export default class CircularProgressBar {
 
       if (delta >= interval - tolerance) {
         then = now - (delta % interval);
-
-        // angle >= commonConfiguration.percent ? i-- : i++;
-        i = i < commonConfiguration.percent ? i + 1 : i - 1;
+        i = i < (commonConfiguration.percent ?? 0) ? i + 1 : i - 1;
       }
 
       circleElement.setAttribute(
         "stroke-dashoffset",
-        dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut),
+        String(
+          dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut),
+        ),
       );
       if (centerNumber && commonConfiguration.number) {
         centerNumber.textContent = `${i}`;
       }
 
-      circleElement.setAttribute("data-angel", i);
-      circleElement.parentNode.setAttribute("aria-valuenow", i);
+      circleElement.setAttribute("data-angel", String(i));
+      circleElement.parentNode?.setAttribute("aria-valuenow", String(i));
 
-      if (i === percent) {
+      if (i === targetPercent) {
         cancelAnimationFrame(request);
       }
-
-      // return;
     };
 
     requestAnimationFrame(performAnimation);
   }
 
-  /**
-   * Create svg elements
-   *
-   * @param {HTMLElement} element
-   */
+  /** Builds the full SVG structure for a single progress bar element */
   _createSVG(element) {
     const index = element.getAttribute("data-pie-index");
-    const json = JSON.parse(element.getAttribute("data-pie"));
+    const dataPie = element.getAttribute("data-pie");
 
-    const options = { ...defaultOptions, ...json, index, ...this._globalObj };
+    if (!dataPie) return;
+    if (!index) return;
+
+    const json = JSON.parse(dataPie);
+    const options = {
+      ...defaultOptions,
+      ...json,
+      ...this._globalObj,
+      index: String(this._globalObj.index ?? index),
+    };
 
     const svg = createNSElement("svg");
 
@@ -225,12 +231,10 @@ export default class CircularProgressBar {
 
     setAttribute(svg, configSVG);
 
-    // colorCircle
     if (options.colorCircle) {
       svg.appendChild(this._circle(options));
     }
 
-    // gradient
     if (options.lineargradient) {
       svg.appendChild(gradient(options));
     }
@@ -242,19 +246,14 @@ export default class CircularProgressBar {
     this._progress(svg, element, options);
   }
 
-  /**
-   * Create circle top/bottom
-   *
-   * @param {Object} options
-   * @param {String} where
-   * @returns {SVGElement}
-   */
+  /** Creates a circle element — "bottom" is the background track, "top" is the animated progress arc */
   _circle(options, where = "bottom") {
     const circle = createNSElement("circle");
 
     let configCircle = {};
     if (options.cut) {
-      const dashoffset = 264 - (100 - options.cut) * 2.64;
+      const dashoffset =
+        CIRCUMFERENCE - (100 - (options.cut ?? 0)) * (CIRCUMFERENCE / 100);
       configCircle = {
         "stroke-dashoffset": options.inverse ? -dashoffset : dashoffset,
         style: styleTransform(options),
