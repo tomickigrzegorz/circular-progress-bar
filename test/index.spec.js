@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = resolve(fileURLToPath(import.meta.url), "..");
 
 const lib = readFileSync(
   resolve(__dirname, "../dist/circularProgressBar.js"),
@@ -119,4 +122,46 @@ test("aria-valuemin and aria-valuemax are set", async ({ page }) => {
   const svg = page.locator(".pie svg");
   expect(await svg.getAttribute("aria-valuemin")).toBe("0");
   expect(await svg.getAttribute("aria-valuemax")).toBe("100");
+});
+
+test("gradient renders mask and group elements", async ({ page }) => {
+  await setup(page, el(75, '"gradient":["#ff0000","#ffff00","#00ff00"]'));
+  await init(page);
+  await expect(page.locator(".pie svg mask")).toBeAttached();
+  await expect(page.locator(".pie svg g")).toBeAttached();
+});
+
+test("gradient group contains multiple circle segments", async ({ page }) => {
+  await setup(page, el(75, '"gradient":["#ff0000","#ffff00","#00ff00"]'));
+  await init(page);
+  const count = await page.locator(".pie svg g circle").count();
+  expect(count).toBeGreaterThan(10);
+});
+
+test("gradient mask circle has pie-circle class", async ({ page }) => {
+  await setup(page, el(75, '"gradient":["#ff0000","#00ff00"]'));
+  await init(page);
+  await expect(page.locator(".pie mask .pie-circle-1")).toBeAttached();
+});
+
+test("gradient animationOff sets dashoffset immediately", async ({ page }) => {
+  await setup(page, el(60, '"gradient":["#ff0000","#0000ff"],"animationOff":true'));
+  await init(page);
+  const offset = await page.locator(".pie mask .pie-circle-1").getAttribute("stroke-dashoffset");
+  expect(Number(offset)).toBeLessThan(264);
+});
+
+test("gradient and lineargradient coexist — gradient wins", async ({ page }) => {
+  await setup(page, el(50, '"gradient":["#f00","#00f"],"lineargradient":["#0f0","#ff0"]'));
+  await init(page);
+  await expect(page.locator(".pie svg mask")).toBeAttached();
+  await expect(page.locator(".pie svg defs linearGradient")).not.toBeAttached();
+});
+
+test("gradientStops mismatch falls back to equal spacing", async ({ page }) => {
+  await setup(page, el(75, '"gradient":["#f00","#ff0","#0f0"],"gradientStops":[0,100]'));
+  await init(page);
+  await expect(page.locator(".pie svg mask")).toBeAttached();
+  const count = await page.locator(".pie svg g circle").count();
+  expect(count).toBeGreaterThan(10);
 });

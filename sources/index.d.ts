@@ -1,4 +1,5 @@
 import type { CPBOptions } from "./helpers/defaults";
+export type { CPBOptions };
 
 /** Animated circular SVG progress bar */
 export default class CircularProgressBar {

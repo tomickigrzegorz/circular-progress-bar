@@ -1,5 +1,6 @@
 import defaultOptions from "./helpers/defaults.js";
 import {
+  arcGradient,
   CIRCUMFERENCE,
   createNSElement,
   createPercentElement,
@@ -77,7 +78,9 @@ export default class CircularProgressBar {
 
     progressCircle.setAttribute("style", styleTransform(options));
 
-    setColor(progressCircle, options);
+    if (!options.gradient) {
+      setColor(progressCircle, options);
+    }
 
     target.setAttribute(
       "style",
@@ -112,7 +115,7 @@ export default class CircularProgressBar {
           index: String(options.index),
         };
 
-    if (!initial) {
+    if (!initial && !commonConfiguration.gradient) {
       setColor(circleElement, commonConfiguration);
     }
 
@@ -149,7 +152,7 @@ export default class CircularProgressBar {
     }
 
     const angle = JSON.parse(
-      circleElement.getAttribute("data-angel") ?? "0",
+      circleElement.getAttribute("data-angle") ?? "0",
     );
 
     const targetPercent = Math.round(options.percent ?? 0);
@@ -191,7 +194,7 @@ export default class CircularProgressBar {
         centerNumber.textContent = `${i}`;
       }
 
-      circleElement.setAttribute("data-angel", String(i));
+      circleElement.setAttribute("data-angle", String(i));
       circleElement.parentNode?.setAttribute("aria-valuenow", String(i));
 
       if (i === targetPercent) {
@@ -235,11 +238,16 @@ export default class CircularProgressBar {
       svg.appendChild(this._circle(options));
     }
 
-    if (options.lineargradient) {
-      svg.appendChild(gradient(options));
+    if (options.gradient) {
+      const { mask, group } = arcGradient(options, this._className);
+      svg.appendChild(mask);
+      svg.appendChild(group);
+    } else {
+      if (options.lineargradient) {
+        svg.appendChild(gradient(options));
+      }
+      svg.appendChild(this._circle(options, "top"));
     }
-
-    svg.appendChild(this._circle(options, "top"));
 
     element.appendChild(svg);
 
