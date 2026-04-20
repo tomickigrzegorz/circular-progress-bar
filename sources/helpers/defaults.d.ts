@@ -11,6 +11,10 @@ export interface CPBOptions {
   fontWeight?: number;
   /** Linear gradient color array or false to disable */
   lineargradient?: string[] | false;
+  /** Arc gradient — array of hex colors, evenly spaced or controlled by gradientStops */
+  gradient?: string[];
+  /** Color stop positions (0–100) for gradient option; must match gradient array length */
+  gradientStops?: number[];
   /** Whether to display the percentage value */
   number?: boolean;
   /** Rounded stroke ends */

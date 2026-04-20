@@ -1,6 +1,6 @@
 /*!
 * @name circular-progress-bar
-* @version 1.3.0
+* @version 1.4.0
 * @author Grzegorz Tomicki
 * @link https://github.com/tomickigrzegorz/circular-progress-bar
 * @license MIT
@@ -42,7 +42,7 @@ var CircularProgressBar = (function () {
       round
     } = _ref2;
     return {
-      "stroke-linecap": round ? "round" : ""
+      "stroke-linecap": round ? "round" : "butt"
     };
   };
   const fontSettings = options => {
@@ -93,7 +93,7 @@ var CircularProgressBar = (function () {
     const linearGradient = createNSElement("linearGradient");
     linearGradient.id = `linear-${index}`;
     const colors = [...lineargradient];
-    const step = 100 / (colors.length - 1);
+    const step = colors.length > 1 ? 100 / (colors.length - 1) : 0;
     defsElement.appendChild(linearGradient);
     colors.forEach((color, i) => {
       const stopElement = createNSElement("stop");
@@ -120,6 +120,81 @@ var CircularProgressBar = (function () {
     };
     setAttribute(creatTextElementSVG, obj);
     return creatTextElementSVG;
+  };
+  const hexToRgb = hex => {
+    const h = hex.replace("#", "");
+    const full = h.length === 3 ? h.split("").map(c => c + c).join("") : h;
+    return [parseInt(full.slice(0, 2), 16), parseInt(full.slice(2, 4), 16), parseInt(full.slice(4, 6), 16)];
+  };
+  const buildStops = (gradient, gradientStops) => {
+    const useEqual = !gradientStops || gradientStops.length !== gradient.length;
+    return gradient.map((color, i) => ({
+      pos: useEqual ? i / (gradient.length - 1) : Math.min(100, Math.max(0, gradientStops[i])) / 100,
+      rgb: hexToRgb(color)
+    }));
+  };
+  const interpolateColor = (stops, t) => {
+    for (let i = 1; i < stops.length; i++) {
+      if (t <= stops[i].pos) {
+        const local = (t - stops[i - 1].pos) / (stops[i].pos - stops[i - 1].pos);
+        const a = stops[i - 1].rgb;
+        const b = stops[i].rgb;
+        const r = Math.round(a[0] + (b[0] - a[0]) * local);
+        const g = Math.round(a[1] + (b[1] - a[1]) * local);
+        const bl = Math.round(a[2] + (b[2] - a[2]) * local);
+        return `rgb(${r},${g},${bl})`;
+      }
+    }
+    const last = stops[stops.length - 1].rgb;
+    return `rgb(${last[0]},${last[1]},${last[2]})`;
+  };
+  const arcGradient = (options, className) => {
+    const STEPS = 120;
+    const segLen = CIRCUMFERENCE / STEPS;
+    const gap = CIRCUMFERENCE - segLen;
+    const stops = buildStops(options.gradient, options.gradientStops);
+    const mask = createNSElement("mask");
+    mask.id = `arc-gradient-mask-${options.index}`;
+    const maskCircle = createNSElement("circle");
+    setAttribute(maskCircle, {
+      cx: "50%",
+      cy: "50%",
+      r: 42,
+      fill: "none",
+      stroke: "white",
+      "stroke-width": options.stroke,
+      "stroke-dasharray": String(CIRCUMFERENCE),
+      "stroke-dashoffset": String(CIRCUMFERENCE),
+      "shape-rendering": "geometricPrecision",
+      ...strokeLinecap(options)
+    });
+    maskCircle.classList.add(`${className}-circle-${options.index}`);
+    mask.appendChild(maskCircle);
+    const group = createNSElement("g");
+    group.setAttribute("style", `transform:rotate(${options.rotation ?? -90}deg);transform-origin:50% 50%;`);
+    group.setAttribute("mask", `url(#arc-gradient-mask-${options.index})`);
+    for (let i = 0; i < STEPS; i++) {
+      const t = i / (STEPS - 1);
+      const color = interpolateColor(stops, t);
+      const dashoffset = CIRCUMFERENCE - i * segLen;
+      const seg = createNSElement("circle");
+      setAttribute(seg, {
+        cx: "50%",
+        cy: "50%",
+        r: 42,
+        fill: "none",
+        stroke: color,
+        "stroke-width": options.stroke,
+        "stroke-dasharray": `${segLen + 0.5} ${gap}`,
+        "stroke-dashoffset": String(dashoffset),
+        "shape-rendering": "geometricPrecision"
+      });
+      group.appendChild(seg);
+    }
+    return {
+      mask,
+      group
+    };
   };
 
   class CircularProgressBar {
@@ -170,7 +245,9 @@ var CircularProgressBar = (function () {
         element: progressCircle
       }, true);
       progressCircle.setAttribute("style", styleTransform(options));
-      setColor(progressCircle, options);
+      if (!options.gradient) {
+        setColor(progressCircle, options);
+      }
       target.setAttribute("style", `width:${options.size}px;height:${options.size}px;`);
     }
     animationTo(options, initial) {
@@ -192,7 +269,7 @@ var CircularProgressBar = (function () {
         ...this._globalObj,
         index: String(options.index)
       };
-      if (!initial) {
+      if (!initial && !commonConfiguration.gradient) {
         setColor(circleElement, commonConfiguration);
       }
       if (!initial && commonConfiguration.number) {
@@ -211,7 +288,7 @@ var CircularProgressBar = (function () {
         circleElement.setAttribute("stroke-dashoffset", String(dashOffset((commonConfiguration.percent ?? 0) * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse)));
         return;
       }
-      const angle = JSON.parse(circleElement.getAttribute("data-angel") ?? "0");
+      const angle = JSON.parse(circleElement.getAttribute("data-angle") ?? "0");
       const targetPercent = Math.round(options.percent ?? 0);
       if (targetPercent === 0) {
         if (commonConfiguration.number && centerNumber) {
@@ -237,7 +314,7 @@ var CircularProgressBar = (function () {
         if (centerNumber && commonConfiguration.number) {
           centerNumber.textContent = `${i}`;
         }
-        circleElement.setAttribute("data-angel", String(i));
+        circleElement.setAttribute("data-angle", String(i));
         circleElement.parentNode?.setAttribute("aria-valuenow", String(i));
         if (i === targetPercent) {
           cancelAnimationFrame(request);
@@ -270,10 +347,19 @@ var CircularProgressBar = (function () {
       if (options.colorCircle) {
         svg.appendChild(this._circle(options));
       }
-      if (options.lineargradient) {
-        svg.appendChild(gradient(options));
+      if (options.gradient) {
+        const {
+          mask,
+          group
+        } = arcGradient(options, this._className);
+        svg.appendChild(mask);
+        svg.appendChild(group);
+      } else {
+        if (options.lineargradient) {
+          svg.appendChild(gradient(options));
+        }
+        svg.appendChild(this._circle(options, "top"));
       }
-      svg.appendChild(this._circle(options, "top"));
       element.appendChild(svg);
       this._progress(svg, element, options);
     }

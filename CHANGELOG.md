@@ -1,3 +1,18 @@
+## 2026-04-20 (v1.4.0)
+
+### Added
+- `gradient` — new arc gradient option: colors follow the arc of the circle. Pass an array of 2–10 hex colors. Uses SVG `<mask>` for animation — same performance as a regular progress bar (1 DOM write per frame regardless of color count)
+- `gradientStops` — optional companion to `gradient`: array of positions (0–100) controlling where each color is placed on the arc. Must match `gradient` array length; falls back to equal spacing on mismatch
+
+### Fixed
+- `strokeLinecap` now sets `stroke-linecap="butt"` (SVG default) instead of an empty string when `round: false`
+- `lineargradient` with a single color no longer causes division by zero
+
+### Breaking
+- package renamed to scoped `@tomickigrzegorz/circular-progress-bar` — update imports and install commands accordingly
+
+---
+
 ## 2026-03-18 (v1.3.0)
 
 ### Changed
