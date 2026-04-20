@@ -62,3 +62,9 @@ export declare const createPercentElement: (
   options: CPBOptions,
   className: string,
 ) => Element;
+
+/** Builds the arc-gradient SVG structure (mask + colored segments group) */
+export declare const arcGradient: (
+  options: Pick<CPBOptions, "gradient" | "gradientStops" | "index" | "stroke" | "round" | "rotation">,
+  className: string,
+) => { mask: Element; group: Element };

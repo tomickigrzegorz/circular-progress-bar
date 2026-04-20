@@ -1,23 +1,20 @@
 {
   "name": "@tomickigrzegorz/circular-progress-bar",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "type": "module",
   "description": "A circular progress bar in svg",
   "main": "dist/circularProgressBar.js",
   "module": "dist/circularProgressBar.esm.js",
-  "types": "sources/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/circularProgressBar.esm.js",
       "require": "./dist/circularProgressBar.js",
-      "types": "./sources/index.d.ts"
+      "types": "./dist/types/index.d.ts"
     }
   },
   "files": [
-    "dist/",
-    "sources/index.d.ts",
-    "sources/helpers/defaults.d.ts",
-    "sources/helpers/function.d.ts"
+    "dist/"
   ],
   "scripts": {
     "watch": "rollup -c -w --sourcemap --bundleConfigAsCjs",

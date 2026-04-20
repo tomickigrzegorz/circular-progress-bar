@@ -26,4 +26,6 @@ declare const insertAdElement: (element: Element, el: Element, type?: InsertPosi
 declare const gradient: ({ index, lineargradient, }: Pick<CPBOptions, "index" | "lineargradient">) => Element;
 /** Creates the SVG text element with percent and unit tspan children */
 declare const createPercentElement: (options: CPBOptions, className: string) => Element;
-export { CIRCUMFERENCE, createNSElement, createPercentElement, dashOffset, fontSettings, gradient, insertAdElement, querySelector, setAttribute, setColor, strokeDasharray, strokeLinecap, styleTransform, };
+/** Builds the arc-gradient SVG structure (mask + colored segments group) */
+declare const arcGradient: (options: Pick<CPBOptions, "gradient" | "gradientStops" | "index" | "stroke" | "round" | "rotation">, className: string) => { mask: Element; group: Element };
+export { arcGradient, CIRCUMFERENCE, createNSElement, createPercentElement, dashOffset, fontSettings, gradient, insertAdElement, querySelector, setAttribute, setColor, strokeDasharray, strokeLinecap, styleTransform, };

@@ -4,6 +4,6 @@ export default defineConfig({
   testDir: "./test",
   testMatch: "**/*.spec.js",
   use: {
-    browser: "chromium",
+    browserName: "chromium",
   },
 });

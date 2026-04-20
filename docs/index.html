@@ -97,6 +97,52 @@ data-pie='{
       </section>
       <section>
         <div class="flex info">
+          <div class="info-name">gradient</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"], "gradientStops": [0,25,50,75,100], "colorCircle": "#e6e6e6", "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"],
+  "gradientStops": [0,25,50,75,100],
+  "colorCircle": "#e6e6e6",
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient hard stops</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff0000","#ffaa00","#ffaa00","#00cc00","#00cc00","#0044ff","#0044ff"], "gradientStops": [0,25,25,50,50,75,75,100], "colorCircle": "#e6e6e6" }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": [
+    "#ff0000","#ff0000",
+    "#ffaa00","#ffaa00",
+    "#00cc00","#00cc00",
+    "#0044ff","#0044ff"
+  ],
+  "gradientStops": [0,25,25,50,50,75,75,100],
+  "colorCircle": "#e6e6e6"
+}'</code>
+          </pre>
+        </div>
+      </section>
+      <section>
+        <div class="flex info">
           <div class="info-name">counterclockwise</div>
           <div class="info-code">code</div>
         </div>
@@ -365,7 +411,7 @@ data-pie='{
         <div class="code">
           <pre>
             <code class="language-json">// css
-[data-pie-index='16'] {
+[data-pie-index='18'] {
   position: relative;
   border-radius: 50%;
   box-shadow: inset 0 0 25px 10px #f50057;
@@ -542,7 +588,7 @@ const global = new CircularProgressBar('global', globalConfig);
             (Math.random() * 0xffffff) << 0,
           ).toString(16)}`;
           const options = {
-            index: 17,
+            index: 19,
             percent: Math.floor(Math.random() * 100 + 1),
             colorSlice: colorHex,
             fontColor: colorHex,

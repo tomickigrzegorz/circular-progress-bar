@@ -27,21 +27,21 @@ See the demo - [example](https://tomickigrzegorz.github.io/circular-progress-bar
 #### CDN (jsDelivr)
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.3.0/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.4.0/dist/circularProgressBar.min.js"></script>
 ```
 
 #### npm
 
 ```bash
-npm install circular-progress-bar
+npm install @tomickigrzegorz/circular-progress-bar
 # or
-yarn add circular-progress-bar
+yarn add @tomickigrzegorz/circular-progress-bar
 ```
 
 #### ESM (bundler / Vite / Webpack)
 
 ```js
-import CircularProgressBar from "circular-progress-bar";
+import CircularProgressBar from "@tomickigrzegorz/circular-progress-bar";
 ```
 
 > No CSS import needed — all styles are applied programmatically via SVG attributes.
@@ -50,14 +50,14 @@ import CircularProgressBar from "circular-progress-bar";
 
 ```html
 <script type="module">
-  import CircularProgressBar from "https://cdn.jsdelivr.net/npm/circular-progress-bar/dist/circularProgressBar.esm.min.js";
+  import CircularProgressBar from "https://cdn.jsdelivr.net/npm/@tomickigrzegorz/circular-progress-bar/dist/circularProgressBar.esm.min.js";
 </script>
 ```
 
 #### UMD (CommonJS / Node)
 
 ```js
-const CircularProgressBar = require("circular-progress-bar");
+const CircularProgressBar = require("@tomickigrzegorz/circular-progress-bar");
 ```
 
 #### Local file
@@ -78,6 +78,19 @@ More extensive example:
 ```html
 <div class="pie" data-pie='{ "round": true, "percent": 80, "colorSlice": "#E91E63", "time": 20 }'></div>
 <div class="pie" data-pie='{ "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
+```
+
+Arc gradient — colors follow the arc of the circle:
+
+```html
+<!-- equal spacing -->
+<div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ffff00","#00cc00"], "colorCircle": "#e6e6e6", "round": true }'></div>
+
+<!-- custom stop positions -->
+<div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ffff00","#00cc00"], "gradientStops": [0,20,100], "colorCircle": "#e6e6e6" }'></div>
+
+<!-- hard cuts (no blending) — duplicate each color at the same position -->
+<div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff0000","#00cc00","#00cc00"], "gradientStops": [0,50,50,100] }'></div>
 ```
 
 Minimal configuration:
@@ -202,8 +215,7 @@ global.initial();
 The library includes built-in TypeScript declarations — no `@types/` package needed.
 
 ```ts
-import CircularProgressBar from "circular-progress-bar";
-import type { CPBOptions } from "circular-progress-bar/sources/helpers/defaults";
+import CircularProgressBar, { type CPBOptions } from "@tomickigrzegorz/circular-progress-bar";
 
 const options: CPBOptions = {
   percent: 75,
@@ -225,7 +237,7 @@ yarn watch
 npm run watch
 ```
 
-Build app. Convert ES6 to ES5 see the section - **[Browser Compatibility](https://github.com/tomickigrzegorz/circular-progress-bar#browser-support)**
+Build app:
 
 ```bash
 yarn build
@@ -259,6 +271,8 @@ npm run build
 | fontWeight     |    string     |    `400`    |         | [number, normal, bold, bolder, lighter]                                                                    |
 | fontColor      |    string     |  `'#000'`   |         | Font color ["#ffff00","brown" <sup>2</sup>](#colors-names)                                                           |
 | lineargradient |     array     |     ``      |         | Array of colors "lineargradient": ["#ffff00","brown" <sup>2</sup>](#colors-names)                                    |
+| gradient       |     array     |     ``      |         | Arc gradient — colors follow the arc of the circle. Array of 2–10 hex strings e.g. `["#f00","#ff0","#0f0"]`         |
+| gradientStops  |     array     |     ``      |         | Color stop positions (0–100) for `gradient`. Must match `gradient` length, otherwise equal spacing is used           |
 | strokeDasharray|    string     |     ``      |         | It works only on the lowest circle and only on whole circles - [stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/)                                                  |
 
 <sup>1</sup> `unit` - you can style them. `unit` is in the tspan element of the class `pie-unit-x`. The class name is main class + `unit` + chart id. Below are the styles for our example.
@@ -281,7 +295,7 @@ npm run build
 ```
 ## Browser support
 
-circular-progress-bar supports all modern browsers (Chrome, Firefox, Safari, Edge).
+Supports all modern browsers (Chrome, Firefox, Safari, Edge). IE is not supported.
 
 ## License
 
