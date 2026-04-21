@@ -105,8 +105,11 @@ export default class CircularProgressBar {
     const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
     if (!circleElement) return;
 
-    const capElement = querySelector(
-      `.${pieName}-gradient-cap-${options.index}`,
+    const startCapElement = querySelector(
+      `.${pieName}-gradient-start-cap-${options.index}`,
+    );
+    const endCapElement = querySelector(
+      `.${pieName}-gradient-end-cap-${options.index}`,
     );
 
     const commonConfiguration = initial
@@ -134,41 +137,54 @@ export default class CircularProgressBar {
       setAttribute(textElement, fontconfig);
     }
 
-    const updateGradientCap = (percent) => {
+    const updateGradientCaps = (percent) => {
       if (
         !commonConfiguration.gradient ||
         !commonConfiguration.round ||
-        !capElement
+        !startCapElement ||
+        !endCapElement
       )
         return;
 
       const cut = commonConfiguration.cut || 0;
 
-      // For a full circle (cut=0), there is no visible end at 100%, so hide cap.
-      if (percent <= 0 || (cut === 0 && percent >= 100)) {
-        capElement.setAttribute("display", "none");
+      if (percent <= 0) {
+        startCapElement.setAttribute("display", "none");
+        endCapElement.setAttribute("display", "none");
         return;
       }
 
       const span = 360 * ((100 - cut) / 100);
       const direction = commonConfiguration.inverse ? -1 : 1;
       const baseRotation = commonConfiguration.rotation ?? -90;
+      const startTheta = (baseRotation * Math.PI) / 180;
       const theta =
         ((baseRotation + direction * ((percent / 100) * span)) * Math.PI) / 180;
 
+      const startX = 50 + 42 * Math.cos(startTheta);
+      const startY = 50 + 42 * Math.sin(startTheta);
       const x = 50 + 42 * Math.cos(theta);
       const y = 50 + 42 * Math.sin(theta);
 
-      capElement.setAttribute("cx", String(x));
-      capElement.setAttribute("cy", String(y));
-      capElement.setAttribute(
+      startCapElement.setAttribute("cx", String(startX));
+      startCapElement.setAttribute("cy", String(startY));
+      startCapElement.setAttribute(
         "r",
         String((commonConfiguration.stroke ?? 10) / 2),
       );
-      capElement.setAttribute("display", "inline");
+      startCapElement.setAttribute("display", "inline");
+
+      endCapElement.setAttribute("cx", String(x));
+      endCapElement.setAttribute("cy", String(y));
+      endCapElement.setAttribute(
+        "r",
+        String((commonConfiguration.stroke ?? 10) / 2),
+      );
+      endCapElement.setAttribute("display", "inline");
 
       const segments = pieEl.querySelectorAll("g[mask] circle");
       if (segments.length > 0) {
+        const startColor = segments[0]?.getAttribute("stroke");
         const index = Math.max(
           0,
           Math.min(
@@ -177,8 +193,11 @@ export default class CircularProgressBar {
           ),
         );
         const color = segments[index]?.getAttribute("stroke");
+        if (startColor) {
+          startCapElement.setAttribute("fill", startColor);
+        }
         if (color) {
-          capElement.setAttribute("fill", color);
+          endCapElement.setAttribute("fill", color);
         }
       }
     };
@@ -199,7 +218,7 @@ export default class CircularProgressBar {
           ),
         ),
       );
-      updateGradientCap(commonConfiguration.percent ?? 0);
+      updateGradientCaps(commonConfiguration.percent ?? 0);
       return;
     }
 
@@ -217,7 +236,7 @@ export default class CircularProgressBar {
     if (targetPercent > 100 || targetPercent < 0) return;
 
     if (angle === targetPercent) {
-      updateGradientCap(targetPercent);
+      updateGradientCaps(targetPercent);
       return;
     }
 
@@ -245,7 +264,7 @@ export default class CircularProgressBar {
         ),
       );
 
-      updateGradientCap(i);
+      updateGradientCaps(i);
 
       if (centerNumber && commonConfiguration.number) {
         centerNumber.textContent = `${i}`;
@@ -296,10 +315,14 @@ export default class CircularProgressBar {
     }
 
     if (options.gradient) {
-      const { mask, group, cap } = arcGradient(options, this._className);
+      const { mask, group, startCap, endCap } = arcGradient(
+        options,
+        this._className,
+      );
       svg.appendChild(mask);
       svg.appendChild(group);
-      svg.appendChild(cap);
+      svg.appendChild(endCap);
+      svg.appendChild(startCap);
     } else {
       if (options.lineargradient) {
         svg.appendChild(gradient(options));
