@@ -82,6 +82,8 @@ More extensive example:
 
 Arc gradient — colors follow the arc of the circle:
 
+> **Note:** `gradient` works correctly with default settings only — it does **not** combine with `rotation`, `cut`, or other arc-modifying options.
+
 ```html
 <!-- equal spacing -->
 <div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ffff00","#00cc00"], "colorCircle": "#e6e6e6", "round": true }'></div>
