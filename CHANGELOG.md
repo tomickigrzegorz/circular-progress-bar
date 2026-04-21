@@ -1,3 +1,14 @@
+## 2025-04-20 (v1.4.1)
+
+### Fixed
+- gradient arc start now consistently aligns with 12 o'clock
+- removed seam artifact at the start of gradient arcs when `round: true`
+- restored visible rounded end for gradient progress while keeping the start seam clean
+- hidden gradient end-cap at `100%` for full circles (`cut: 0`)
+- improved hard-stop interval distribution for `gradientStops` (more even segment buckets)
+
+---
+
 ## 2026-04-20 (v1.4.0)
 
 ### Added
