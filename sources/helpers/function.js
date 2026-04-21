@@ -206,8 +206,8 @@ const arcGradient = (options, className) => {
   group.setAttribute("transform", `rotate(${options.rotation ?? -90} 50 50)`);
   group.setAttribute("mask", `url(#arc-gradient-mask-${options.index})`);
 
-  const cap = createNSElement("circle");
-  setAttribute(cap, {
+  const startCap = createNSElement("circle");
+  setAttribute(startCap, {
     cx: "50",
     cy: "50",
     r: String((options.stroke ?? 10) / 2),
@@ -215,7 +215,18 @@ const arcGradient = (options, className) => {
     display: "none",
     "shape-rendering": "geometricPrecision",
   });
-  cap.classList.add(`${className}-gradient-cap-${options.index}`);
+  startCap.classList.add(`${className}-gradient-start-cap-${options.index}`);
+
+  const endCap = createNSElement("circle");
+  setAttribute(endCap, {
+    cx: "50",
+    cy: "50",
+    r: String((options.stroke ?? 10) / 2),
+    fill: options.gradient[0],
+    display: "none",
+    "shape-rendering": "geometricPrecision",
+  });
+  endCap.classList.add(`${className}-gradient-end-cap-${options.index}`);
 
   for (let i = 0; i < STEPS; i++) {
     // Sample at segment centers for even hard-stop buckets (e.g. 25/25/25/25).
@@ -238,7 +249,7 @@ const arcGradient = (options, className) => {
     group.appendChild(seg);
   }
 
-  return { mask, group, cap };
+  return { mask, group, startCap, endCap };
 };
 
 export {
