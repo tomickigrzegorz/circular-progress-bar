@@ -27,7 +27,7 @@ See the demo - [example](https://tomickigrzegorz.github.io/circular-progress-bar
 #### CDN (jsDelivr)
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.4.0/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.4.1/dist/circularProgressBar.min.js"></script>
 ```
 
 #### npm
