@@ -60,9 +60,7 @@ export default class CircularProgressBar {
       insertAdElement(svg, createPercentElement(options, pieName));
     }
 
-    const progressCircle = querySelector(
-      `.${pieName}-circle-${options.index}`,
-    );
+    const progressCircle = querySelector(`.${pieName}-circle-${options.index}`);
     if (!progressCircle) return;
 
     const configCircle = {
@@ -70,13 +68,17 @@ export default class CircularProgressBar {
       "stroke-width": options.stroke,
       "stroke-dashoffset": String(CIRCUMFERENCE),
       ...strokeDasharray(),
-      ...strokeLinecap(options),
+      ...(options.gradient
+        ? { "stroke-linecap": "butt" }
+        : strokeLinecap(options)),
     };
     setAttribute(progressCircle, configCircle);
 
     this.animationTo({ ...options, element: progressCircle }, true);
 
-    progressCircle.setAttribute("style", styleTransform(options));
+    if (!options.gradient) {
+      progressCircle.setAttribute("style", styleTransform(options));
+    }
 
     if (!options.gradient) {
       setColor(progressCircle, options);
@@ -100,10 +102,12 @@ export default class CircularProgressBar {
 
     const previousConfigObj = JSON.parse(dataPie);
 
-    const circleElement = querySelector(
-      `.${pieName}-circle-${options.index}`,
-    );
+    const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
     if (!circleElement) return;
+
+    const capElement = querySelector(
+      `.${pieName}-gradient-cap-${options.index}`,
+    );
 
     const commonConfiguration = initial
       ? options
@@ -130,9 +134,56 @@ export default class CircularProgressBar {
       setAttribute(textElement, fontconfig);
     }
 
-    const centerNumber = querySelector(
-      `.${pieName}-percent-${options.index}`,
-    );
+    const updateGradientCap = (percent) => {
+      if (
+        !commonConfiguration.gradient ||
+        !commonConfiguration.round ||
+        !capElement
+      )
+        return;
+
+      const cut = commonConfiguration.cut || 0;
+
+      // For a full circle (cut=0), there is no visible end at 100%, so hide cap.
+      if (percent <= 0 || (cut === 0 && percent >= 100)) {
+        capElement.setAttribute("display", "none");
+        return;
+      }
+
+      const span = 360 * ((100 - cut) / 100);
+      const direction = commonConfiguration.inverse ? -1 : 1;
+      const baseRotation = commonConfiguration.rotation ?? -90;
+      const theta =
+        ((baseRotation + direction * ((percent / 100) * span)) * Math.PI) / 180;
+
+      const x = 50 + 42 * Math.cos(theta);
+      const y = 50 + 42 * Math.sin(theta);
+
+      capElement.setAttribute("cx", String(x));
+      capElement.setAttribute("cy", String(y));
+      capElement.setAttribute(
+        "r",
+        String((commonConfiguration.stroke ?? 10) / 2),
+      );
+      capElement.setAttribute("display", "inline");
+
+      const segments = pieEl.querySelectorAll("g[mask] circle");
+      if (segments.length > 0) {
+        const index = Math.max(
+          0,
+          Math.min(
+            segments.length - 1,
+            Math.floor((percent / 100) * segments.length),
+          ),
+        );
+        const color = segments[index]?.getAttribute("stroke");
+        if (color) {
+          capElement.setAttribute("fill", color);
+        }
+      }
+    };
+
+    const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
 
     if (commonConfiguration.animationOff) {
       if (commonConfiguration.number && centerNumber) {
@@ -148,12 +199,11 @@ export default class CircularProgressBar {
           ),
         ),
       );
+      updateGradientCap(commonConfiguration.percent ?? 0);
       return;
     }
 
-    const angle = JSON.parse(
-      circleElement.getAttribute("data-angle") ?? "0",
-    );
+    const angle = JSON.parse(circleElement.getAttribute("data-angle") ?? "0");
 
     const targetPercent = Math.round(options.percent ?? 0);
 
@@ -164,8 +214,12 @@ export default class CircularProgressBar {
       circleElement.setAttribute("stroke-dashoffset", String(CIRCUMFERENCE));
     }
 
-    if (targetPercent > 100 || targetPercent < 0 || angle === targetPercent)
+    if (targetPercent > 100 || targetPercent < 0) return;
+
+    if (angle === targetPercent) {
+      updateGradientCap(targetPercent);
       return;
+    }
 
     let request;
     let i = initial ? 0 : angle;
@@ -190,6 +244,9 @@ export default class CircularProgressBar {
           dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut),
         ),
       );
+
+      updateGradientCap(i);
+
       if (centerNumber && commonConfiguration.number) {
         centerNumber.textContent = `${i}`;
       }
@@ -239,9 +296,10 @@ export default class CircularProgressBar {
     }
 
     if (options.gradient) {
-      const { mask, group } = arcGradient(options, this._className);
+      const { mask, group, cap } = arcGradient(options, this._className);
       svg.appendChild(mask);
       svg.appendChild(group);
+      svg.appendChild(cap);
     } else {
       if (options.lineargradient) {
         svg.appendChild(gradient(options));

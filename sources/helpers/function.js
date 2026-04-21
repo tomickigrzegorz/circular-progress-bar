@@ -132,9 +132,13 @@ const createPercentElement = (options, className) => {
 
 const hexToRgb = (hex) => {
   const h = hex.replace("#", "");
-  const full = h.length === 3
-    ? h.split("").map((c) => c + c).join("")
-    : h;
+  const full =
+    h.length === 3
+      ? h
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : h;
   return [
     parseInt(full.slice(0, 2), 16),
     parseInt(full.slice(2, 4), 16),
@@ -143,11 +147,12 @@ const hexToRgb = (hex) => {
 };
 
 const buildStops = (gradient, gradientStops) => {
-  const useEqual =
-    !gradientStops || gradientStops.length !== gradient.length;
+  const useEqual = !gradientStops || gradientStops.length !== gradient.length;
 
   return gradient.map((color, i) => ({
-    pos: useEqual ? i / (gradient.length - 1) : Math.min(100, Math.max(0, gradientStops[i])) / 100,
+    pos: useEqual
+      ? i / (gradient.length - 1)
+      : Math.min(100, Math.max(0, gradientStops[i])) / 100,
     rgb: hexToRgb(color),
   }));
 };
@@ -172,6 +177,7 @@ const arcGradient = (options, className) => {
   const STEPS = 120;
   const segLen = CIRCUMFERENCE / STEPS;
   const gap = CIRCUMFERENCE - segLen;
+  const maskRotation = (options.rotation ?? -90) + 90;
 
   const stops = buildStops(options.gradient, options.gradientStops);
 
@@ -183,28 +189,39 @@ const arcGradient = (options, className) => {
     cx: "50%",
     cy: "50%",
     r: 42,
+    transform: `rotate(${maskRotation} 50 50)`,
     fill: "none",
     stroke: "white",
     "stroke-width": options.stroke,
     "stroke-dasharray": String(CIRCUMFERENCE),
     "stroke-dashoffset": String(CIRCUMFERENCE),
     "shape-rendering": "geometricPrecision",
-    ...strokeLinecap(options),
+    // Keep mask seam crisp; round cap here leaks the gradient endpoint color at the start.
+    "stroke-linecap": "butt",
   });
   maskCircle.classList.add(`${className}-circle-${options.index}`);
   mask.appendChild(maskCircle);
 
   const group = createNSElement("g");
-  group.setAttribute(
-    "style",
-    `transform:rotate(${options.rotation ?? -90}deg);transform-origin:50% 50%;`,
-  );
+  group.setAttribute("transform", `rotate(${options.rotation ?? -90} 50 50)`);
   group.setAttribute("mask", `url(#arc-gradient-mask-${options.index})`);
 
+  const cap = createNSElement("circle");
+  setAttribute(cap, {
+    cx: "50",
+    cy: "50",
+    r: String((options.stroke ?? 10) / 2),
+    fill: options.gradient[0],
+    display: "none",
+    "shape-rendering": "geometricPrecision",
+  });
+  cap.classList.add(`${className}-gradient-cap-${options.index}`);
+
   for (let i = 0; i < STEPS; i++) {
-    const t = i / (STEPS - 1);
+    // Sample at segment centers for even hard-stop buckets (e.g. 25/25/25/25).
+    const t = (i + 0.5) / STEPS;
     const color = interpolateColor(stops, t);
-    const dashoffset = CIRCUMFERENCE - i * segLen;
+    const dashoffset = CIRCUMFERENCE + 0.5 - i * segLen;
 
     const seg = createNSElement("circle");
     setAttribute(seg, {
@@ -221,7 +238,7 @@ const arcGradient = (options, className) => {
     group.appendChild(seg);
   }
 
-  return { mask, group };
+  return { mask, group, cap };
 };
 
 export {

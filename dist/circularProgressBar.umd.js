@@ -155,6 +155,7 @@
     const STEPS = 120;
     const segLen = CIRCUMFERENCE / STEPS;
     const gap = CIRCUMFERENCE - segLen;
+    const maskRotation = (options.rotation ?? -90) + 90;
     const stops = buildStops(options.gradient, options.gradientStops);
     const mask = createNSElement("mask");
     mask.id = `arc-gradient-mask-${options.index}`;
@@ -163,23 +164,34 @@
       cx: "50%",
       cy: "50%",
       r: 42,
+      transform: `rotate(${maskRotation} 50 50)`,
       fill: "none",
       stroke: "white",
       "stroke-width": options.stroke,
       "stroke-dasharray": String(CIRCUMFERENCE),
       "stroke-dashoffset": String(CIRCUMFERENCE),
       "shape-rendering": "geometricPrecision",
-      ...strokeLinecap(options)
+      "stroke-linecap": "butt"
     });
     maskCircle.classList.add(`${className}-circle-${options.index}`);
     mask.appendChild(maskCircle);
     const group = createNSElement("g");
-    group.setAttribute("style", `transform:rotate(${options.rotation ?? -90}deg);transform-origin:50% 50%;`);
+    group.setAttribute("transform", `rotate(${options.rotation ?? -90} 50 50)`);
     group.setAttribute("mask", `url(#arc-gradient-mask-${options.index})`);
+    const cap = createNSElement("circle");
+    setAttribute(cap, {
+      cx: "50",
+      cy: "50",
+      r: String((options.stroke ?? 10) / 2),
+      fill: options.gradient[0],
+      display: "none",
+      "shape-rendering": "geometricPrecision"
+    });
+    cap.classList.add(`${className}-gradient-cap-${options.index}`);
     for (let i = 0; i < STEPS; i++) {
-      const t = i / (STEPS - 1);
+      const t = (i + 0.5) / STEPS;
       const color = interpolateColor(stops, t);
-      const dashoffset = CIRCUMFERENCE - i * segLen;
+      const dashoffset = CIRCUMFERENCE + 0.5 - i * segLen;
       const seg = createNSElement("circle");
       setAttribute(seg, {
         cx: "50%",
@@ -196,7 +208,8 @@
     }
     return {
       mask,
-      group
+      group,
+      cap
     };
   };
 
@@ -240,14 +253,18 @@
         "stroke-width": options.stroke,
         "stroke-dashoffset": String(CIRCUMFERENCE),
         ...strokeDasharray(),
-        ...strokeLinecap(options)
+        ...(options.gradient ? {
+          "stroke-linecap": "butt"
+        } : strokeLinecap(options))
       };
       setAttribute(progressCircle, configCircle);
       this.animationTo({
         ...options,
         element: progressCircle
       }, true);
-      progressCircle.setAttribute("style", styleTransform(options));
+      if (!options.gradient) {
+        progressCircle.setAttribute("style", styleTransform(options));
+      }
       if (!options.gradient) {
         setColor(progressCircle, options);
       }
@@ -265,6 +282,7 @@
       const previousConfigObj = JSON.parse(dataPie);
       const circleElement = querySelector(`.${pieName}-circle-${options.index}`);
       if (!circleElement) return;
+      const capElement = querySelector(`.${pieName}-gradient-cap-${options.index}`);
       const commonConfiguration = initial ? options : {
         ...defaultOptions,
         ...previousConfigObj,
@@ -283,12 +301,39 @@
         const textElement = querySelector(`.${pieName}-text-${commonConfiguration.index}`);
         setAttribute(textElement, fontconfig);
       }
+      const updateGradientCap = percent => {
+        if (!commonConfiguration.gradient || !commonConfiguration.round || !capElement) return;
+        const cut = commonConfiguration.cut || 0;
+        if (percent <= 0 || cut === 0 && percent >= 100) {
+          capElement.setAttribute("display", "none");
+          return;
+        }
+        const span = 360 * ((100 - cut) / 100);
+        const direction = commonConfiguration.inverse ? -1 : 1;
+        const baseRotation = commonConfiguration.rotation ?? -90;
+        const theta = (baseRotation + direction * (percent / 100 * span)) * Math.PI / 180;
+        const x = 50 + 42 * Math.cos(theta);
+        const y = 50 + 42 * Math.sin(theta);
+        capElement.setAttribute("cx", String(x));
+        capElement.setAttribute("cy", String(y));
+        capElement.setAttribute("r", String((commonConfiguration.stroke ?? 10) / 2));
+        capElement.setAttribute("display", "inline");
+        const segments = pieEl.querySelectorAll("g[mask] circle");
+        if (segments.length > 0) {
+          const index = Math.max(0, Math.min(segments.length - 1, Math.floor(percent / 100 * segments.length)));
+          const color = segments[index]?.getAttribute("stroke");
+          if (color) {
+            capElement.setAttribute("fill", color);
+          }
+        }
+      };
       const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
       if (commonConfiguration.animationOff) {
         if (commonConfiguration.number && centerNumber) {
           centerNumber.textContent = `${commonConfiguration.percent}`;
         }
         circleElement.setAttribute("stroke-dashoffset", String(dashOffset((commonConfiguration.percent ?? 0) * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse)));
+        updateGradientCap(commonConfiguration.percent ?? 0);
         return;
       }
       const angle = JSON.parse(circleElement.getAttribute("data-angle") ?? "0");
@@ -299,7 +344,11 @@
         }
         circleElement.setAttribute("stroke-dashoffset", String(CIRCUMFERENCE));
       }
-      if (targetPercent > 100 || targetPercent < 0 || angle === targetPercent) return;
+      if (targetPercent > 100 || targetPercent < 0) return;
+      if (angle === targetPercent) {
+        updateGradientCap(targetPercent);
+        return;
+      }
       let request;
       let i = initial ? 0 : angle;
       const fps = commonConfiguration.speed || 1000;
@@ -314,6 +363,7 @@
           i = i < (commonConfiguration.percent ?? 0) ? i + 1 : i - 1;
         }
         circleElement.setAttribute("stroke-dashoffset", String(dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)));
+        updateGradientCap(i);
         if (centerNumber && commonConfiguration.number) {
           centerNumber.textContent = `${i}`;
         }
@@ -353,10 +403,12 @@
       if (options.gradient) {
         const {
           mask,
-          group
+          group,
+          cap
         } = arcGradient(options, this._className);
         svg.appendChild(mask);
         svg.appendChild(group);
+        svg.appendChild(cap);
       } else {
         if (options.lineargradient) {
           svg.appendChild(gradient(options));

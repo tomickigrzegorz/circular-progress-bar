@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd D:\\\\_PROJECT_\\\\_GITHUB_\\\\circular-progress-bar:*)",
+      "Bash(cd \"D:\\\\_PROJECT_\\\\_GITHUB_\\\\circular-progress-bar\" && yarn install 2>&1)",
+      "Bash(cd \"D:\\\\_PROJECT_\\\\_GITHUB_\\\\circular-progress-bar\" && yarn typecheck 2>&1)",
+      "Bash(cd \"D:\\\\_PROJECT_\\\\_GITHUB_\\\\circular-progress-bar\" && yarn build 2>&1)",
+      "mcp__ide__getDiagnostics",
+      "Bash(cd \"D:\\\\_PROJECT_\\\\_GITHUB_\\\\circular-progress-bar\" && yarn typecheck 2>&1 && yarn build 2>&1)",
+      "Bash(cd \"D:\\\\_PROJECT_\\\\_GITHUB_\\\\circular-progress-bar\" && yarn biome check sources/index.ts --write 2>&1)",
+      "Bash(wc:*)",
+      "Bash(yarn prod:*)",
+      "Read(//c/Users/greg/**)",
+      "Bash(yarn add:*)",
+      "Bash(npx playwright:*)",
+      "Bash(yarn test:*)",
+      "Bash(yarn build:*)",
+      "Bash(yarn typecheck:*)",
+      "Bash(gh pr:*)",
+      "Bash(yarn install:*)"
+    ]
+  }
+}
