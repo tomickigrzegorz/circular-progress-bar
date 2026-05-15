@@ -1,3 +1,21 @@
+## 2026-05-15 (v1.5.0)
+
+### Added
+- `gradient` now combines with `cut`, `rotation`, `inverse`, `round` and any combination of them
+- gradient examples consolidated into a single page (`docs/index.html`) with normal pies on top and a dedicated gradient section below; standalone `docs/gradient.html` removed
+
+### Fixed
+- gradient colors no longer reversed when `cut` is set — `gradient[0]` always sits at the start of the visible arc, `gradient[100%]` at the end
+- gradient with `inverse: true` now grows counter-clockwise from the progress start instead of revealing the wrong end first
+- gradient with `rotation` other than `-90` (e.g. `rotation: 90`, `144`) now aligns the start of the gradient with the progress start angle
+- `round` caps for gradient now sit precisely on the arc endpoints for every `rotation`/`cut`/`inverse` combination
+- `animationOff` no longer double-applies the `cut` factor to the mask dashoffset
+
+### Changed
+- `arcGradient` refactored: single transform shared by the mask circle and the segment group; segment colors are now fixed (position-based) instead of being recomputed on every animation frame
+
+---
+
 ## 2025-04-21 (v1.4.1)
 
 ### Fixed

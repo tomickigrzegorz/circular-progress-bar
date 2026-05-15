@@ -1,6 +1,6 @@
 {
   "name": "@tomickigrzegorz/circular-progress-bar",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "type": "module",
   "description": "A circular progress bar in svg",
   "main": "dist/circularProgressBar.js",

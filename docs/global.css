@@ -29,6 +29,35 @@ h1 {
   padding-top: 30px;
 }
 
+.gradient-divider {
+  margin: 50px auto 10px;
+  padding: 30px 20px 10px;
+  max-width: 900px;
+  text-align: center;
+  border-top: 2px dashed #cfd8dc;
+}
+
+.gradient-divider h2 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #455a64;
+}
+
+.gradient-divider p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #607d8b;
+}
+
+.gradient-divider code {
+  background: #eceff1;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.85rem;
+}
+
 .flex {
   display: flex;
 }

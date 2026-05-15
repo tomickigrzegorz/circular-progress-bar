@@ -31,3 +31,21 @@ for (const file of files) {
     console.error(`[version] Error processing ${file}:`, err.message);
   }
 }
+
+// Sync hand-maintained TypeScript declarations from sources/ to dist/types/
+// so the published `types` entry in package.json stays in lockstep with the source.
+const typeFiles = [
+  ["sources/index.d.ts", "dist/types/index.d.ts"],
+  ["sources/helpers/defaults.d.ts", "dist/types/helpers/defaults.d.ts"],
+  ["sources/helpers/function.d.ts", "dist/types/helpers/function.d.ts"],
+];
+
+for (const [from, to] of typeFiles) {
+  try {
+    fs.mkdirSync(to.replace(/\/[^/]+$/, ""), { recursive: true });
+    fs.copyFileSync(from, to);
+    console.log(`[types] ${from} → ${to}`);
+  } catch (err) {
+    console.error(`[types] Error copying ${from}:`, err.message);
+  }
+}

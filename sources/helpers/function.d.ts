@@ -11,7 +11,7 @@ export declare const styleTransform: (
 /** Returns stroke-dasharray attribute; defaults to full circumference when no argument */
 export declare const strokeDasharray: (type?: string) => Record<string, string>;
 
-/** Returns stroke-linecap attribute: "round" or empty string */
+/** Returns stroke-linecap attribute: "round" or "butt" (SVG default) */
 export declare const strokeLinecap: (
   options: Pick<CPBOptions, "round">,
 ) => Record<string, string>;
@@ -63,8 +63,30 @@ export declare const createPercentElement: (
   className: string,
 ) => Element;
 
-/** Builds the arc-gradient SVG structure (mask + colored segments group) */
+/** Returns the gradient color at position `t` (0 to 1) interpolating between stops */
+export declare const getGradientColorAt: (
+  gradient: string[],
+  gradientStops: number[] | undefined,
+  t: number,
+) => string;
+
+/** Builds the arc-gradient SVG structure: animated mask, colored segments group, and start/end round caps */
 export declare const arcGradient: (
-  options: Pick<CPBOptions, "gradient" | "gradientStops" | "index" | "stroke" | "round" | "rotation">,
+  options: Pick<
+    CPBOptions,
+    | "gradient"
+    | "gradientStops"
+    | "index"
+    | "stroke"
+    | "round"
+    | "rotation"
+    | "cut"
+    | "inverse"
+  >,
   className: string,
-) => { mask: Element; group: Element };
+) => {
+  mask: Element;
+  group: Element;
+  startCap: Element;
+  endCap: Element;
+};

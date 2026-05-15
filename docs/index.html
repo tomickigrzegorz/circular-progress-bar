@@ -97,52 +97,6 @@ data-pie='{
       </section>
       <section>
         <div class="flex info">
-          <div class="info-name">gradient</div>
-          <div class="info-code">code</div>
-        </div>
-        <div
-          class="pie"
-          data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"], "gradientStops": [0,25,50,75,100], "colorCircle": "#e6e6e6", "round": true }'
-        ></div>
-        <div class="code">
-          <pre>
-            <code class="language-json">data-pie='{
-  "percent": 75,
-  "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"],
-  "gradientStops": [0,25,50,75,100],
-  "colorCircle": "#e6e6e6",
-  "round": true
-}'</code>
-          </pre>
-        </div>
-      </section>
-      <section>
-        <div class="flex info">
-          <div class="info-name">gradient hard stops</div>
-          <div class="info-code">code</div>
-        </div>
-        <div
-          class="pie"
-          data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff0000","#ffaa00","#ffaa00","#00cc00","#00cc00","#0044ff","#0044ff"], "gradientStops": [0,25,25,50,50,75,75,100], "colorCircle": "#e6e6e6" }'
-        ></div>
-        <div class="code">
-          <pre>
-            <code class="language-json">data-pie='{
-  "percent": 75,
-  "gradient": [
-    "#ff0000","#ff0000",
-    "#ffaa00","#ffaa00",
-    "#00cc00","#00cc00",
-    "#0044ff","#0044ff"
-  ],
-  "gradientStops": [0,25,25,50,50,75,75,100],
-  "colorCircle": "#e6e6e6"
-}'</code>
-          </pre>
-        </div>
-      </section>
-      <section>
-        <div class="flex info">
           <div class="info-name">counterclockwise</div>
           <div class="info-code">code</div>
         </div>
@@ -530,6 +484,306 @@ const globalConfig = {
 
 const global = new CircularProgressBar('global', globalConfig);
 </code>
+          </pre>
+        </div>
+      </section>
+    </div>
+
+    <div class="gradient-divider">
+      <h2>Arc gradient examples</h2>
+      <p>
+        Colors follow the arc of the circle. Combines with
+        <code>rotation</code>, <code>cut</code>, <code>inverse</code> and
+        <code>round</code>.
+      </p>
+    </div>
+
+    <div class="flex container">
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 100, "percent": 75, "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"], "gradientStops": [0,25,50,75,100], "colorCircle": "#e6e6e6", "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"],
+  "gradientStops": [0,25,50,75,100],
+  "colorCircle": "#e6e6e6",
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient hard stops</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 101, "percent": 75, "gradient": ["#ff0000","#ff0000","#ffaa00","#ffaa00","#00cc00","#00cc00","#0044ff","#0044ff"], "gradientStops": [0,25,25,50,50,75,75,100], "colorCircle": "#e6e6e6" }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": [
+    "#ff0000","#ff0000",
+    "#ffaa00","#ffaa00",
+    "#00cc00","#00cc00",
+    "#0044ff","#0044ff"
+  ],
+  "gradientStops": [0,25,25,50,50,75,75,100],
+  "colorCircle": "#e6e6e6"
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient + cut</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 102, "percent": 75, "gradient": ["#e91e63","#9c27b0","#3f51b5"], "gradientStops": [0,50,100], "colorCircle": "#e6e6e6", "cut": 30, "rotation": 144 }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#e91e63","#9c27b0","#3f51b5"],
+  "gradientStops": [0,50,100],
+  "colorCircle": "#e6e6e6",
+  "cut": 30,
+  "rotation": 144
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient + cut + round</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 103, "percent": 75, "gradient": ["#e91e63","#9c27b0","#3f51b5"], "gradientStops": [0,50,100], "colorCircle": "#e6e6e6", "cut": 30, "rotation": 144, "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#e91e63","#9c27b0","#3f51b5"],
+  "colorCircle": "#e6e6e6",
+  "cut": 30,
+  "rotation": 144,
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient + rotation</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 104, "percent": 75, "gradient": ["#00bcd4","#4caf50","#ffeb3b","#ff5722"], "colorCircle": "#e6e6e6", "rotation": 90 }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#00bcd4","#4caf50","#ffeb3b","#ff5722"],
+  "colorCircle": "#e6e6e6",
+  "rotation": 90
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient + rotation + round</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 105, "percent": 75, "gradient": ["#00bcd4","#4caf50","#ffeb3b","#ff5722"], "colorCircle": "#e6e6e6", "rotation": 90, "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#00bcd4","#4caf50","#ffeb3b","#ff5722"],
+  "colorCircle": "#e6e6e6",
+  "rotation": 90,
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient + inverse + round</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 106, "percent": 75, "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"], "gradientStops": [0,25,50,75,100], "colorCircle": "#e6e6e6", "inverse": true, "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"],
+  "gradientStops": [0,25,50,75,100],
+  "colorCircle": "#e6e6e6",
+  "inverse": true,
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient + animationSmooth</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 107, "percent": 75, "gradient": ["#6200ea","#00b0ff"], "colorCircle": "#e6e6e6", "round": true, "animationSmooth": "1s ease-out" }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#6200ea","#00b0ff"],
+  "colorCircle": "#e6e6e6",
+  "round": true,
+  "animationSmooth": "1s ease-out"
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">gradient + speed</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 108, "percent": 75, "gradient": ["#1de9b6","#1565c0"], "colorCircle": "#e6e6e6", "round": true, "speed": 30 }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": ["#1de9b6","#1565c0"],
+  "colorCircle": "#e6e6e6",
+  "round": true,
+  "speed": 30
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">hard stops + cut</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 109, "percent": 75, "gradient": ["#ff0000","#ff0000","#ffaa00","#ffaa00","#00cc00","#00cc00","#0044ff","#0044ff"], "gradientStops": [0,25,25,50,50,75,75,100], "colorCircle": "#e6e6e6", "cut": 30, "rotation": 144 }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": [
+    "#ff0000","#ff0000",
+    "#ffaa00","#ffaa00",
+    "#00cc00","#00cc00",
+    "#0044ff","#0044ff"
+  ],
+  "gradientStops": [0,25,25,50,50,75,75,100],
+  "colorCircle": "#e6e6e6",
+  "cut": 30,
+  "rotation": 144
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">hard stops + cut + round</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 110, "percent": 75, "gradient": ["#ff0000","#ff0000","#ffaa00","#ffaa00","#00cc00","#00cc00","#0044ff","#0044ff"], "gradientStops": [0,25,25,50,50,75,75,100], "colorCircle": "#e6e6e6", "cut": 30, "rotation": 144, "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": [
+    "#ff0000","#ff0000",
+    "#ffaa00","#ffaa00",
+    "#00cc00","#00cc00",
+    "#0044ff","#0044ff"
+  ],
+  "gradientStops": [0,25,25,50,50,75,75,100],
+  "colorCircle": "#e6e6e6",
+  "cut": 30,
+  "rotation": 144,
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
+          <div class="info-name">hard stops + rotation + round</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 111, "percent": 75, "gradient": ["#ff0000","#ff0000","#ffaa00","#ffaa00","#00cc00","#00cc00","#0044ff","#0044ff"], "gradientStops": [0,25,25,50,50,75,75,100], "colorCircle": "#e6e6e6", "rotation": 90, "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "gradient": [
+    "#ff0000","#ff0000",
+    "#ffaa00","#ffaa00",
+    "#00cc00","#00cc00",
+    "#0044ff","#0044ff"
+  ],
+  "gradientStops": [0,25,25,50,50,75,75,100],
+  "colorCircle": "#e6e6e6",
+  "rotation": 90,
+  "round": true
+}'</code>
           </pre>
         </div>
       </section>

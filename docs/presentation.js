@@ -1,6 +1,6 @@
 const githubConrner = `
 <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-<a href="https://github.com/tomik23/circular-progress-bar" class="github-corner" aria-label="View source on GitHub"><svg
+<a href="https://github.com/tomickigrzegorz/circular-progress-bar" class="github-corner" aria-label="View source on GitHub"><svg
   width="80" height="80" viewBox="0 0 250 250"
   style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
   <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
