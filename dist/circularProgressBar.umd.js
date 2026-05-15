@@ -1,6 +1,6 @@
 /*!
 * @name circular-progress-bar
-* @version 1.4.1
+* @version 1.5.0
 * @author Grzegorz Tomicki
 * @link https://github.com/tomickigrzegorz/circular-progress-bar
 * @license MIT
@@ -151,11 +151,20 @@
     const last = stops[stops.length - 1].rgb;
     return `rgb(${last[0]},${last[1]},${last[2]})`;
   };
+  const getGradientColorAt = (gradient, gradientStops, t) => {
+    const stops = buildStops(gradient, gradientStops);
+    const clamped = Math.max(0, Math.min(1, t));
+    return interpolateColor(stops, clamped);
+  };
   const arcGradient = (options, className) => {
     const STEPS = 120;
     const segLen = CIRCUMFERENCE / STEPS;
     const gap = CIRCUMFERENCE - segLen;
-    const maskRotation = (options.rotation ?? -90) + 90;
+    const visibleRatio = (100 - (options.cut || 0)) / 100;
+    const rotation = options.rotation ?? -90;
+    const inverse = !!options.inverse;
+    const stroke = options.stroke ?? 10;
+    const transform = inverse ? `rotate(${rotation} 50 50) translate(0 100) scale(1 -1)` : `rotate(${rotation} 50 50)`;
     const stops = buildStops(options.gradient, options.gradientStops);
     const mask = createNSElement("mask");
     mask.id = `arc-gradient-mask-${options.index}`;
@@ -164,10 +173,9 @@
       cx: "50%",
       cy: "50%",
       r: 42,
-      transform: `rotate(${maskRotation} 50 50)`,
       fill: "none",
       stroke: "white",
-      "stroke-width": options.stroke,
+      "stroke-width": stroke,
       "stroke-dasharray": String(CIRCUMFERENCE),
       "stroke-dashoffset": String(CIRCUMFERENCE),
       "shape-rendering": "geometricPrecision",
@@ -176,13 +184,13 @@
     maskCircle.classList.add(`${className}-circle-${options.index}`);
     mask.appendChild(maskCircle);
     const group = createNSElement("g");
-    group.setAttribute("transform", `rotate(${options.rotation ?? -90} 50 50)`);
+    group.setAttribute("transform", transform);
     group.setAttribute("mask", `url(#arc-gradient-mask-${options.index})`);
     const startCap = createNSElement("circle");
     setAttribute(startCap, {
       cx: "50",
       cy: "50",
-      r: String((options.stroke ?? 10) / 2),
+      r: String(stroke / 2),
       fill: options.gradient[0],
       display: "none",
       "shape-rendering": "geometricPrecision"
@@ -192,14 +200,15 @@
     setAttribute(endCap, {
       cx: "50",
       cy: "50",
-      r: String((options.stroke ?? 10) / 2),
+      r: String(stroke / 2),
       fill: options.gradient[0],
       display: "none",
       "shape-rendering": "geometricPrecision"
     });
     endCap.classList.add(`${className}-gradient-end-cap-${options.index}`);
     for (let i = 0; i < STEPS; i++) {
-      const t = (i + 0.5) / STEPS;
+      const sample = (i + 0.5) / STEPS;
+      const t = Math.min(1, sample / visibleRatio);
       const color = interpolateColor(stops, t);
       const dashoffset = CIRCUMFERENCE + 0.5 - i * segLen;
       const seg = createNSElement("circle");
@@ -209,7 +218,7 @@
         r: 42,
         fill: "none",
         stroke: color,
-        "stroke-width": options.stroke,
+        "stroke-width": stroke,
         "stroke-dasharray": `${segLen + 0.5} ${gap}`,
         "stroke-dashoffset": String(dashoffset),
         "shape-rendering": "geometricPrecision"
@@ -275,8 +284,6 @@
       }, true);
       if (!options.gradient) {
         progressCircle.setAttribute("style", styleTransform(options));
-      }
-      if (!options.gradient) {
         setColor(progressCircle, options);
       }
       target.setAttribute("style", `width:${options.size}px;height:${options.size}px;`);
@@ -338,25 +345,19 @@
         endCapElement.setAttribute("cy", String(y));
         endCapElement.setAttribute("r", String((commonConfiguration.stroke ?? 10) / 2));
         endCapElement.setAttribute("display", "inline");
-        const segments = pieEl.querySelectorAll("g[mask] circle");
-        if (segments.length > 0) {
-          const startColor = segments[0]?.getAttribute("stroke");
-          const index = Math.max(0, Math.min(segments.length - 1, Math.floor(percent / 100 * segments.length)));
-          const color = segments[index]?.getAttribute("stroke");
-          if (startColor) {
-            startCapElement.setAttribute("fill", startColor);
-          }
-          if (color) {
-            endCapElement.setAttribute("fill", color);
-          }
-        }
+        const startColor = getGradientColorAt(commonConfiguration.gradient, commonConfiguration.gradientStops, 0);
+        const color = getGradientColorAt(commonConfiguration.gradient, commonConfiguration.gradientStops, Math.max(0, Math.min(1, percent / 100)));
+        startCapElement.setAttribute("fill", startColor);
+        endCapElement.setAttribute("fill", color);
       };
+      const isGradient = !!commonConfiguration.gradient;
+      const maskDashOffset = p => dashOffset(p, isGradient ? false : commonConfiguration.inverse, commonConfiguration.cut);
       const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
       if (commonConfiguration.animationOff) {
         if (commonConfiguration.number && centerNumber) {
           centerNumber.textContent = `${commonConfiguration.percent}`;
         }
-        circleElement.setAttribute("stroke-dashoffset", String(dashOffset((commonConfiguration.percent ?? 0) * ((100 - (commonConfiguration.cut || 0)) / 100), commonConfiguration.inverse)));
+        circleElement.setAttribute("stroke-dashoffset", String(maskDashOffset(commonConfiguration.percent ?? 0)));
         updateGradientCaps(commonConfiguration.percent ?? 0);
         return;
       }
@@ -386,7 +387,7 @@
           then = now - delta % interval;
           i = i < (commonConfiguration.percent ?? 0) ? i + 1 : i - 1;
         }
-        circleElement.setAttribute("stroke-dashoffset", String(dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut)));
+        circleElement.setAttribute("stroke-dashoffset", String(maskDashOffset(i)));
         updateGradientCaps(i);
         if (centerNumber && commonConfiguration.number) {
           centerNumber.textContent = `${i}`;

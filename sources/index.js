@@ -6,6 +6,7 @@ import {
   createPercentElement,
   dashOffset,
   fontSettings,
+  getGradientColorAt,
   gradient,
   insertAdElement,
   querySelector,
@@ -78,9 +79,6 @@ export default class CircularProgressBar {
 
     if (!options.gradient) {
       progressCircle.setAttribute("style", styleTransform(options));
-    }
-
-    if (!options.gradient) {
       setColor(progressCircle, options);
     }
 
@@ -182,25 +180,29 @@ export default class CircularProgressBar {
       );
       endCapElement.setAttribute("display", "inline");
 
-      const segments = pieEl.querySelectorAll("g[mask] circle");
-      if (segments.length > 0) {
-        const startColor = segments[0]?.getAttribute("stroke");
-        const index = Math.max(
-          0,
-          Math.min(
-            segments.length - 1,
-            Math.floor((percent / 100) * segments.length),
-          ),
-        );
-        const color = segments[index]?.getAttribute("stroke");
-        if (startColor) {
-          startCapElement.setAttribute("fill", startColor);
-        }
-        if (color) {
-          endCapElement.setAttribute("fill", color);
-        }
-      }
+      const startColor = getGradientColorAt(
+        commonConfiguration.gradient,
+        commonConfiguration.gradientStops,
+        0,
+      );
+      const color = getGradientColorAt(
+        commonConfiguration.gradient,
+        commonConfiguration.gradientStops,
+        Math.max(0, Math.min(1, percent / 100)),
+      );
+      startCapElement.setAttribute("fill", startColor);
+      endCapElement.setAttribute("fill", color);
     };
+
+    const isGradient = !!commonConfiguration.gradient;
+    // For gradient, the inverse direction is baked into the group transform,
+    // so the mask dashoffset stays positive regardless of `inverse`.
+    const maskDashOffset = (p) =>
+      dashOffset(
+        p,
+        isGradient ? false : commonConfiguration.inverse,
+        commonConfiguration.cut,
+      );
 
     const centerNumber = querySelector(`.${pieName}-percent-${options.index}`);
 
@@ -210,13 +212,7 @@ export default class CircularProgressBar {
       }
       circleElement.setAttribute(
         "stroke-dashoffset",
-        String(
-          dashOffset(
-            (commonConfiguration.percent ?? 0) *
-              ((100 - (commonConfiguration.cut || 0)) / 100),
-            commonConfiguration.inverse,
-          ),
-        ),
+        String(maskDashOffset(commonConfiguration.percent ?? 0)),
       );
       updateGradientCaps(commonConfiguration.percent ?? 0);
       return;
@@ -259,9 +255,7 @@ export default class CircularProgressBar {
 
       circleElement.setAttribute(
         "stroke-dashoffset",
-        String(
-          dashOffset(i, commonConfiguration.inverse, commonConfiguration.cut),
-        ),
+        String(maskDashOffset(i)),
       );
 
       updateGradientCaps(i);

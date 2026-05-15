@@ -173,11 +173,28 @@ const interpolateColor = (stops, t) => {
   return `rgb(${last[0]},${last[1]},${last[2]})`;
 };
 
+const getGradientColorAt = (gradient, gradientStops, t) => {
+  const stops = buildStops(gradient, gradientStops);
+  const clamped = Math.max(0, Math.min(1, t));
+  return interpolateColor(stops, clamped);
+};
+
 const arcGradient = (options, className) => {
   const STEPS = 120;
   const segLen = CIRCUMFERENCE / STEPS;
   const gap = CIRCUMFERENCE - segLen;
-  const maskRotation = (options.rotation ?? -90) + 90;
+  const visibleRatio = (100 - (options.cut || 0)) / 100;
+  const rotation = options.rotation ?? -90;
+  const inverse = !!options.inverse;
+  const stroke = options.stroke ?? 10;
+
+  // Single transform applied to the segments group; the mask inherits it via
+  // mask="url(...)". Rotation puts the path origin (3 o'clock) at the progress
+  // start angle. For inverse, prefix with a y-axis flip around y=50 to reverse
+  // the path's clockwise direction without moving the start point.
+  const transform = inverse
+    ? `rotate(${rotation} 50 50) translate(0 100) scale(1 -1)`
+    : `rotate(${rotation} 50 50)`;
 
   const stops = buildStops(options.gradient, options.gradientStops);
 
@@ -189,10 +206,9 @@ const arcGradient = (options, className) => {
     cx: "50%",
     cy: "50%",
     r: 42,
-    transform: `rotate(${maskRotation} 50 50)`,
     fill: "none",
     stroke: "white",
-    "stroke-width": options.stroke,
+    "stroke-width": stroke,
     "stroke-dasharray": String(CIRCUMFERENCE),
     "stroke-dashoffset": String(CIRCUMFERENCE),
     "shape-rendering": "geometricPrecision",
@@ -203,14 +219,14 @@ const arcGradient = (options, className) => {
   mask.appendChild(maskCircle);
 
   const group = createNSElement("g");
-  group.setAttribute("transform", `rotate(${options.rotation ?? -90} 50 50)`);
+  group.setAttribute("transform", transform);
   group.setAttribute("mask", `url(#arc-gradient-mask-${options.index})`);
 
   const startCap = createNSElement("circle");
   setAttribute(startCap, {
     cx: "50",
     cy: "50",
-    r: String((options.stroke ?? 10) / 2),
+    r: String(stroke / 2),
     fill: options.gradient[0],
     display: "none",
     "shape-rendering": "geometricPrecision",
@@ -221,7 +237,7 @@ const arcGradient = (options, className) => {
   setAttribute(endCap, {
     cx: "50",
     cy: "50",
-    r: String((options.stroke ?? 10) / 2),
+    r: String(stroke / 2),
     fill: options.gradient[0],
     display: "none",
     "shape-rendering": "geometricPrecision",
@@ -229,8 +245,12 @@ const arcGradient = (options, className) => {
   endCap.classList.add(`${className}-gradient-end-cap-${options.index}`);
 
   for (let i = 0; i < STEPS; i++) {
-    // Sample at segment centers for even hard-stop buckets (e.g. 25/25/25/25).
-    const t = (i + 0.5) / STEPS;
+    // Sample at segment centers, then map [0, visibleRatio] to [0, 1] so the
+    // gradient runs from gradient[0] at the start of the visible arc to
+    // gradient[100%] at the end. Segments past visibleRatio sit in the cut
+    // zone and stay hidden by the mask.
+    const sample = (i + 0.5) / STEPS;
+    const t = Math.min(1, sample / visibleRatio);
     const color = interpolateColor(stops, t);
     const dashoffset = CIRCUMFERENCE + 0.5 - i * segLen;
 
@@ -241,7 +261,7 @@ const arcGradient = (options, className) => {
       r: 42,
       fill: "none",
       stroke: color,
-      "stroke-width": options.stroke,
+      "stroke-width": stroke,
       "stroke-dasharray": `${segLen + 0.5} ${gap}`,
       "stroke-dashoffset": String(dashoffset),
       "shape-rendering": "geometricPrecision",
@@ -259,6 +279,7 @@ export {
   createPercentElement,
   dashOffset,
   fontSettings,
+  getGradientColorAt,
   gradient,
   insertAdElement,
   querySelector,

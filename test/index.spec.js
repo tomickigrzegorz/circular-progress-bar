@@ -145,23 +145,68 @@ test("gradient mask circle has pie-circle class", async ({ page }) => {
 });
 
 test("gradient animationOff sets dashoffset immediately", async ({ page }) => {
-  await setup(page, el(60, '"gradient":["#ff0000","#0000ff"],"animationOff":true'));
+  await setup(
+    page,
+    el(60, '"gradient":["#ff0000","#0000ff"],"animationOff":true'),
+  );
   await init(page);
-  const offset = await page.locator(".pie mask .pie-circle-1").getAttribute("stroke-dashoffset");
+  const offset = await page
+    .locator(".pie mask .pie-circle-1")
+    .getAttribute("stroke-dashoffset");
   expect(Number(offset)).toBeLessThan(264);
 });
 
-test("gradient and lineargradient coexist — gradient wins", async ({ page }) => {
-  await setup(page, el(50, '"gradient":["#f00","#00f"],"lineargradient":["#0f0","#ff0"]'));
+test("gradient and lineargradient coexist — gradient wins", async ({
+  page,
+}) => {
+  await setup(
+    page,
+    el(50, '"gradient":["#f00","#00f"],"lineargradient":["#0f0","#ff0"]'),
+  );
   await init(page);
   await expect(page.locator(".pie svg mask")).toBeAttached();
   await expect(page.locator(".pie svg defs linearGradient")).not.toBeAttached();
 });
 
 test("gradientStops mismatch falls back to equal spacing", async ({ page }) => {
-  await setup(page, el(75, '"gradient":["#f00","#ff0","#0f0"],"gradientStops":[0,100]'));
+  await setup(
+    page,
+    el(75, '"gradient":["#f00","#ff0","#0f0"],"gradientStops":[0,100]'),
+  );
   await init(page);
   await expect(page.locator(".pie svg mask")).toBeAttached();
   const count = await page.locator(".pie svg g circle").count();
   expect(count).toBeGreaterThan(10);
+});
+
+test("arc gradient cut + rotation + round keeps cap geometry", async ({
+  page,
+}) => {
+  await setup(
+    page,
+    el(
+      75,
+      '"gradient":["#e91e63","#9c27b0","#3f51b5"],"gradientStops":[0,50,100],"cut":30,"rotation":144,"round":true,"animationOff":true',
+    ),
+  );
+  await init(page);
+
+  const startCap = page.locator(".pie-gradient-start-cap-1");
+  const endCap = page.locator(".pie-gradient-end-cap-1");
+
+  await expect(startCap).toBeAttached();
+  await expect(endCap).toBeAttached();
+
+  expect(await startCap.getAttribute("display")).toBe("inline");
+  expect(await endCap.getAttribute("display")).toBe("inline");
+
+  const startX = Number(await startCap.getAttribute("cx"));
+  const startY = Number(await startCap.getAttribute("cy"));
+  const endX = Number(await endCap.getAttribute("cx"));
+  const endY = Number(await endCap.getAttribute("cy"));
+
+  expect(startX).toBeCloseTo(16, 0);
+  expect(startY).toBeCloseTo(75, 0);
+  expect(endX).toBeCloseTo(87, 0);
+  expect(endY).toBeCloseTo(31, 0);
 });

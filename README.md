@@ -27,7 +27,7 @@ See the demo - [example](https://tomickigrzegorz.github.io/circular-progress-bar
 #### CDN (jsDelivr)
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.4.1/dist/circularProgressBar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tomickigrzegorz/circular-progress-bar@1.5.0/dist/circularProgressBar.min.js"></script>
 ```
 
 #### npm
@@ -80,9 +80,7 @@ More extensive example:
 <div class="pie" data-pie='{ "lineargradient": ["#ffff00","#ff0000"], "percent": 20, "colorSlice": "#000", "colorCircle": "#e6e6e6", "strokeWidth": 15, "number": false }'></div>
 ```
 
-Arc gradient — colors follow the arc of the circle:
-
-> **Note:** `gradient` works correctly with default settings only — it does **not** combine with `rotation`, `cut`, or other arc-modifying options.
+Arc gradient — colors follow the arc of the circle. `gradient[0]` sits at the progress start, `gradient[100%]` at the end of the visible arc, and the colors flow in the progress direction. Combines freely with `rotation`, `cut`, `inverse`, and `round`.
 
 ```html
 <!-- equal spacing -->
@@ -93,6 +91,12 @@ Arc gradient — colors follow the arc of the circle:
 
 <!-- hard cuts (no blending) — duplicate each color at the same position -->
 <div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff0000","#00cc00","#00cc00"], "gradientStops": [0,50,50,100] }'></div>
+
+<!-- with cut + rotation + round -->
+<div class="pie" data-pie='{ "percent": 75, "gradient": ["#e91e63","#9c27b0","#3f51b5"], "colorCircle": "#e6e6e6", "cut": 30, "rotation": 144, "round": true }'></div>
+
+<!-- counter-clockwise growth with round caps -->
+<div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff8800","#ffff00","#00cc00","#0000ff"], "colorCircle": "#e6e6e6", "inverse": true, "round": true }'></div>
 ```
 
 Minimal configuration:

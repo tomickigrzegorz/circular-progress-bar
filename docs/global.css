@@ -17,8 +17,16 @@ html {
 body {
   position: relative;
   min-height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol;
   background: #eceff1;
 }
 
@@ -27,6 +35,35 @@ h1 {
   text-transform: uppercase;
   text-align: center;
   padding-top: 30px;
+}
+
+.gradient-divider {
+  margin: 50px auto 10px;
+  padding: 30px 20px 10px;
+  max-width: 900px;
+  text-align: center;
+  border-top: 2px dashed #cfd8dc;
+}
+
+.gradient-divider h2 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #455a64;
+}
+
+.gradient-divider p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #607d8b;
+}
+
+.gradient-divider code {
+  background: #eceff1;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.85rem;
 }
 
 .flex {
@@ -88,7 +125,9 @@ section {
   left: 0;
   margin: auto;
   line-height: 1.6;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition:
+    visibility 0s,
+    opacity 0.5s linear;
 }
 
 .show-code .code {
@@ -116,7 +155,7 @@ code {
   box-shadow: inset 0 0 25px 10px #a2caff;
 }
 
-[data-pie-index="18"] {
+[data-pie-index="16"] {
   position: relative;
   border-radius: 50%;
   box-shadow: inset 0 0 25px 10px #f50057;
