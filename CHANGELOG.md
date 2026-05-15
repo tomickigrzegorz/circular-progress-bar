@@ -2,7 +2,6 @@
 
 ### Added
 - `gradient` now combines with `cut`, `rotation`, `inverse`, `round` and any combination of them
-- gradient examples consolidated into a single page (`docs/index.html`) with normal pies on top and a dedicated gradient section below; standalone `docs/gradient.html` removed
 
 ### Fixed
 - gradient colors no longer reversed when `cut` is set — `gradient[0]` always sits at the start of the visible arc, `gradient[100%]` at the end
