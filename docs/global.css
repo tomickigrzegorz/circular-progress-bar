@@ -83,7 +83,7 @@ h1 {
   padding: 10px 0;
   text-transform: uppercase;
   font-size: 90%;
-  margin: auto -15px 30px;
+  margin: auto -15px 20px;
 }
 
 .info-code {
@@ -187,4 +187,8 @@ code {
 .pie-unit-11 {
   fill: #f50057;
   font-size: 1rem;
+}
+
+.info-name {
+  height: 40px;
 }
