@@ -179,6 +179,20 @@ const getGradientColorAt = (gradient, gradientStops, t) => {
   return interpolateColor(stops, clamped);
 };
 
+// Positions (0–1) where the gradient color changes, derived from gradientStops.
+// Used to place transparent gaps between hard-stop color bands.
+const gapBoundaries = (gradient, gradientStops) => {
+  if (!gradient || !gradientStops || gradientStops.length !== gradient.length)
+    return [];
+  const boundaries = [];
+  for (let i = 0; i < gradient.length - 1; i++) {
+    if (gradient[i] !== gradient[i + 1]) {
+      boundaries.push(Math.min(100, Math.max(0, gradientStops[i + 1])) / 100);
+    }
+  }
+  return boundaries;
+};
+
 const arcGradient = (options, className) => {
   const STEPS = 120;
   const segLen = CIRCUMFERENCE / STEPS;
@@ -197,6 +211,14 @@ const arcGradient = (options, className) => {
     : `rotate(${rotation} 50 50)`;
 
   const stops = buildStops(options.gradient, options.gradientStops);
+
+  // gradientGap: transparent gaps (in %) at each color-change boundary.
+  const gapWidth = options.gradientGap ? options.gradientGap / 100 : 0;
+  const halfGap = gapWidth / 2;
+  const boundaries =
+    gapWidth > 0
+      ? gapBoundaries(options.gradient, options.gradientStops)
+      : [];
 
   const mask = createNSElement("mask");
   mask.id = `arc-gradient-mask-${options.index}`;
@@ -251,6 +273,8 @@ const arcGradient = (options, className) => {
     // zone and stay hidden by the mask.
     const sample = (i + 0.5) / STEPS;
     const t = Math.min(1, sample / visibleRatio);
+    // Leave a transparent gap around each color boundary.
+    if (boundaries.some((b) => Math.abs(t - b) < halfGap)) continue;
     const color = interpolateColor(stops, t);
     const dashoffset = CIRCUMFERENCE + 0.5 - i * segLen;
 
