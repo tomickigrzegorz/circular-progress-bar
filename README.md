@@ -82,6 +82,8 @@ More extensive example:
 
 Arc gradient — colors follow the arc of the circle. `gradient[0]` sits at the progress start, `gradient[100%]` at the end of the visible arc, and the colors flow in the progress direction. Combines freely with `rotation`, `cut`, `inverse`, and `round`.
 
+With `gradientStops` you can create hard color bands; add `gradientGap` (a width in %) to leave a transparent gap at each band boundary, for a segmented gauge look. The gaps reveal whatever is behind the arc — omit `colorCircle` to show the page background.
+
 ```html
 <!-- equal spacing -->
 <div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ffff00","#00cc00"], "colorCircle": "#e6e6e6", "round": true }'></div>
@@ -91,6 +93,9 @@ Arc gradient — colors follow the arc of the circle. `gradient[0]` sits at the 
 
 <!-- hard cuts (no blending) — duplicate each color at the same position -->
 <div class="pie" data-pie='{ "percent": 75, "gradient": ["#ff0000","#ff0000","#00cc00","#00cc00"], "gradientStops": [0,50,50,100] }'></div>
+
+<!-- segmented gauge — transparent gaps between bands (no colorCircle) -->
+<div class="pie" data-pie='{ "percent": 100, "gradient": ["#0044ff","#0044ff","#00cc00","#00cc00","#ffaa00","#ffaa00","#ff0000","#ff0000"], "gradientStops": [0,25,25,50,50,75,75,100], "gradientGap": 2 }'></div>
 
 <!-- with cut + rotation + round -->
 <div class="pie" data-pie='{ "percent": 75, "gradient": ["#e91e63","#9c27b0","#3f51b5"], "colorCircle": "#e6e6e6", "cut": 30, "rotation": 144, "round": true }'></div>
@@ -279,6 +284,7 @@ npm run build
 | lineargradient |     array     |     ``      |         | Array of colors "lineargradient": ["#ffff00","brown" <sup>2</sup>](#colors-names)                                    |
 | gradient       |     array     |     ``      |         | Arc gradient — colors follow the arc of the circle. Array of 2–10 hex strings e.g. `["#f00","#ff0","#0f0"]`         |
 | gradientStops  |     array     |     ``      |         | Color stop positions (0–100) for `gradient`. Must match `gradient` length, otherwise equal spacing is used           |
+| gradientGap    |    number     |     ``      |         | Transparent gap width (in %) at each `gradient` color boundary. Requires `gradientStops`; ignored otherwise           |
 | strokeDasharray|    string     |     ``      |         | It works only on the lowest circle and only on whole circles - [stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/)                                                  |
 
 <sup>1</sup> `unit` - you can style them. `unit` is in the tspan element of the class `pie-unit-x`. The class name is main class + `unit` + chart id. Below are the styles for our example.

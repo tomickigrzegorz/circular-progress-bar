@@ -1,3 +1,10 @@
+## 2026-06-08
+
+### Added
+- `gradientGap` — optional companion to `gradient`/`gradientStops`: a gap width (in %) that leaves a transparent space at each color boundary, for a segmented gauge look. Requires `gradientStops`; the gaps reveal whatever is behind the arc
+
+---
+
 ## 2026-05-15 (v1.5.0)
 
 ### Added

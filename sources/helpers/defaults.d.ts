@@ -15,6 +15,8 @@ export interface CPBOptions {
   gradient?: string[];
   /** Color stop positions (0–100) for gradient option; must match gradient array length */
   gradientStops?: number[];
+  /** Transparent gap width (in %) at each gradient color boundary; requires gradientStops */
+  gradientGap?: number;
   /** Whether to display the percentage value */
   number?: boolean;
   /** Rounded stroke ends */
