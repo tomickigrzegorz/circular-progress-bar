@@ -221,9 +221,9 @@ test("gradientGap removes segments inside the gaps", async ({ page }) => {
   );
   await init(page);
   const count = await page.locator(".pie svg g circle").count();
-  // baseline arc has 120 segments; three gaps of 4% each remove ~15
-  expect(count).toBeLessThan(120);
-  expect(count).toBeGreaterThan(80);
+  // baseline arc has 120 segments; each 4% gap removes 4 segment centers,
+  // three boundaries (25/50/75%) → 12 removed, leaving 108.
+  expect(count).toBe(108);
 });
 
 test("no gradientGap keeps the full segment count", async ({ page }) => {

@@ -179,15 +179,15 @@ const getGradientColorAt = (gradient, gradientStops, t) => {
   return interpolateColor(stops, clamped);
 };
 
-// Positions (0–1) where the gradient color changes, derived from gradientStops.
-// Used to place transparent gaps between hard-stop color bands.
-const gapBoundaries = (gradient, gradientStops) => {
-  if (!gradient || !gradientStops || gradientStops.length !== gradient.length)
-    return [];
+// Positions (0–1) where the gradient color changes between adjacent bands.
+// Reads positions from the already-built `stops` so normalization lives in one
+// place (buildStops). Used to place transparent gaps between hard-stop bands.
+const gapBoundaries = (gradient, stops) => {
+  if (!gradient || !stops || stops.length !== gradient.length) return [];
   const boundaries = [];
   for (let i = 0; i < gradient.length - 1; i++) {
     if (gradient[i] !== gradient[i + 1]) {
-      boundaries.push(Math.min(100, Math.max(0, gradientStops[i + 1])) / 100);
+      boundaries.push(stops[i + 1].pos);
     }
   }
   return boundaries;
@@ -213,12 +213,15 @@ const arcGradient = (options, className) => {
   const stops = buildStops(options.gradient, options.gradientStops);
 
   // gradientGap: transparent gaps (in %) at each color-change boundary.
+  // Gaps require explicit gradientStops (hard color bands); without matching
+  // stops there are no defined bands, so the option is silently ignored.
   const gapWidth = options.gradientGap ? options.gradientGap / 100 : 0;
   const halfGap = gapWidth / 2;
+  const hasStops =
+    Array.isArray(options.gradientStops) &&
+    options.gradientStops.length === options.gradient.length;
   const boundaries =
-    gapWidth > 0
-      ? gapBoundaries(options.gradient, options.gradientStops)
-      : [];
+    gapWidth > 0 && hasStops ? gapBoundaries(options.gradient, stops) : [];
 
   const mask = createNSElement("mask");
   mask.id = `arc-gradient-mask-${options.index}`;
@@ -273,7 +276,8 @@ const arcGradient = (options, className) => {
     // zone and stay hidden by the mask.
     const sample = (i + 0.5) / STEPS;
     const t = Math.min(1, sample / visibleRatio);
-    // Leave a transparent gap around each color boundary.
+    // Skip segments whose center lands within half a gap of a boundary; strict
+    // `<` keeps the gap symmetric around the boundary, leaving transparent space.
     if (boundaries.some((b) => Math.abs(t - b) < halfGap)) continue;
     const color = interpolateColor(stops, t);
     const dashoffset = CIRCUMFERENCE + 0.5 - i * segLen;
