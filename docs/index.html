@@ -762,6 +762,37 @@ const global = new CircularProgressBar('global', globalConfig);
 
       <section>
         <div class="flex info">
+          <div class="info-name">hard stops + cut + round + gap</div>
+          <div class="info-code">code</div>
+        </div>
+        <div
+          class="pie"
+          data-pie='{ "index": 115, "stroke": 9, "percent": 75, "gradientGap": 3, "gradient": ["#ff0000","#ff0000","#ffaa00","#ffaa00","#00cc00","#00cc00","#0044ff","#0044ff","#8800cc","#8800cc"], "gradientStops": [0,20,20,40,40,60,60,80,80,100], "cut": 30, "rotation": 144, "round": true }'
+        ></div>
+        <div class="code">
+          <pre>
+            <code class="language-json">data-pie='{
+  "percent": 75,
+  "stroke": 9,
+  "gradientGap": 3,
+  "gradient": [
+    "#ff0000","#ff0000",
+    "#ffaa00","#ffaa00",
+    "#00cc00","#00cc00",
+    "#0044ff","#0044ff"
+  ],
+  "gradientStops": [0,25,25,50,50,75,75,100],
+  "colorCircle": "#e6e6e6",
+  "cut": 30,
+  "rotation": 144,
+  "round": true
+}'</code>
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <div class="flex info">
           <div class="info-name">hard stops + rotation + round</div>
           <div class="info-code">code</div>
         </div>

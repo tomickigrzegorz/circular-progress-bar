@@ -1,6 +1,6 @@
 /*!
 * @name circular-progress-bar
-* @version 1.5.0
+* @version 1.6.0
 * @author Grzegorz Tomicki
 * @link https://github.com/tomickigrzegorz/circular-progress-bar
 * @license MIT
@@ -150,6 +150,16 @@ const getGradientColorAt = (gradient, gradientStops, t) => {
   const clamped = Math.max(0, Math.min(1, t));
   return interpolateColor(stops, clamped);
 };
+const gapBoundaries = (gradient, stops) => {
+  if (!gradient || !stops || stops.length !== gradient.length) return [];
+  const boundaries = [];
+  for (let i = 0; i < gradient.length - 1; i++) {
+    if (gradient[i] !== gradient[i + 1]) {
+      boundaries.push(stops[i + 1].pos);
+    }
+  }
+  return boundaries;
+};
 const arcGradient = (options, className) => {
   const STEPS = 120;
   const segLen = CIRCUMFERENCE / STEPS;
@@ -160,6 +170,10 @@ const arcGradient = (options, className) => {
   const stroke = options.stroke ?? 10;
   const transform = inverse ? `rotate(${rotation} 50 50) translate(0 100) scale(1 -1)` : `rotate(${rotation} 50 50)`;
   const stops = buildStops(options.gradient, options.gradientStops);
+  const gapWidth = options.gradientGap ? options.gradientGap / 100 : 0;
+  const halfGap = gapWidth / 2;
+  const hasStops = Array.isArray(options.gradientStops) && options.gradientStops.length === options.gradient.length;
+  const boundaries = gapWidth > 0 && hasStops ? gapBoundaries(options.gradient, stops) : [];
   const mask = createNSElement("mask");
   mask.id = `arc-gradient-mask-${options.index}`;
   const maskCircle = createNSElement("circle");
@@ -203,6 +217,7 @@ const arcGradient = (options, className) => {
   for (let i = 0; i < STEPS; i++) {
     const sample = (i + 0.5) / STEPS;
     const t = Math.min(1, sample / visibleRatio);
+    if (boundaries.some(b => Math.abs(t - b) < halfGap)) continue;
     const color = interpolateColor(stops, t);
     const dashoffset = CIRCUMFERENCE + 0.5 - i * segLen;
     const seg = createNSElement("circle");

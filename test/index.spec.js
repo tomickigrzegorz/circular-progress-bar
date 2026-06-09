@@ -210,3 +210,31 @@ test("arc gradient cut + rotation + round keeps cap geometry", async ({
   expect(endX).toBeCloseTo(87, 0);
   expect(endY).toBeCloseTo(31, 0);
 });
+
+test("gradientGap removes segments inside the gaps", async ({ page }) => {
+  await setup(
+    page,
+    el(
+      100,
+      '"gradient":["#0044ff","#0044ff","#00cc00","#00cc00","#ffaa00","#ffaa00","#ff0000","#ff0000"],"gradientStops":[0,25,25,50,50,75,75,100],"gradientGap":4,"animationOff":true',
+    ),
+  );
+  await init(page);
+  const count = await page.locator(".pie svg g circle").count();
+  // baseline arc has 120 segments; each 4% gap removes 4 segment centers,
+  // three boundaries (25/50/75%) → 12 removed, leaving 108.
+  expect(count).toBe(108);
+});
+
+test("no gradientGap keeps the full segment count", async ({ page }) => {
+  await setup(
+    page,
+    el(
+      100,
+      '"gradient":["#0044ff","#0044ff","#00cc00","#00cc00","#ffaa00","#ffaa00","#ff0000","#ff0000"],"gradientStops":[0,25,25,50,50,75,75,100],"animationOff":true',
+    ),
+  );
+  await init(page);
+  const count = await page.locator(".pie svg g circle").count();
+  expect(count).toBe(120);
+});
