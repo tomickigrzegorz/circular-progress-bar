@@ -28,6 +28,11 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Verify npm auth
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish
         run: npm publish --provenance --access public
         env:
