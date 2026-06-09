@@ -1,6 +1,7 @@
 {
   "name": "@tomickigrzegorz/circular-progress-bar",
-  "version": "1.5.0",
+  "version": "1.6.0",
+  "packageManager": "yarn@1.22.10",
   "type": "module",
   "description": "A circular progress bar in svg",
   "main": "dist/circularProgressBar.js",

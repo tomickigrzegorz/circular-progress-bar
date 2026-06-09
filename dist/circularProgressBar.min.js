@@ -1,6 +1,6 @@
 /*!
 * @name circular-progress-bar
-* @version 1.5.0
+* @version 1.6.0
 * @author Grzegorz Tomicki
 * @link https://github.com/tomickigrzegorz/circular-progress-bar
 * @license MIT
